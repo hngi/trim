@@ -1,0 +1,23 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "Testing Branch for all commits",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Emex4gman/node-url-shortener.git"
+  },
+  "author": "ibefx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Emex4gman/node-url-shortener/issues"
+  },
+  "homepage": "https://github.com/Emex4gman/node-url-shortener#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.3"
+  }
+}
