@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 const urlShortenSchema = new Schema({
     long_url: String,
     clipped_url: String,
+    required: true,
     urlCode: String,
     created_by: String,
     createdAt: { type: Date, default: Date.now },
