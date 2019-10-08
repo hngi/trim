@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const urlShortenSchema = new Schema({
-    long_url: String,
+    long_url: { type: String, required: true },
     clipped_url: String,
-    required: true,
-    urlCode: String,
-    created_by: String,
+    urlCode: String ,
+    created_by: String ,
     createdAt: { type: Date, default: Date.now },
     click_count: Number,
 });
