@@ -1,2 +1,2 @@
 # node-url-shortener
-An url shortener built using Node JS
+A url shortener built using Node JS
