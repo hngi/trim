@@ -27,67 +27,31 @@ After setting up your fork on github and cloning it locally on your system, you'
 PS: *You may get an error saying the `upstream` remote has already been configured. If so, then you are good to go.*   
 
 Now you're all set up.       
-__*The following steps must be run periodically to keep your work up-to-date! You can run these commands as often as every hour. You want to fetch any new changes as soon as possible. Each time you want to begin working, or take a break from your work, run these first.*__
+__*The following steps must be run periodically to keep your work up-to-date! You can run these commands as often as every hour. You want to fetch any new changes as soon as possible. Each time you want to begin working, or take a break from your work, run these first.*__     
+Be sure to [stash](https://dev.to/neshaz/how-to-git-stash-your-work-the-correct-way-cna) 
+or commit all local changes first. 
 
 1. Switch to the develop branch        
     <pre>git checkout develop</pre>     
-2. Get all remote (online) upstream changes into your local computer.        
+2. Get all remote upstream changes into your local computer.        
     <pre>git fetch upstream</pre>     
 3. Merge changes fetched with your local develop branch. ('develop' must be the currently checked-out branch)       
     <pre>git merge upstream/develop</pre>    
 4. Push the newly merged changes to your fork's remote (online) repo. This is configured as 'origin' by default.    
     <pre>git push origin develop</pre>      
 
-Recall that your group works on a feature branch. So now you need to update that too.
+If you've created a new branch to work on rather than working directly on `develop`, then run the next steps.
 
 5. Switch to your feature branch.        
-    <pre>git checkout ft__your-feature-name</pre>        
-6. Now make sure your local feature branch is up-to-date with any work your group members have done.        
-    ```
-      git fetch origin       
-      git merge origin/ft__your-feature-name
-    ```
-    *You may encounter merge conflicts here.
-    [Resolve them](https://help.github.com/en/articles/resolving-a-merge-conflict-using-the-command-line),
-    then come back and complete the merge. If you merge often enough, any conflicts would be trivial and very few.*
-
-7. Merge the changes on the newly merged develop branch, into your feature branch.        
+    <pre>git checkout your-feature-branch</pre>        
+6. Merge the changes on the newly merged develop branch, into your feature branch.        
     <pre>git merge develop</pre>
     *You may encounter merge conflicts here.
     [Resolve them](https://help.github.com/en/articles/resolving-a-merge-conflict-using-the-command-line),
     then come back and complete the merge. If you merge often enough, any conflicts would be trivial and very few.*
 
-8. Finally, push your newly merged feature branch to the remote github server so your group members can get updated as well.        
-    <pre>git push origin ft__your-feature-name</pre>      
-9. Now return to your working branch.        
-    <pre>git checkout @your-slack-username</pre>      
-
-Continue with the steps in the next section.
-
-#### All Team Members - Pulling Origin
-*Your group/sub-team lead has the responsibility of keeping your forked repo updated on the remote github server. All you need to do is get those changes unto your local computer.*       
-Your local repository automatically has a remote 'origin' set up when you clone. This points to the online repository you cloned unto your system. You will be pushing your work to 'origin' to back it up online.       
-__*The following steps must be run periodically to keep your work up-to-date. You can run these commands as often as every hour. You want to fetch any new changes as soon as possible. Each time you want to begin working, or take a break from your work, run these first.*__       
-Be sure to 
-[stash](https://dev.to/neshaz/how-to-git-stash-your-work-the-correct-way-cna) 
-or commit all changes first.  
-
-1. Switch to the feature branch        
-    <pre>git checkout ft__your-feature-name</pre>          
-2. Get all remote (online) 'origin' changes into your local computer.        
-    <pre>git fetch origin</pre>      
-3. Merge changes fecthed with your local feature branch. (The local feature branch must be the currently checked-out branch. See step 1 above.)        
-    <pre>git merge origin/ft__your-feature-name</pre>      
-4. Next, switch to your working branch.        
-    <pre>git checkout @your-slack-username</pre>      
-5. Merge the changes on the newly merged feature branch, into your working branch. You may run 'git branch' to confirm which branch you're about to merge into.        
-    <pre>git merge ft__your-feature-name</pre>
-    *You may encounter merge conflicts here.
-    [Resolve them](https://help.github.com/en/articles/resolving-a-merge-conflict-using-the-command-line),
-    then come back and complete the merge. If you merge often enough, any conflicts would be trivial and very few.*    
-
-6. Finally, push your newly merged working branch to the remote github server for back up.        
-    <pre>git push origin @your-slack-user-name</pre>      
+8. Finally, push your newly merged feature branch to the remote github server for backup.
+    <pre>git push origin your-feature-branch</pre>   
 
 ## Code Structrure & Readability
 
