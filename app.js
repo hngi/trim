@@ -1,8 +1,11 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require("mongoose");
 const PORT = 7000 || process.env.PORT;
 
-const mongoURI = "mongodb://localhost/urlshortner";
+
+const mongoURI = process.env.DATABASEURL || "mongodb://localhost/urlshortner";
 
 const connectOptions = {
     keepAlive: true,

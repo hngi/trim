@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Emex4gman/node-url-shortener#readme",
   "dependencies": {
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "mongoose": "^5.7.3"
   }
