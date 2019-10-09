@@ -3,14 +3,13 @@ const mongoose = require('mongoose');
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const {DATABASEURL, PORT} = require('./config/constants');
 
-const {DB_URL, PORT} = require('../config/constants.js');
-
-import initRoutes from './routes/routes';
+import routes from './routes/routes';
 
 const app = express();
 
-mongoose.connect(DB_URL)
+mongoose.connect(DATABASEURL)
   .then(() => {
     console.log('Successfully connected to MongoDB Atlas!');
   })
@@ -32,6 +31,6 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 app.use(cookieParser()); //Parse the cookie data (User ID).
 
-initRoutes(app);
+app.use('/', routes);
 
 app.listen(PORT, ()=> console.log(`Server listening on port ${PORT}`));
