@@ -1,6 +1,21 @@
 {
   "name": "url-shortener",
   "version": "1.0.0",
+
+  "description": "A url shortener built using Node JS",
+  "main": "express_session.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.16.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larrycoal/node-url-shortener.git"
+
   "description": "Testing Branch for all commits",
   "main": "index.js",
   "scripts": {
@@ -10,10 +25,16 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shonubijerry/node-url-shortener.git"
+
   },
   "author": "",
   "license": "ISC",
   "bugs": {
+
+    "url": "https://github.com/larrycoal/node-url-shortener/issues"
+  },
+  "homepage": "https://github.com/larrycoal/node-url-shortener#readme"
+
     "url": "https://github.com/shonubijerry/node-url-shortener/issues"
   },
   "homepage": "https://github.com/shonubijerry/node-url-shortener#readme",
@@ -42,4 +63,5 @@
     "dotenv": "^8.1.0",
     "morgan": "^1.9.1"
   }
+
 }
