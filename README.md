@@ -15,4 +15,5 @@ Testing Branch for all commits
     ├── models 
     ├── routes   
     ├── services  
-    └── tests                     
+    ├── tests  
+    └── views                     
