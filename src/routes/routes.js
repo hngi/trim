@@ -5,7 +5,7 @@ export default initRoutes = (app)=> {
 
 	app.post('/api/clip', (req, res)=> trimUrl(req, res));
 
-	app.delete('/api/clip/:id', (req, res)=> deleteUrl(req, res));
+	app.delete('/api/clip/:urlCode', (req, res)=> deleteUrl(req, res));
 
 	//app.get('/:urlCode', (req, res)=> redirectClip(req, res));
 };

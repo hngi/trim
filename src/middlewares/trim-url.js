@@ -4,7 +4,7 @@ import { domainName } from '../config/constants';
 //import isEmpty from 'is-empty';
 //import crypto from 'crypto';
 
-export const trimUrl = async (req, res) => {
+export const trimUrl = (req, res) => {
 	//First, check for orphaned urlCodes in the deleted-clips collection. If found, reassign the oldest one.
 	DeletedClip.find()
 		.sort({deletedAt: 'ascending'}) //In ascending order, document[0] should be the oldest. correct me if I'm wrong pls.
