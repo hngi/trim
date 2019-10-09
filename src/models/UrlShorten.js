@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+
 const urlShortenSchema = new Schema({
     long_url: String,
     clipped_url: String,
@@ -8,4 +9,5 @@ const urlShortenSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
     click_count: Number,
 });
-mongoose.model("UrlShorten", urlShortenSchema);
+
+module.exports = mongoose.model("UrlShorten", urlShortenSchema);
