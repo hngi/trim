@@ -1,3 +1,7 @@
+:root {
+  --primary: #33d48b;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -91,4 +95,44 @@ form {
 
 .click-metrics thead tr th:last-child {
   padding: 0;
+}
+
+@media only screen and (max-width: 720px) {
+  .wrapper {
+    margin-top: 1em;
+  }
+
+  .trim-logo {
+    margin-bottom: 0;
+  }
+
+  .big-heading{
+    margin-top: 0.52em;
+    font-size: 2em;
+  }
+
+  .input-group {
+    width: 300px;
+  }
+
+  .click-metrics thead tr th:first-child{
+    width: 5em;
+  }
+
+  .click-metrics thead tr th:last-child {
+    width: 7em;
+  }
+
+  .click-metrics thead tr th:nth-child(2){
+    display: none;
+  }
+
+  .click-metrics tbody tr{
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .click-metrics tbody tr td:nth-child(2) {
+    display: none;
+  }
 }
