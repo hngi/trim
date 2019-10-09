@@ -7,4 +7,4 @@ const deletedClipSchema = new Schema({
 	deletedAt: { type: Date, default: Date.now }
 });
 
-export default mongoose.model("DeletedClips", deletedClipSchema);
+export default mongoose.model("DeletedClip", deletedClipSchema);
