@@ -1,43 +1,52 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-body{
+
+body {
   background-color: #90E1C3;
   position: relative;
   width: 100%;
   height: 100vh;
 }
-.wrapper{
-  position: absolute;
-  top: 33%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
+.wrapper {
+  text-align: center;
 }
-.trim-logo{
+
+.trim-logo {
   width: 135px;
   height: 135px;
-  margin-left: 180px;
+  margin-top: 30px;
   margin-bottom: 40px;
 
 }
-.form-control{
+
+form {
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.form-control {
   border: 2px solid #0AD48B;
 }
-.big-heading{
+
+.big-heading {
   text-align: center;
   padding-bottom: 50px;
 }
 
-.input-group{
+.input-group {
   width: 500px;
 }
-.cut-image{
+
+.cut-image {
   width: 30px;
   height: 30px;
 }
-.clip-btn{
+
+.clip-btn {
   background-image: url('https://res.cloudinary.com/gabicle/image/upload/v1570616642/ion-cut-outline_qg8jga.png');
   width: 60px;
   background-position: center;
@@ -45,7 +54,41 @@ body{
   border: none;
 
 }
-.small-heading{
+
+.small-heading {
   text-align: center;
   margin-top: 40px;
+}
+
+.click-metrics {
+  background: #FFFCFC;
+  opacity: 0.7;
+  width: fit-content;
+  margin: 1rem auto;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+
+}
+
+.click-metrics tbody {
+  display: block;
+  max-height: 30vh;
+  overflow-y: scroll;
+}
+
+.click-metrics thead {
+  display: block;
+}
+
+.click-metrics thead tr {
+  display: flex;
+  justify-content: space-between;
+}
+
+.click-metrics thead tr th {
+  border-bottom: 0;
+}
+
+.click-metrics thead tr th:last-child {
+  padding: 0;
 }
