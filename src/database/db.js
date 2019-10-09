@@ -1,10 +1,12 @@
-let mongoose = require('mongoose');
-let {DATABASEURL}=require('../config/constant')
-class Database {
-  constructor() {
-    this._connect();
-  }
+const mongoose = require('mongoose');
+const { DATABASEURL } = require('../config/constants')
 
+class Database {
+  /*constructor() {
+    this._connect();
+	}*/
+
+	/**Create a database connection. */
   _connect() {
     mongoose
       .connect(DATABASEURL, { useNewUrlParser: true, useUnifiedTopology: true })

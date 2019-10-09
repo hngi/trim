@@ -1,23 +1,16 @@
 const express = require('express');
-const mongoose = require('mongoose');
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-const {DB_URL, PORT} = require('../config/constants.js');
+const db = require('./database/db');
+db._connect();
+
+const { PORT } = require('../config/constants')
 
 import initRoutes from './routes/routes';
 
 const app = express();
-
-mongoose.connect(DB_URL)
-  .then(() => {
-    console.log('Successfully connected to MongoDB Atlas!');
-  })
-  .catch((error) => {
-    console.log('Unable to connect to MongoDB Atlas!');
-    console.error(error);
-	});
 	
 app.set('view engine', 'ejs');
 
