@@ -8,12 +8,10 @@ app.use(session({
     resave:true
 }))
 var userId;
-
-app.get('/',(req,res)=>{
-   userId = req.sessionID
-})
-
 function userSession(){
+    app.get('/',(req,res)=>{
+        userId = req.sessionID
+     })
     return userId
 }
 
