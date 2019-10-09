@@ -18,16 +18,3 @@ describe('Home page', () => {
       });
   });
 });
-
-describe('Page Not Found', () => {
-  it('it should return error for invalid page', (done) => {
-    chai.request(app)
-      .get('/wrong_url.html')
-      .end((error, res) => {
-        expect(res).to.have.status(404);
-        expect(res.body).to.have.property('success');
-        expect(res.body.success).to.equal(false);
-        done();
-      });
-  });
-});

@@ -9,8 +9,7 @@ const routes = (app) => {
   app.get('/', (req, res) => respondWithSuccess(res, 200, {
     message: 'Welcome to Way Farer',
   }));
-  // invalid url
-  app.all('*', (req, res) => respondWithWarning(res, 404, "Page not found"));
+  // invalid url response will go here
 };
 
 export default routes;
