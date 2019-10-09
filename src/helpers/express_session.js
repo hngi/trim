@@ -8,11 +8,10 @@ app.use(session({
     resave:true
 }))
 var userId;
-function userSession(){
     app.get('/',(req,res)=>{
         userId = req.sessionID
      })
-    return userId
-}
 
-module.exports=express_session
+
+
+module.exports=userId
