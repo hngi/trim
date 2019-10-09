@@ -1,3 +1,5 @@
-//config flies goes here
+import dotenv from 'dotenv';
 
-//Import database credentials here and export constants for use in middleware.
+dotenv.config();
+
+export const { PORT } = process.env;
