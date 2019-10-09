@@ -1,0 +1,36 @@
+
+
+/*
+  ========================================
+  Buttons
+  ========================================
+*/
+
+.btn {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color:#fff;
+    cursor:pointer;
+	display:inline-block;
+    font-weight: 400;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    margin:0;
+}
+
+a.btn-alt {
+    text-align:center;
+}
+
+.btn-alt {
+    padding:10px 30px;
+    position: absolute;
+    left: 500px;
+    top:180px;
+}
+
+.btn-alt {
+  color:#648880;
+  background:#55efc4;
+  text-decoration: none;
+}
