@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const { DATABASEURL } = require('../config/constants')
 
 class Database {
-  /*constructor() {
+  constructor() {
     this._connect();
-	}*/
+	}
 
 	/**Create a database connection. */
   _connect() {

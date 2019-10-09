@@ -3,15 +3,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-const db = require('./database/db');
-db._connect();
+require('./database/db');
 
 const { PORT } = require('../config/constants')
 
 import initRoutes from './routes/routes';
 
 const app = express();
-	
+
 app.set('view engine', 'ejs');
 
 app.use((req, res, next) => {
