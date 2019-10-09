@@ -7,18 +7,18 @@ for receiving contributions. Read about the Fork & Pull Model
 
 ## Branch Structure
 ### Upstream
-The main / original / upstream (hereinafter upstream) repository will have only two (2) branches - master and develop. Additional hotfix branches may be created to work on critical bugs in the deployment.    
-__'*develop*' - The Integration branch.__ This is where features from the different forks are brought together. Group leads, submit your pull requests here. This is the default branch. An integration team will be responsible for bringing it all together and resolving any possible merge conflicts that may arise.        
-__'*master*' - The deployment branch.__ The code on this branch goes live to our hosting servers and must be kept in pristine condition. When the integration (develop) branch reaches a milestone, the deployment (master) branch is updated via pull request.       
-__Hotfix branches.__ In the event that a bug slips past the integration team and makes it into deployment, a hotfix branch is created off of *master*. Prefix hotfix branch names with "hf__". On completion, this branch is merged with master, and also with *develop* so the fixes are reflected in all future deployments.
+The main / original / upstream (hereinafter upstream) repository will have only two (2) branches - master and Develop. Additional hotfix branches may be created to work on critical bugs in the deployment.    
+__'*Develop*' - The Integration branch.__ This is where features from the different forks are brought together. Group leads, submit your pull requests here. This is the default branch. An integration team will be responsible for bringing it all together and resolving any possible merge conflicts that may arise.        
+__'*master*' - The deployment branch.__ The code on this branch goes live to our hosting servers and must be kept in pristine condition. When the integration (Develop) branch reaches a milestone, the deployment (master) branch is updated via pull request.       
+__Hotfix branches.__ In the event that a bug slips past the integration team and makes it into deployment, a hotfix branch is created off of *master*. Prefix hotfix branch names with "hf__". On completion, this branch is merged with master, and also with *Develop* so the fixes are reflected in all future deployments.
 
 ### Forks
-Each fork represents work on a specific feature or task. Fork this repository to your own account and do all your work there. Do your work on the develop branch or create a new branch for yourself, then create a pull request to the `develop` branch of the main (upstream) repo. You may choose to rename your forked repo to include a description of what feature you are working on. Example: node-url-shortener__feature-name.       
+Each fork represents work on a specific feature or task. Fork this repository to your own account and do all your work there. Do your work on the Develop branch or create a new branch for yourself, then create a pull request to the `Develop` branch of the main (upstream) repo. You may choose to rename your forked repo to include a description of what feature you are working on. Example: node-url-shortener__feature-name.       
 
 ### Staying Updated
 When working with many people on the same codebase, sometimes others make changes that affect your work. While great care has been taken to create a modular team workflow to keep this to a minimum, merge conflicts are inevitable. It would _suck_ to finish working on a task or feature, only to find that the codebase has evolved and you need to rework everything to conform to the new changes. This is managed in two ways.       
 __*First*__, make sure your work is in line with our specifications. Understand the folder structure and stick to it. Study the tasks list on Pivotal Tracker and identify any tasks that your work may depend on or that relates to yours in some way. Contact the team leads or project managers if you need any clarification. Do your due dilligence to make sure you are on the same page with everyone else. This is your responsibility. Your submission may be rejected if it's non-compliant.      
-__*Second*__, each team member needs to make sure that at every given time, their working directory is up-to-date with the latest changes from the upstream *develop* branch. This is achieved with a two-fold process.       
+__*Second*__, each team member needs to make sure that at every given time, their working directory is up-to-date with the latest changes from the upstream *Develop* branch. This is achieved with a two-fold process.       
 #### Pulling Upstream
 After setting up your fork on github and cloning it locally on your system, you'll need to run a command just once to create a connection between your local repository and the remote upstream repository. Note that there's automatically a remote 'origin' repository set up when you clone. This points to your fork. Now you need to set up 'upstream' which will point to the central upstream repo.
 
@@ -31,26 +31,26 @@ __*The following steps must be run periodically to keep your work up-to-date! Yo
 Be sure to [stash](https://dev.to/neshaz/how-to-git-stash-your-work-the-correct-way-cna) 
 or commit all local changes first. 
 
-1. Switch to the develop branch        
-    <pre>git checkout develop</pre>     
+1. Switch to the Develop branch        
+    <pre>git checkout Develop</pre>     
 2. Get all remote upstream changes into your local computer.        
     <pre>git fetch upstream</pre>     
-3. Merge changes fetched with your local develop branch. ('develop' must be the currently checked-out branch)       
-    <pre>git merge upstream/develop</pre>    
+3. Merge changes fetched with your local Develop branch. ('Develop' must be the currently checked-out branch)       
+    <pre>git merge upstream/Develop</pre>    
 4. Push the newly merged changes to your fork's remote (online) repo. This is configured as 'origin' by default.    
-    <pre>git push origin develop</pre>      
+    <pre>git push origin Develop</pre>      
 
-If you've created a new branch to work on rather than working directly on `develop`, then run the next steps.
+If you've created a new branch to work on rather than working directly on `Develop`, then run the next steps.
 
 5. Switch to your feature branch.        
     <pre>git checkout your-feature-branch</pre>        
-6. Merge the changes on the newly merged develop branch, into your feature branch.        
-    <pre>git merge develop</pre>
+6. Merge the changes on the newly merged Develop branch, into your feature branch.        
+    <pre>git merge Develop</pre>
     *You may encounter merge conflicts here.
     [Resolve them](https://help.github.com/en/articles/resolving-a-merge-conflict-using-the-command-line),
     then come back and complete the merge. If you merge often enough, any conflicts would be trivial and very few.*
 
-8. Finally, push your newly merged feature branch to the remote github server for backup.
+7. Finally, push your newly merged feature branch to the remote github server for backup.
     <pre>git push origin your-feature-branch</pre>   
 
 ## Code Structrure & Readability
