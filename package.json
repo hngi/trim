@@ -1,0 +1,27 @@
+{
+  "name": "node-url-shortener",
+  "version": "1.0.0",
+  "description": "Testing Branch for all commits",
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hngi/node-url-shortener.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hngi/node-url-shortener/issues"
+  },
+  "homepage": "https://github.com/hngi/node-url-shortener#readme"
+}
