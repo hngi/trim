@@ -1,5 +1,51 @@
 *{
-    box-sizing: border-box; 
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+body{
+  background-color: #90E1C3;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+.wrapper{
+  position: absolute;
+  top: 33%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.trim-logo{
+  width: 135px;
+  height: 135px;
+  margin-left: 180px;
+  margin-bottom: 40px;
+
+}
+.form-control{
+  border: 2px solid #0AD48B;
+}
+.big-heading{
+  text-align: center;
+  padding-bottom: 50px;
+}
+
+.input-group{
+  width: 500px;
+}
+.cut-image{
+  width: 30px;
+  height: 30px;
+}
+.clip-btn{
+  background-image: url('https://res.cloudinary.com/gabicle/image/upload/v1570616642/ion-cut-outline_qg8jga.png');
+  width: 60px;
+  background-position: center;
+  background-color: #0AD48B;
+  border: none;
+
+}
+.small-heading{
+  text-align: center;
+  margin-top: 40px;
 }
