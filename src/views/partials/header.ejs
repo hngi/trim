@@ -14,7 +14,20 @@
 <!-- Body -->
 
 <body>
-     
-        <button id = "button">Copy URL</button>
+        <input type="text" value="" id="URL">
+
+        <button onclick= "copy()" >Copy URL</button>
 
 </body>
+
+<!--JS Copy function-->
+<script>
+
+        function copy() {
+        var copyURL = document.getElementById("URL");
+        copyURL.select();
+        copyURL.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        alert("URL copied");
+        }
+</script>
