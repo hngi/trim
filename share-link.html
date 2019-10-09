@@ -10,7 +10,7 @@
     </div>
     <script>
         let facebook_link = document.querySelector('.fa-facebook')
-        facebook_link.href = `https://www.facebook.com/sharer/sharer.php?u=${trimmed-link}`
+        facebook_link.href = `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`
 
         let twitter_link = document.querySelector('.fa-twitter')
         let cert_title = document.querySelector('#cert-title').innerHTML
