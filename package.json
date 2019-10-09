@@ -1,27 +1,47 @@
 {
-  "name": "node-url-shortener",
+  "name": "url-shortener",
   "version": "1.0.0",
   "description": "Testing Branch for all commits",
   "main": "index.js",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^8.1.0",
-    "express": "^4.17.1",
-    "mongoose": "^5.7.3"
-  },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-dev": "DEBUG=app NODE_ENV=development nodemon --exec babel-node ./src/index.js",
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 -r @babel/register ./src/tests/ --exit"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hngi/node-url-shortener.git"
+    "url": "git+https://github.com/shonubijerry/node-url-shortener.git"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hngi/node-url-shortener/issues"
+    "url": "https://github.com/shonubijerry/node-url-shortener/issues"
   },
-  "homepage": "https://github.com/hngi/node-url-shortener#readme"
+  "homepage": "https://github.com/shonubijerry/node-url-shortener#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.6.3",
+    "@babel/core": "^7.6.3",
+    "@babel/node": "^7.6.3",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/register": "^7.6.2",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "express": "^4.17.1",
+    "mocha": "^6.2.1",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nodemon": "^1.19.3",
+    "nyc": "^14.1.1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.6.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "debug": "^4.1.1",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.3"
+    "morgan": "^1.9.1"
+  }
 }
