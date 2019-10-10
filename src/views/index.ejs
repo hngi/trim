@@ -1,69 +1,100 @@
 <% include partials/header %>
 
-  <div class="wrapper">
-    <div class="container">
-      <!-- TRIM LOGO -->
-      <div class="row">
-        <div class="col-md-12 col-lg-12 col-sm-12">
-          <img src="https://res.cloudinary.com/gabicle/image/upload/v1570611925/trim_SAMPLE3-02_va4xyq.png" alt="trim-logo" class="trim-logo">
+<div class="wrapper">
+  <div class="container">
+    <!-- TRIM LOGO -->
+    <div class="row">
+      <div class="col-md-12 col-lg-12 col-sm-12">
+        <img
+          src="https://res.cloudinary.com/gabicle/image/upload/v1570611925/trim_SAMPLE3-02_va4xyq.png"
+          alt="trim-logo"
+          class="trim-logo"
+        />
 
-          <h1 class="big-heading">Shorten Your Links</h1>
+        <h1 class="big-heading">Shorten Your Links</h1>
 
-          <!-- INPUT URL -->
-          <div class="row">
-            <form action="/api/trim" method="post">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control form-control-lg" name="long_url">
-                <input type="hidden" name="created_by" value="<%= userID %>">
-                <div class="input-group-append">
-                  <button type="submit" class=" clip-btn btn btn-success"></button>
-                </div>
-              </div>
-            </form>
+        <!-- INPUT URL -->
+        <form action="/api/trim" method="post">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              name="long_url"
+              required
+            />
+            <input type="hidden" name="created_by" />
+            <div class="input-group-append">
+              <button
+                type="submit"
+                onclick="closeAlert()"
+                class=" clip-btn btn btn-success"
+              ></button>
+            </div>
           </div>
-          <h5 class="small-heading">...the platform that gets all links trimmed efficiently</h5>
-        </div>
-      </div>
-      <!-- LINK OVERVIEW SECTION -->
+        </form>
 
-      <% if(userClips.length > 0){%>
+        <h5 class="small-heading">
+          ...the platform that gets all links trimmed efficiently
+        </h5>
+
+        <!-- LINK OVERVIEW SECTION -->
+        <%if(!success){ %>
+        <div id="msg" class="alert alert-danger">
+          <%=error%>
+          <a
+            href="#"
+            class="fa-pull-right"
+            onclick="closeAlert()"
+            aria-label="close"
+            >&times;</a
+          >
+        </div>
+
+        <% } %> <% if(userClips.length > 0){%>
+
         <div class="container col-md-12">
           <div class="card click-metrics">
             <table class="table table-responsive table-reflow mb-0 text-center">
               <thead>
                 <tr>
-                  <th>clicks</th>
-                  <th>original url</th>
-                  <th>trim url</th>
+                  <th>Clicks</th>
+                  <th>Original url</th>
+                  <th>Trimmed url</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                <% userClips.map(clip=>{%>
-                  <tr>
-                    <th scope="row">
-                      <%=clip.click_count%>
-                    </th>
-                    <td>
-                      <%=clip.long_url%>
-                    </td>
-                    <td>trim/
-                      <%=clip.urlCode%>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-sm btn-outline-primary">
-                COPY
-              </button>
-                    </td>
-                  </tr>
-                  <%})%>
+                <% for (let clip of userClips) {%>
+                <tr>
+                  <th scope="row"><%=clip.click_count%></th>
+                  <td><%=clip.long_url%></td>
+                  <td>
+                    <a target="_blank" href="<%=clip.long_url%>"
+                      >trim/<%=clip.urlCode%></a
+                    >
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-primary"
+                    >
+                      COPY
+                    </button>
+                  </td>
+                </tr>
+                <%}%>
               </tbody>
             </table>
           </div>
+
+          <%}%>
         </div>
-        <%}%>
+      </div>
     </div>
   </div>
-
-
-
+</div>
+<script>
+  function closeAlert() {
+    document.querySelector('#msg').style.display = 'none';
+  }
+</script>

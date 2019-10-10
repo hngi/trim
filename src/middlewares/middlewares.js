@@ -1,4 +1,5 @@
+import { validateCookie } from './validateCookie';
 import { renderLandingPage } from './renderLandingPage';
-import { checkUrl } from './urlMiddleware';
+import { validateOwnDomain, urlAlreadyTrimmedByUser, stripUrl } from './validateUrl';
 
-export { renderLandingPage, checkUrl };
+export { renderLandingPage, validateOwnDomain, validateCookie, urlAlreadyTrimmedByUser, stripUrl };
