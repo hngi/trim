@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { PORT } = require('./config/constants');
@@ -13,6 +14,9 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   next();
 });
+
+// load local css and js files
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(bodyParser.json());
 app.use(cookieParser()); //Parse the cookie data (User ID).
