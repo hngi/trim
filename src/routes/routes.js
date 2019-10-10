@@ -1,4 +1,3 @@
-import {respondWithWarning} from '../helpers/responseHandler';
 import { 
 	  renderLandingPage, validateOwnDomain, validateCookie, urlAlreadyTrimmedByUser, stripUrl
 } from "../middlewares/middlewares";
@@ -13,5 +12,5 @@ export const initRoutes = (app) => {
 
 	app.get('/api/trim/:id', getUrlAndUpdateCount, redirectUrl);
 
-	app.all('*', (req, res) => respondWithWarning(res, 404, "Page not found"));
+	app.all('*', (req, res) => (res.status(404).render('../src/views/error')));
 }

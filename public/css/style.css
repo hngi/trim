@@ -94,6 +94,48 @@ form {
   padding: 0;
 }
 
+.click-metrics .btn-outline-primary {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.click-metrics .btn-outline-primary:hover {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+
+/* Error Page */
+.error-img {
+  height: 40vh;
+  width: 50vw;
+  object-fit: fill;
+  object-position: center;
+  margin: 0 auto;
+}
+
+.error-wrapper {
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.back-btn {
+  border-radius: 2.5rem;
+}
+
+.back-btn {
+  background-color: var(--primary);
+}
+
+.back-btn:hover {
+  border-color: #000;
+  color: #fff;
+  background-color: #000;
+}
+
 @media only screen and (max-width: 720px) {
   .click-metrics {
     width: 100%;
