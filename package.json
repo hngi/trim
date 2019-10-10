@@ -8,6 +8,7 @@
     "url": "git+https://github.com/shonubijerry/node-url-shortener.git"
   },
   "scripts": {
+    "start": "node --exec babel-node src/index.js ",
     "start-dev": "nodemon --exec babel-node src/index.js"
   },
   "author": "",
