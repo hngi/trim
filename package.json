@@ -2,20 +2,21 @@
   "name": "url-shortener",
   "version": "1.0.0",
   "description": "A url shortener built using Node JS",
-  "main": "express_session.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shonubijerry/node-url-shortener.git"
+    "url": "git+https://github.com/hngi/node-url-shortener.git"
   },
+  "main": "index.js",
   "scripts": {
-    "start-dev": "nodemon --exec babel-node src/index.js"
+    "start-dev": "DEBUG=app NODE_ENV=development nodemon --exec babel-node ./src/index.js",
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 -r @babel/register ./src/tests/ --exit"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/larrycoal/node-url-shortener/issues"
+    "url": "https://github.com/hngi/node-url-shortener/issues"
   },
-  "homepage": "https://github.com/larrycoal/node-url-shortener#readme",
+  "homepage": "https://github.com/hngi/node-url-shortener#readme",
   "devDependencies": {
     "@babel/cli": "^7.6.3",
     "@babel/core": "^7.6.3",
@@ -40,9 +41,11 @@
     "cors": "^2.8.5",
     "debug": "^4.1.1",
     "dotenv": "^8.1.0",
+    "ejs": "^2.7.1",
     "express": "^4.17.1",
-    "mongoose": "^5.7.3",
     "express-session": "1.16.2",
-    "morgan": "^1.9.1"
+    "mongoose": "^5.7.3",
+    "morgan": "^1.9.1",
+    "saslprep": "^1.0.3"
   }
 }
