@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { PORT } = require('./config/constants');
 import { initRoutes } from './routes/routes';
@@ -18,8 +17,10 @@ app.use((req, res, next) => {
 // load local css and js files
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.use(bodyParser.json());
-app.use(cookieParser()); //Parse the cookie data (User ID).
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.use(cookieParser('super-secret-secret')); //Parse the cookie data (User ID).
+
 	
 app.set('view engine', 'ejs');
 

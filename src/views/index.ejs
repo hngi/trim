@@ -8,12 +8,15 @@
   <h1 class="big-heading">Shorten Your Links</h1>
 
   <!-- INPUT URL -->
-  <form class="" action="" method="post">
+  <form action="/api/trim" method="post">
     <div class="input-group mb-3">
-      <input type="text" class="form-control form-control-lg ">
-      <div class="input-group-append">
-        <button type="submit" class=" clip-btn btn btn-success"></button>
-      </div>
+      <form action="" method="post">
+        <input type="text" class="form-control form-control-lg " name="long_url">
+        <input type="hidden" name="created_by" value="<%= userID %>">
+        <div class="input-group-append">
+          <button type="submit" class=" clip-btn btn btn-success"></button>
+        </div>
+      </form>
     </div>
   </form>
 
@@ -33,7 +36,25 @@
           </tr>
         </thead>
         <tbody>
+          <% for (let clip of userClips) {%> 
           <tr>
+              <th scope="row">1</th>
+              <td>clip.long_url</td>
+              <td>cli.urlCode</td>
+              <td>
+                <button type="button" class="btn btn-sm btn-outline-primary">COPY</button>
+              </td>
+            </tr>
+          <%}%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<% include partials/footer %>
+
+      
+          <!-- <tr>
             <th scope="row">1</th>
             <td>https://app.slack.com/client/TMR92NKM4/GP7...</td>
             <td>trim/ly</td>
@@ -84,8 +105,8 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
 
-    </div>
+    <!-- </div>
   </div>
-</div>
+</div> -->
