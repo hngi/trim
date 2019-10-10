@@ -31,15 +31,27 @@ export const deleteUrl = (req, res) => {
  */
 export const getUrlAndUpdateCount = async (req, res, next) => {
   try {
-    const url = await UrlShorten.findOne({ urlCode: req.params.urlCode });
-    if (url) {
-      return res.status(404).json({ status: 'error', error: 'Url not found' });
+    const {
+      urlCode
+    } = req.params;
+    const url = await UrlShorten.findOne({
+      urlCode
+    });
+    if (!url) {
+      return res.status(404).json({
+        status: 'error',
+        error: 'Url not found'
+      });
     }
+
     url.click_count += 1;
     await url.save();
     next();
   } catch (error) {
-    return res.status(500).json({  status: 'error', error: error.message });
+    return res.status(500).json({
+      status: 'error',
+      error: error.message
+    });
   }
 }
 
