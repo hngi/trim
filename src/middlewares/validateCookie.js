@@ -4,5 +4,5 @@ export const validateCookie = (req, res, next) => {
     userID = req.session.id;
     res.cookie("userID", userID, { maxAge: 90000, httpOnly: true });
   }
-    next();
+  next();
 };
