@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const { PORT } = require('./config/constants');
 import { initRoutes } from './routes/routes';
@@ -20,7 +21,10 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(bodyParser.json());
 app.use(cookieParser()); //Parse the cookie data (User ID).
-	
+app.use(session({
+    secret: 's3Kr3T',
+    resave: true,
+}));
 app.set('view engine', 'ejs');
 
 initRoutes(app);
