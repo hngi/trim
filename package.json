@@ -8,13 +8,8 @@
   },
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
-    "start": "node --exec babel-node src/index.js ",
-    "start-dev": "nodemon --exec babel-node src/index.js"
-=======
     "start-dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/index.js",
     "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 -r @babel/register ./src/tests/ --exit"
->>>>>>> 5e9cf2cb75524873aa4e6c487700052ce05d05b5
   },
   "author": "",
   "license": "ISC",
