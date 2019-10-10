@@ -17,75 +17,39 @@
     </div>
   </form>
 
-  <h5 class="small-heading">...the platform that gets all links trimmed efficiently</h5>
+  <h5 class="small-heading">
+    ...the platform that gets all links trimmed efficiently
+  </h5>
 
   <!-- LINK OVERVIEW SECTION -->
-
+  <% if(userClips.length > 0){%>
   <div class="container col-md-12">
     <div class="card click-metrics">
       <table class="table table-responsive table-reflow mb-0 text-center">
         <thead>
           <tr>
-            <th>clicks </th>
+            <th>clicks</th>
             <th>original url</th>
             <th>trim url</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
+          <% userClips.map(clip=>{%>
           <tr>
-            <th scope="row">1</th>
-            <td>https://app.slack.com/client/TMR92NKM4/GP7...</td>
-            <td>trim/ly</td>
+            <th scope="row"><%=clip.click_count%></th>
+            <td><%=clip.long_url%></td>
+            <td>trim/<%=clip.urlCode%></td>
             <td>
-              <button type="button" class="btn btn-sm btn-outline-primary">COPY</button>
+              <button type="button" class="btn btn-sm btn-outline-primary">
+                COPY
+              </button>
             </td>
           </tr>
-          <tr>
-            <th scope="row">22</th>
-            <td>https://app.slack.com/client/TMR92NKM4/GP7...</td>
-            <td>trim/ly</td>
-            <td> <button type="button" class="btn btn-sm btn-outline-primary">COPY</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">13</th>
-            <td>https://app.slack.com/client/TMR92NKM4/GP7...</td>
-            <td>trim/ly</td>
-            <td> <button type="button" class="btn btn-sm btn-outline-primary">COPY</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">13</th>
-            <td>https://app.slack.com/client/TMR92NKM4/GP7...</td>
-            <td>trim/ly</td>
-            <td> <button type="button" class="btn btn-sm btn-outline-primary">COPY</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">13</th>
-            <td>https://app.slack.com/client/TMR92NKM4/GP7...</td>
-            <td>trim/ly</td>
-            <td> <button type="button" class="btn btn-sm btn-outline-primary">COPY</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">13</th>
-            <td>https://app.slack.com/client/TMR92NKM4/GP7...</td>
-            <td>trim/ly</td>
-            <td> <button type="button" class="btn btn-sm btn-outline-primary">COPY</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">13</th>
-            <td>https://app.slack.com/client/TMR92NKM4/GP7...</td>
-            <td>trim/ly</td>
-            <td> <button type="button" class="btn btn-sm btn-outline-primary">COPY</button>
-            </td>
-          </tr>
+          <%})%>
         </tbody>
       </table>
-
     </div>
   </div>
+  <%}%>
 </div>
