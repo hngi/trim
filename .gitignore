@@ -1,5 +1,7 @@
+node_modules/
 .env
-node_modules
-coverage
-.nyc_output/
+dist
 package-lock.json
+.nyc_output/
+coverage/
+npm-debug.log

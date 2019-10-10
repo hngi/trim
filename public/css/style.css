@@ -1,0 +1,138 @@
+:root {
+  --primary: #33d48b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #90E1C3;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.wrapper {
+  text-align: center;
+}
+
+.trim-logo {
+  width: 135px;
+  height: 135px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+
+}
+
+form {
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.form-control {
+  border: 2px solid #0AD48B;
+}
+
+.big-heading {
+  text-align: center;
+  padding-bottom: 50px;
+}
+
+.input-group {
+  width: 500px;
+}
+
+.cut-image {
+  width: 30px;
+  height: 30px;
+}
+
+.clip-btn {
+  background-image: url('https://res.cloudinary.com/gabicle/image/upload/v1570616642/ion-cut-outline_qg8jga.png');
+  width: 60px;
+  background-position: center;
+  background-color: #0AD48B;
+  border: none;
+
+}
+
+.small-heading {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.click-metrics {
+  background: #FFFCFC;
+  opacity: 0.7;
+  width: fit-content;
+  margin: 1rem auto;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+
+}
+
+.click-metrics tbody {
+  display: block;
+  max-height: 30vh;
+  overflow-y: scroll;
+}
+
+.click-metrics thead {
+  display: block;
+}
+
+.click-metrics thead tr {
+  display: flex;
+  justify-content: space-between;
+}
+
+.click-metrics thead tr th {
+  border-bottom: 0;
+}
+
+.click-metrics thead tr th:last-child {
+  padding: 0;
+}
+
+@media only screen and (max-width: 720px) {
+  .wrapper {
+    margin-top: 1em;
+  }
+
+  .trim-logo {
+    margin-bottom: 0;
+  }
+
+  .big-heading{
+    margin-top: 0.52em;
+    font-size: 2em;
+  }
+
+  .input-group {
+    width: 300px;
+  }
+
+  .click-metrics thead tr th:first-child{
+    width: 5em;
+  }
+
+  .click-metrics thead tr th:last-child {
+    width: 7em;
+  }
+
+  .click-metrics thead tr th:nth-child(2){
+    display: none;
+  }
+
+  .click-metrics tbody tr{
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .click-metrics tbody tr td:nth-child(2) {
+    display: none;
+  }
+}
