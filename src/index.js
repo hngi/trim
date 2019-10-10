@@ -27,8 +27,13 @@ app.use((req, res, next) => {
   next();
 });
 
+// load local css and js files
+app.use(express.static(path.join(__dirname, '../public')));
+
 app.use(bodyParser.json());
 app.use(cookieParser()); //Parse the cookie data (User ID).
+	
+app.set('view engine', 'ejs');
 
 initRoutes(app);
 

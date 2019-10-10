@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { DATABASEURL } = require('../config/constants')
+const { DB_URL } = require('../config/constants')
 
 class Database {
   constructor() {
@@ -9,7 +9,7 @@ class Database {
 	/**Create a database connection. */
   _connect() {
     mongoose
-      .connect(DATABASEURL, { useNewUrlParser: true, useUnifiedTopology: true })
+      .connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
       .then(() => {
         console.log('Database connected');
       })

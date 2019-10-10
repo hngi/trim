@@ -4,7 +4,7 @@ dotenv.config();
 
 const Constants = {
   PORT: process.env.PORT,
-  DATABASEURL: process.env.DATABASEURL,
+  DATABASEURL: process.env.DB_URL,
   domainName: 'trim.herokuapp.com'
 }
 
