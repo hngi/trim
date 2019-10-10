@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const UrlShortenSchema = new Schema({
@@ -8,4 +8,4 @@ const UrlShortenSchema = new Schema({
 	click_count: { type: Number, required: true, default: 0 }
 });
 
-export default mongoose.model("UrlShorten", UrlShortenSchema);
+module.exports = mongoose.model("UrlShorten", urlShortenSchema);

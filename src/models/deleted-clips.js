@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const deletedClipSchema = new Schema({
@@ -7,4 +7,4 @@ const deletedClipSchema = new Schema({
 	deletedAt: { type: Date, default: Date.now }
 });
 
-export default mongoose.model("DeletedClip", deletedClipSchema);
+module.exports = mongoose.model("DeletedClip", deletedClipSchema);

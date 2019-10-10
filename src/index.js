@@ -5,9 +5,9 @@ const cookieParser = require('cookie-parser');
 
 require('./database/db');
 
-const { PORT } = require('../config/constants')
+const { PORT } = require('./config/constants')
 
-import initRoutes from './routes/routes';
+const initRoutes = require('./routes/routes');
 
 const app = express();
 

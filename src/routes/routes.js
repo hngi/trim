@@ -2,7 +2,9 @@ import {respondWithWarning} from '../helpers/responseHandler';
 import { renderLandingPage, checkUrl } from "../middlewares/middlewares";
 import { getUrlAndUpdateCount, trimUrl, deleteUrl, redirectUrl } from '../controllers/urlController';
 
-export const initRoutes = (app) => {
+//const { renderLandingPage, trimUrl, deleteUrl } = require("../middlewares/middlewares");
+
+const initRoutes = (app) => {
 	app.get('/', renderLandingPage);
 
 	app.post('/api/trim', checkUrl, trimUrl);
@@ -12,4 +14,6 @@ export const initRoutes = (app) => {
 	app.get('/api/trim/:id', getUrlAndUpdateCount, redirectUrl);
 
 	app.all('*', (req, res) => respondWithWarning(res, 404, "Page not found"));
-}
+};
+
+module.exports = initRoutes;

@@ -1,5 +1,4 @@
-import UrlShorten from '../models/UrlShorten';
-
+const UrlShorten = require('../models/UrlShorten.js');
 
 /**
  * This function renders the landing page and gets list of user trimmed urls
@@ -7,7 +6,7 @@ import UrlShorten from '../models/UrlShorten';
  * @param {object} res
  * @returns {object} response object with trimmed url
  */
-export const renderLandingPage = (req, res) => {
+const renderLandingPage = (req, res) => {
 	UrlShorten.find({
     created_by: req.cookies.userID //Find all clips created by this user.
 	})
@@ -15,3 +14,5 @@ export const renderLandingPage = (req, res) => {
 		res.render('../src/views/index', {userClips: clips});
 	});
 };
+
+module.exports = renderLandingPage;

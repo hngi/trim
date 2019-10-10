@@ -1,11 +1,12 @@
 import dotenv from 'dotenv';
 
-dotenv.config();
+const parsedEnv = dotenv.config();
 
-const Constants = {
-  PORT: process.env.PORT,
-  DATABASEURL: process.env.DB_URL,
+const { PORT, DATABASEURL } = parsedEnv.parsed;
+//console.log(DATABASEURL);
+
+module.exports = {
+  PORT: process.env.PORT || PORT,
+  DB_URL: process.env.DB_URL || DATABASEURL,
   domainName: 'trim.herokuapp.com'
 }
-
-export default Constants;
