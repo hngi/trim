@@ -1,7 +1,6 @@
 import {respondWithWarning} from '../helpers/responseHandler';
 import { renderLandingPage, checkUrl } from "../middlewares/middlewares";
-import { redirectUrl }  from "../controllers/redirect-url";
-import { getUrlAndUpdateCount, trimUrl, deleteUrl } from '../controllers/urlController';
+import { getUrlAndUpdateCount, trimUrl, deleteUrl, redirectUrl } from '../controllers/urlController';
 
 export const initRoutes = (app) => {
 	app.get('/', renderLandingPage);
