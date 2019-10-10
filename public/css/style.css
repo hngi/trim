@@ -134,7 +134,8 @@ form {
 }
 
 .back-btn:hover {
-  border-color: var(--primary);
+  border-color: #000;
+  color: #fff;
   background-color: #000;
 }
 
