@@ -1,5 +1,4 @@
-import renderLandingPage from './renderLandingPage';
-import trimUrl from './trim-url';
-import deleteUrl from './delete-url';
+import { renderLandingPage } from './renderLandingPage';
+import { checkUrl } from './urlMiddleware';
 
-export default { renderLandingPage, trimUrl, deleteUrl };
+export { renderLandingPage, checkUrl };

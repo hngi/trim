@@ -15,4 +15,4 @@ function userSession(){
     return userId
 }
 
-module.exports=express_session
+module.exports=userSession
