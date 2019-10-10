@@ -1,11 +1,11 @@
 import {respondWithWarning} from '../helpers/responseHandler';
 import { 
-	renderLandingPage, validateOwnDomain, urlAlreadyTrimmedByUser, stripUrl
+	  renderLandingPage, validateOwnDomain, validateCookie, urlAlreadyTrimmedByUser, stripUrl
 } from "../middlewares/middlewares";
 import { getUrlAndUpdateCount, trimUrl, deleteUrl, redirectUrl } from '../controllers/urlController';
 
 export const initRoutes = (app) => {
-	app.get('/', renderLandingPage);
+	  app.get('/', validateCookie, renderLandingPage);
 
 	app.post('/api/trim', stripUrl, validateOwnDomain, urlAlreadyTrimmedByUser, trimUrl);
 

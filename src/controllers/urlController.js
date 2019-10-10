@@ -35,7 +35,7 @@ export const trimUrl = (req, res) => {
       }
       res.status(201);
       UrlShorten.find({
-        created_by: req.cookies.userID //Find all clips created by this user.
+        created_by: req.cookies.userId //Find all clips created by this user.
       })
         .then((clips) => {
           res.render('../src/views/index', { userClips: clips, success: true });
