@@ -5,8 +5,8 @@
 <div>
    
    <div class="share-buttons ">
-                    <a href="# " class="fab fa-facebook" style="color:#6D1AD8;"></a>
-                    <a href="# " class="fab fa-twitter" style="color:#6D1AD8;"></a>
+                    <a href="# " class="fa fa-facebook" style="color:#6D1AD8;"></a>
+                    <a href="# " class="fa fa-twitter" style="color:#6D1AD8;"></a>
 
                 </div>
          
@@ -17,7 +17,7 @@
         facebook_link.href = `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`
 
         let twitter_link = document.querySelector('.fa-twitter')
-        let cert_title = document.querySelector('#cert-title').innerHTML
-        twitter_link.href = `https://twitter.com/intent/tweet?url=${window.location.href}&amp;text=${cert_title}`
+        let trimmedLink = document.querySelector('#link').innerHTML //here is the content to be shared
+        twitter_link.href = `https://twitter.com/intent/tweet?url=${window.location.href}&amp;text=${trimmedLink}`
 
      </script>
