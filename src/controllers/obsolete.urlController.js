@@ -1,26 +1,5 @@
 import UrlShorten from '../models/UrlShorten';
 
-/**
- * This function trim a new url that hasn't been trimmed before
- * @param {object} req
- * @param {object} res
- * @returns {object} response object with trimmed url
- */
-export const trimUrl = (req, res) => {
-  return;
-}
-
-
-/**
- * This function delete a trimmed url
- * @param {object} req
- * @param {object} res
- * @returns {object} response object with trimmed url
- */
-export const deleteUrl = (req, res) => {
-  return;
-}
-
 
 /**
  * This function gets original url by the trim code supplied as a parameter
@@ -29,7 +8,7 @@ export const deleteUrl = (req, res) => {
  * @param {object} res
  * @returns {object} next middleware
  */
-export const getUrlAndUpdateCount = async (req, res, next) => {
+export const redirectUrlAndUpdateCount = async (req, res, next) => {
   try {
     const url = await UrlShorten.findOne({ urlCode: req.params.urlCode });
     if (url) {
