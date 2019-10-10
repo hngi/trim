@@ -9,7 +9,7 @@ import UrlShorten from '../models/UrlShorten';
  */
 export const renderLandingPage = (req, res) => {
   UrlShorten.find({
-    created_by: req.cookies.userID //Find all clips created by this user.
+    created_by: req.cookies.userId //Find all clips created by this user.
 	}).sort({
 		createdAt: 'desc' // sort the clips decending 
 	})
