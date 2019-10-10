@@ -34,9 +34,10 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
     const {
       urlCode
     } = req.params;
-    const url = await UrlShorten.findOne({
+    const url = await Url.findOne({
       urlCode
     });
+
     if (!url) {
       return res.status(404).json({
         status: 'error',
@@ -46,7 +47,8 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
 
     url.click_count += 1;
     await url.save();
-    next();
+    return res.redirect(url.long_url);
+
   } catch (error) {
     return res.status(500).json({
       status: 'error',
