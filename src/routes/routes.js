@@ -1,9 +1,9 @@
 import {respondWithWarning} from '../helpers/responseHandler';
-import { renderLandingPage, checkUrl } from "../middlewares/middlewares";
+import { renderLandingPage, checkUrl, cookieValidator } from "../middlewares/middlewares";
 import { getUrlAndUpdateCount, trimUrl, deleteUrl, redirectUrl } from '../controllers/urlController';
 
 export const initRoutes = (app) => {
-	app.get('/', renderLandingPage);
+	app.get('/', cookieValidator, renderLandingPage);
 
 	app.post('/api/trim', checkUrl, trimUrl);
 

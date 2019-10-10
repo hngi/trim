@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.json());
 app.use(cookieParser()); //Parse the cookie data (User ID).
 app.use(session({
-    secret: 's3Kr3T',
+    secret: env.SECRET_KEY,
     resave: true,
 }));
 app.set('view engine', 'ejs');
