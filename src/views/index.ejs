@@ -18,12 +18,17 @@
           <div class="input-group mb-3">
             <input
               type="text"
-              class="form-control form-control-lg "
+              class="form-control form-control-lg"
               name="long_url"
+              required
             />
-            <input type="hidden" name="created_by" value="<%= userID %>" />
+            <input type="hidden" name="created_by" />
             <div class="input-group-append">
-              <button type="submit" onclick="closeAlert()" class=" clip-btn btn btn-success"></button>
+              <button
+                type="submit"
+                onclick="closeAlert()"
+                class=" clip-btn btn btn-success"
+              ></button>
             </div>
           </div>
         </form>
@@ -36,11 +41,16 @@
         <%if(!success){ %>
         <div id="msg" class="alert alert-danger">
           <%=error%>
-            <a href="#" class="fa-pull-right" onclick="closeAlert()" aria-label="close">&times;</a>
+          <a
+            href="#"
+            class="fa-pull-right"
+            onclick="closeAlert()"
+            aria-label="close"
+            >&times;</a
+          >
         </div>
 
-        <% } %>
-        <% if(userClips.length > 0){%>
+        <% } %> <% if(userClips.length > 0){%>
 
         <div class="container col-md-12">
           <div class="card click-metrics">
@@ -84,8 +94,7 @@
   </div>
 </div>
 <script>
-    function closeAlert() {
-      document.querySelector('#msg').style.display = 'none';
-    }
-  </script>
-
+  function closeAlert() {
+    document.querySelector('#msg').style.display = 'none';
+  }
+</script>
