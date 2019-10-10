@@ -1,9 +1,16 @@
+import {respondWithWarning} from '../helpers/responseHandler';
 import { renderLandingPage, trimUrl, deleteUrl } from "../middlewares/middlewares";
+import { redirectUrl }  from "../controllers/redirect-url";
+import getUrlAndEditCount from '../controllers/getURL';
 
-export default initRoutes = (app)=> {
-	app.get('/', (req, res)=> renderLandingPage(req, res));
+export const initRoutes = (app) => {
+	app.get('/', renderLandingPage);
 
-	app.post('/api/clip', (req, res)=> trimUrl(req, res));
+	app.post('/api/clip', trimUrl);
 
-	app.delete('/api/clip/:id', (req, res)=> deleteUrl(req, res));
-};
+	app.delete('/api/clip/:id', deleteUrl);
+
+	app.get('/api/clip/:id', getUrlAndEditCount, redirectUrl);
+
+	app.all('*', (req, res) => respondWithWarning(res, 404, "Page not found"));
+}
