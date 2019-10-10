@@ -97,6 +97,16 @@ form {
   padding: 0;
 }
 
+.btn-outline-primary {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
 @media only screen and (max-width: 720px) {
   .wrapper {
     margin-top: 1em;
@@ -106,7 +116,7 @@ form {
     margin-bottom: 0;
   }
 
-  .big-heading{
+  .big-heading {
     margin-top: 0.52em;
     font-size: 2em;
   }
@@ -115,7 +125,7 @@ form {
     width: 300px;
   }
 
-  .click-metrics thead tr th:first-child{
+  .click-metrics thead tr th:first-child {
     width: 5em;
   }
 
@@ -123,11 +133,11 @@ form {
     width: 7em;
   }
 
-  .click-metrics thead tr th:nth-child(2){
+  .click-metrics thead tr th:nth-child(2) {
     display: none;
   }
 
-  .click-metrics tbody tr{
+  .click-metrics tbody tr {
     display: flex;
     justify-content: space-around;
   }
