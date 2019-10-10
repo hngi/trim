@@ -1,11 +1,12 @@
+import {respondWithWarning} from '../helpers/responseHandler';
 import { renderLandingPage, trimUrl, deleteUrl } from "../middlewares/middlewares";
 
-export default initRoutes = (app) => {
-	app.get('/', (req, res) => renderLandingPage(req, res));
+export const initRoutes = (app) => {
+	app.get('/', renderLandingPage);
 
-	app.post('/api/clip', (req, res) => trimUrl(req, res));
+	app.post('/api/clip', trimUrl);
 
-	app.delete('/api/clip/:id', (req, res) => deleteUrl(req, res));
+	app.delete('/api/clip/:id', deleteUrl);
 
 	app.all('*', (req, res) => respondWithWarning(res, 404, "Page not found"));
 };

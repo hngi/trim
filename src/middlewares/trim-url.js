@@ -1,1 +1,1 @@
-import UrlShorten from '../models/UrlShorten.js';
+import Trim from '../models/Trim';
