@@ -27,9 +27,9 @@ export const deleteUrl = (req, res) => {
  * e.g trim.ly/TRIM_CODE
  * @param {object} req
  * @param {object} res
- * @returns {object} redirects to original url or 404 page if not found
+ * @returns {object} next middleware
  */
-export const getUrlAndUpdateCount = async (req, res) => {
+export const getUrlAndUpdateCount = async (req, res, next) => {
   try {
     const url = await UrlShorten.findOne({ urlCode: req.params.urlCode });
     if (url) {
@@ -37,8 +37,19 @@ export const getUrlAndUpdateCount = async (req, res) => {
     }
     url.click_count += 1;
     await url.save();
-    return res.redirect(url.long_url);
+    next();
   } catch (error) {
     return res.status(500).json({  status: 'error', error: error.message });
   }
+}
+
+
+/**
+ * This redirects user to main url
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} redirects to original url or 404 page if not found
+ */
+export const redirectUrl = async (req, res, next) => {
+  return res.redirect(url.long_url);
 }

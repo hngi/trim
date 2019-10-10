@@ -10,7 +10,7 @@ import UrlShorten from '../models/UrlShorten';
  * @returns {object} trimmed url from database
  * @returns {callback} next callback fruntion to move to the next middleware
  */
-export async const checkUrl = (req, res, next) => {
+export const checkUrl = async (req, res, next) => {
   const { urlCode } = res.params;
   const trimmed = await UrlShorten.findOne({ urlCode });
   if (trimmed){
