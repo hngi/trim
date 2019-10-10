@@ -10,13 +10,11 @@
   <!-- INPUT URL -->
   <form action="/api/trim" method="post">
     <div class="input-group mb-3">
-      <form action="" method="post">
-        <input type="text" class="form-control form-control-lg " name="long_url">
-        <input type="hidden" name="created_by" value="<%= userID %>">
-        <div class="input-group-append">
-          <button type="submit" class=" clip-btn btn btn-success"></button>
-        </div>
-      </form>
+      <input type="text" class="form-control form-control-lg " name="long_url">
+      <input type="hidden" name="created_by" value="<%= userID %>">
+      <div class="input-group-append">
+        <button type="submit" class=" clip-btn btn btn-success"></button>
+      </div>
     </div>
   </form>
 
@@ -40,7 +38,7 @@
           <tr>
               <th scope="row">1</th>
               <td>clip.long_url</td>
-              <td>cli.urlCode</td>
+              <td>clip.urlCode</td>
               <td>
                 <button type="button" class="btn btn-sm btn-outline-primary">COPY</button>
               </td>

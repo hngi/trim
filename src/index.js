@@ -1,9 +1,9 @@
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const { PORT } = require('./config/constants');
+import path from 'path';
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import { PORT } from './config/constants';
 import { initRoutes } from './routes/routes';
-const db = require('./database/db');
+import db from './database/db';
 
 const app = express();
 
@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({extended: true}))
 app.use(cookieParser('super-secret-secret')); //Parse the cookie data (User ID).
 
 	
