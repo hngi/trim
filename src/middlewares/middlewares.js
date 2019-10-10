@@ -1,4 +1,4 @@
 import { renderLandingPage } from './renderLandingPage';
-import { checkUrl } from './urlMiddleware';
+import { validateOwnDomain, urlAlreadyTrimmedByUser, stripUrl } from './validateUrl';
 
-export { renderLandingPage, checkUrl };
+export { renderLandingPage, validateOwnDomain, urlAlreadyTrimmedByUser, stripUrl };

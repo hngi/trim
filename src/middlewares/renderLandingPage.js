@@ -14,6 +14,6 @@ export const renderLandingPage = (req, res) => {
 		createdAt: 'desc' // sort the clips decending 
 	})
 	.then((clips) => { //Pass the user's clips to the view engine to render the customized view for this user.
-		res.render('../src/views/index', {userClips: clips, userID: '123-123-123-123'}); // TODO: collect cookie data from req object
+		res.render('../src/views/index', {userClips: clips, success: true}); // TODO: collect cookie data from req object
 	});
 };
