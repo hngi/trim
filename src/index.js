@@ -1,9 +1,9 @@
-import path from 'path';
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import { PORT } from './config/constants';
-import { initRoutes } from './routes/routes';
-import db from './database/db';
+const path = require('path');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const { PORT } = require('./config/constants');
+const { initRoutes } = require('./routes/routes');
+const db = require('./database/db');
 
 const app = express();
 
