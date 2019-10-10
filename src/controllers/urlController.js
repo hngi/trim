@@ -1,4 +1,5 @@
 import UrlShorten from '../models/UrlShorten';
+import { DOMAIN_NAME } from '../config/constants';
 
 /**
  * This function trim a new url that hasn't been trimmed before
@@ -7,7 +8,41 @@ import UrlShorten from '../models/UrlShorten';
  * @returns {object} response object with trimmed url
  */
 export const trimUrl = (req, res) => {
-  return;
+  UrlShorten.countDocuments({}, (error, count) => {
+    if (error)
+      return res.status(500).json({
+        error: error
+      });
+
+    const newClipCount = count + 1;
+
+    //Create an alpha-numeric string representation of the count by converting it to base 36. (10 digits + 26 letters)
+    let newUrlCode = newClipCount.toString(36); //36 is the highest supported radix. 
+    if (newUrlCode.length < 4)
+      newUrlCode = 'yT' + newUrlCode; //Pad Url codes less that 4 characters with zeros.
+    const newTrim = new UrlShorten({ //Reassign the oldest deleted clip to the new long url.
+      long_url: req.strippedUrl,
+      clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
+      urlCode: newUrlCode,
+      created_by: req.cookies.userId,
+      click_count: 0
+    });
+
+    newTrim.save((err, newTrim) => {
+      if (!err) {
+        res.status(500);
+        res.render('../src/views/index', { userClips: [], success: false, error: 'Server error' });
+      }
+      res.status(201);
+      UrlShorten.find({
+        created_by: req.cookies.userID //Find all clips created by this user.
+      })
+        .then((clips) => {
+          res.render('../src/views/index', { userClips: clips, success: true });
+        });
+    });
+  });
+    
 }
 
 

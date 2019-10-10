@@ -13,10 +13,10 @@
           <div class="row">
             <form action="/api/trim" method="post">
               <div class="input-group mb-3">
-                <input type="text" class="form-control form-control-lg" name="long_url">
-                <input type="hidden" name="created_by" value="<%= userID %>">
+                <input type="text" class="form-control form-control-lg" name="long_url" required>
+                <input type="hidden" name="created_by">
                 <div class="input-group-append">
-                  <button type="submit" class=" clip-btn btn btn-success"></button>
+                  <button type="submit" onclick="closeAlert()" class=" clip-btn btn btn-success"></button>
                 </div>
               </div>
             </form>
@@ -26,44 +26,55 @@
       </div>
       <!-- LINK OVERVIEW SECTION -->
 
-      <% if(userClips.length > 0){%>
-        <div class="container col-md-12">
-          <div class="card click-metrics">
-            <table class="table table-responsive table-reflow mb-0 text-center">
-              <thead>
-                <tr>
-                  <th>clicks</th>
-                  <th>original url</th>
-                  <th>trim url</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% userClips.map(clip=>{%>
-                  <tr>
-                    <th scope="row">
-                      <%=clip.click_count%>
-                    </th>
-                    <td>
-                      <%=clip.long_url%>
-                    </td>
-                    <td>trim/
-                      <%=clip.urlCode%>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-sm btn-outline-primary">
+      <%if(!success){ %>
+        <div id="msg" class="alert alert-danger">
+          <%=error%>
+            <a href="#" class="fa-pull-right" onclick="closeAlert()" aria-label="close">&times;</a>
+        </div>
+
+        <% } %>
+
+          <% if(userClips.length > 0){%>
+            <div class="container col-md-12">
+              <div class="card click-metrics">
+                <table class="table table-responsive table-reflow mb-0 text-center">
+                  <thead>
+                    <tr>
+                      <th>clicks</th>
+                      <th>original url</th>
+                      <th>trim url</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% userClips.map(clip=>{%>
+                      <tr>
+                        <th scope="row">
+                          <%=clip.click_count%>
+                        </th>
+                        <td>
+                          <%=clip.long_url%>
+                        </td>
+                        <td>
+                          <%=clip.clipped_url%>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-sm btn-outline-primary">
                 COPY
               </button>
-                    </td>
-                  </tr>
-                  <%})%>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <%}%>
+                        </td>
+                      </tr>
+                      <%})%>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <%}%>
     </div>
   </div>
 
-
-
+  <script>
+    function closeAlert() {
+      document.querySelector('#msg').style.display = 'none';
+    }
+  </script>
