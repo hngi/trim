@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const { PORT } = require('./config/constants');
 const { initRoutes } = require('./routes/routes');
 const db = require('./database/db');
@@ -20,8 +21,11 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser('super-secret-secret')); //Parse the cookie data (User ID).
+app.use(session({
+    secret: env.SECRET_KEY,
+    resave: true,
+}));
 
-	
 app.set('view engine', 'ejs');
 
 initRoutes(app);
