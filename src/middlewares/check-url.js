@@ -19,6 +19,7 @@ const checkUrl = (req, res, next) => {
 			error: 'Cannot trim generated URL'
 		});
 
+	//Check for existing long_url by same user.
 	const searchParams = {
 		long_url: req.body.long_url,
 		created_by: req.cookies.userId
