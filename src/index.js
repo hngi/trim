@@ -1,12 +1,11 @@
-const express = require('express');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const path = require('path');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const { PORT } = require('./config/constants');
+const { initRoutes } = require('./routes/routes');
+const db = require('./database/db');
 
-require('./database/db');
-const { PORT } = require('./config/constants')
-
-const initRoutes = require('./routes/routes');
 
 const app = express();
 
@@ -37,7 +36,11 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 app.use(bodyParser.json());
-app.use(cookieParser()); //Parse the cookie data (User ID).
+//app.use(cookieParser()); //Parse the cookie data (User ID).
+
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use(cookieParser('super-secret-secret')); //Parse the cookie data (User ID).
 
 initRoutes(app);
 

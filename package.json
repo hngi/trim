@@ -8,9 +8,9 @@
   },
   "main": "index.js",
   "scripts": {
-		"start-dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/index.js",
-		"test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 -r @babel/register ./src/tests/ --exit"
-	},
+    "start-dev": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon --exec babel-node ./src/index.js",
+    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 -r @babel/register ./src/tests/ --exit"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -36,9 +36,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.6.3",
-    "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
+    "cross-env": "^6.0.3",
     "debug": "^4.1.1",
     "dotenv": "^8.1.0",
     "ejs": "^2.7.1",
