@@ -40,8 +40,8 @@
           <% for (let clip of userClips) {%> 
           <tr>
               <th scope="row">1</th>
-              <td>clip.long_url</td>
-              <td>clip.urlCode</td>
+              <td><%=clip.long_url%></td>
+              <td><a href="<%=clip.long_url%>">trim/<%=clip.urlCode%></a></td>
               <td>
                 <button type="button" class="btn btn-sm btn-outline-primary">COPY</button>
               </td>
@@ -88,8 +88,7 @@
                     <td>
                       <%=clip.long_url%>
                     </td>
-                    <td>trim/
-                      <%=clip.urlCode%>
+                    <td><a href="<%=clip.long_url%>">trim/<%=clip.urlCode%></a>
                     </td>
                     <td>
                       <button type="button" class="btn btn-sm btn-outline-primary">
