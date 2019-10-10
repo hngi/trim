@@ -9,6 +9,47 @@
 
           <h1 class="big-heading">Shorten Your Links</h1>
 
+<<<<<<< HEAD
+  <!-- INPUT URL -->
+  <form action="/api/trim" method="post">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control form-control-lg " name="long_url">
+      <input type="hidden" name="created_by" value="<%= userID %>">
+      <div class="input-group-append">
+        <button type="submit" class=" clip-btn btn btn-success"></button>
+      </div>
+    </div>
+  </form>
+
+  <h5 class="small-heading">...the platform that gets all links trimmed efficiently</h5>
+
+  <!-- LINK OVERVIEW SECTION -->
+
+  <div class="container col-md-12">
+    <div class="card click-metrics">
+      <table class="table table-responsive table-reflow mb-0 text-center">
+        <thead>
+          <tr>
+            <th>clicks </th>
+            <th>original url</th>
+            <th>trim url</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let clip of userClips) {%> 
+          <tr>
+              <th scope="row">1</th>
+              <td>clip.long_url</td>
+              <td>clip.urlCode</td>
+              <td>
+                <button type="button" class="btn btn-sm btn-outline-primary">COPY</button>
+              </td>
+            </tr>
+          <%}%>
+        </tbody>
+      </table>
+=======
           <!-- INPUT URL -->
           <div class="row">
             <form action="/api/trim" method="post">
@@ -62,6 +103,7 @@
           </div>
         </div>
         <%}%>
+>>>>>>> dec965cca3a913daee1f5ebea21cfd322ab940df
     </div>
   </div>
 
