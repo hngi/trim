@@ -8,9 +8,9 @@
   },
   "main": "index.js",
   "scripts": {
-    "start-dev": "nodemon --exec babel-node ./src/index.js DEBUG=app NODE_ENV=development",
-    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 -r @babel/register ./src/tests/ --exit"
-  },
+		"start-dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./src/index.js",
+		"test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 -r @babel/register ./src/tests/ --exit"
+	},
   "author": "",
   "license": "ISC",
   "bugs": {
