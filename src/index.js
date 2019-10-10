@@ -1,17 +1,14 @@
 const express = require('express');
-
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 require('./database/db');
-
 const { PORT } = require('./config/constants')
 
 const initRoutes = require('./routes/routes');
 
 const app = express();
-
-app.set('view engine', 'ejs');
 
 app.use((req, res, next) => {
   //res.setHeader('Access-Control-Allow-Origin', '*'); //Don't think we need CORS here.
@@ -30,10 +27,17 @@ app.use((req, res, next) => {
 // load local css and js files
 app.use(express.static(path.join(__dirname, '../public')));
 
+// Set 'views' directory for any views 
+// being rendered res.render()
+app.set('views', path.join(__dirname, 'views'));
+//console.log(path.join(__dirname, 'views'))
+
+// Set view engine as EJS
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
 app.use(bodyParser.json());
 app.use(cookieParser()); //Parse the cookie data (User ID).
-	
-app.set('view engine', 'ejs');
 
 initRoutes(app);
 
