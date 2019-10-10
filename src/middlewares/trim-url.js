@@ -1,10 +1,8 @@
-import UrlShorten from '../models/UrlShorten.js';
-import DeletedClip from '../models/deleted-clips';
-import { domainName } from '../config/constants';
-//import isEmpty from 'is-empty';
-//import crypto from 'crypto';
+const UrlShorten = require('../models/UrlShorten.js');
+const DeletedClip = require('../models/deleted-clips');
+const { domainName } = require('../config/constants');
 
-export const trimUrl = (req, res) => {
+const trimUrl = (req, res) => {
 	//First, check for orphaned urlCodes in the deleted-clips collection. If found, reassign the oldest one.
 	DeletedClip.find()
 		.sort({deletedAt: 'ascending'}) //In ascending order, document[0] should be the oldest. correct me if I'm wrong pls.
@@ -69,5 +67,7 @@ export const trimUrl = (req, res) => {
 			});
 		});
 	}
-}
+};
+
+module.exports = trimUrl;
   

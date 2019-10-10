@@ -3,7 +3,6 @@ const UrlShorten = require('../models/UrlShorten.js');
 const redirectUrlAndUpdateCount = (req, res)=> {
 	const requestedClip = {
 		urlCode: req.params.urlCode,
-		created_by: req.cookies.userId
 	};
 
 	UrlShorten.findOne(requestedClip, (error, retrievedClip) => {
