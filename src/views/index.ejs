@@ -67,11 +67,12 @@
                       data="<%=clip.clipped_url%>"
                     >
                        </a>
-                <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url%>*">
+                       <% let clipText = "Amazingly Shorten with trimly.tk"; %>
+                <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*">
                   <i class="fab fa-whatsapp fa-lg"></i>
                 </a>
-                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url%>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
-                <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url%>" data-size="large">
+                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
+                <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>" data-size="large">
                   <i class="fab fa-twitter fa-lg"></i>
                 </a>
             </div>
