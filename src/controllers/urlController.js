@@ -16,7 +16,7 @@ export const trimUrl = (req, res) => {
         error: error
       });
 
-    dns.lookup(res.shortenedURl, err => {
+    dns.lookup(res.shortenedURl, (err, addr) => {
       if (err) {
         return res
           .status(400)
@@ -24,6 +24,8 @@ export const trimUrl = (req, res) => {
       } else {
         // If the URL exists, check if the user has already trimmed it before...
         // if true, send that url back, if not create a new URL document.
+
+        console.log("DNS Result =>", addr);
 
         const newClipCount = count + 1;
 
