@@ -31,7 +31,7 @@ export const trimUrl = (req, res) => {
 
     console.log("short code", newUrlCode);
     newTrim.save((err, newTrim) => {
-      if (!err) {
+      if (err) {
         res.status(500);
         res.render("../src/views/index", {
           userClips: [],
