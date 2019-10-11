@@ -1,5 +1,6 @@
-import UrlShorten from '../models/UrlShorten';
-import { DOMAIN_NAME } from '../config/constants';
+import UrlShorten from "../models/UrlShorten";
+import nanoid from "nanoid";
+import { DOMAIN_NAME } from "../config/constants";
 
 /**
  * This function trim a new url that hasn't been trimmed before
@@ -7,44 +8,52 @@ import { DOMAIN_NAME } from '../config/constants';
  * @param {object} res
  * @returns {object} response object with trimmed url
  */
-export const trimUrl = (req, res) => {
-  UrlShorten.countDocuments({}, (error, count) => {
-    if (error)
-      return res.status(500).json({
-        error: error
-      });
-
-    const newClipCount = count + 1;
-
-    //Create an alpha-numeric string representation of the count by converting it to base 36. (10 digits + 26 letters)
-    let newUrlCode = newClipCount.toString(36); //36 is the highest supported radix. 
-    if (newUrlCode.length < 4)
-      newUrlCode = 'yT' + newUrlCode; //Pad Url codes less that 4 characters with zeros.
-    const newTrim = new UrlShorten({ //Reassign the oldest deleted clip to the new long url.
-      long_url: req.strippedUrl,
-      clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
-      urlCode: newUrlCode,
-      created_by: req.cookies.userId,
-      click_count: 0
-    });
-
-    newTrim.save((err, newTrim) => {
-      if (!err) {
-        res.status(500);
-        res.render('../src/views/index', { userClips: [], success: false, error: 'Server error' });
-      }
-      res.status(201);
-      UrlShorten.find({
-        created_by: req.cookies.userID //Find all clips created by this user.
-      })
-        .then((clips) => {
-          res.render('../src/views/index', { userClips: clips, success: true });
+export const trimUrl = async(req, res) => {
+  try{
+    const {userID} = req.cookies
+    UrlShorten.countDocuments({}, (error, count) => {
+      if (error)
+        return res.status(500).json({
+          error: error
         });
+  
+      const newClipCount = count + 1;
+  
+      // Generate short code
+      let newUrlCode = nanoid(5); //36 is the highest supported radix.
+  
+      const newTrim = new UrlShorten({
+        //Reassign the oldest deleted clip to the new long url.
+        long_url: req.strippedUrl,
+        clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
+        urlCode: newUrlCode,
+        created_by: userID,
+        click_count: 0
+      });
+  
+      // console.log("short code", newUrlCode);
+      newTrim.save((err, newTrim) => {
+        if (err) {
+          res.status(500);
+          return res.render("index", {
+            userClips: [],
+            success: false,
+            created_by: req.cookies.userID,
+            error: "Server error"
+          });
+        }
+        res.status(201);
+        UrlShorten.find({
+          created_by: req.cookies.userId //Find all clips created by this user.
+        }).then(clips => {
+          return res.render("index", { userClips: clips, created_by: userID, success: true});
+        });
+      });
     });
-  });
-    
-}
-
+  }catch(err){
+    next(err);
+  }
+};
 
 /**
  * This function delete a trimmed url
@@ -54,8 +63,7 @@ export const trimUrl = (req, res) => {
  */
 export const deleteUrl = (req, res) => {
   return;
-}
-
+};
 
 /**
  * This function gets original url by the trim code supplied as a parameter
@@ -66,32 +74,28 @@ export const deleteUrl = (req, res) => {
  */
 export const getUrlAndUpdateCount = async (req, res, next) => {
   try {
-    const {
-      urlCode
-    } = req.params;
+    const { urlCode } = req.params;
     const url = await Url.findOne({
       urlCode
     });
 
     if (!url) {
       return res.status(404).json({
-        status: 'error',
-        error: 'Url not found'
+        status: "error",
+        error: "Url not found"
       });
     }
 
     url.click_count += 1;
     await url.save();
     return res.redirect(url.long_url);
-
   } catch (error) {
     return res.status(500).json({
-      status: 'error',
+      status: "error",
       error: error.message
     });
   }
-}
-
+};
 
 /**
  * This redirects user to main url
@@ -101,4 +105,4 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
  */
 export const redirectUrl = async (req, res, next) => {
   return res.redirect(url.long_url);
-}
+};
