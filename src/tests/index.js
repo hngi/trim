@@ -11,9 +11,6 @@ describe('Home page', () => {
       .get('/')
       .end((error, res) => {
         expect(res).to.have.status(200);
-        expect(res.body).to.have.property('success');
-        expect(res.body.success).to.equal(true);
-        expect(res.body).to.have.property('message');
         done();
       });
   });

@@ -97,19 +97,13 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
     });
 
     if (!url) {
-      return res.status(404).json({
-        status: "error",
-        error: "Url not found"
-      });
+      return res.status(404).render('error')
     }
 
     url.click_count += 1;
     await url.save();
     return res.redirect(url.long_url);
   } catch (error) {
-    return res.status(500).json({
-      status: "error",
-      error: error.message
-    });
+    return res.status(404).render('error')
   }
 };

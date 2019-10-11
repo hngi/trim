@@ -40,7 +40,7 @@ export const stripUrl = (req, res, next) => {
  */
 export const validateOwnDomain = (req, res, next) => {
   // The strippedUrl already contains the hostname, so match it against our own...
-  if (req.url.hostname === process.env.DOMAIN) {
+  if (req.url.hostname === process.env.DOMAIN_NAME) {
     res.status(400);
     res.render("index", {
       userClips: [],
@@ -72,7 +72,6 @@ export const urlAlreadyTrimmedByUser = (req, res, next) => {
     if (!retrievedClip) {
       return next();
     }
-    res.status(200);
     UrlShorten.find({
       createdBy: req.cookies.userID //Find all clips created by this user.
     }).then(clips => {
