@@ -39,7 +39,6 @@ export const trimUrl = (req, res) => {
           click_count: 0
         });
 
-        console.log("short code", newUrlCode);
         newTrim.save((err, newTrim) => {
           if (err) {
             res.status(500);

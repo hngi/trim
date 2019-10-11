@@ -10,7 +10,7 @@ export const initRoutes = (app) => {
 
 	app.delete('/api/trim/:id', deleteUrl);
 
-	app.get('/api/trim/:id', getUrlAndUpdateCount, redirectUrl);
+	app.get('/:id', getUrlAndUpdateCount, redirectUrl);
 
 	app.all('*', (req, res) => (res.status(404).render('../src/views/error')));
 }
