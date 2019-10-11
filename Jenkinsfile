@@ -4,20 +4,20 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building'
-                sh 'sudo npm install'
+                sh 'npm install'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing'
-                sh 'sudo npm test'
+                sh 'npm test'
 
             }
         }
         stage('Deploy'){
             steps {
                 echo 'Deploying'
-                sh 'sudo npm run start-dev'
+                sh 'npm run start-dev'
 
             }
         }
