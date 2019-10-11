@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const MongoDBStore = require('connect-mongodb-session')(session);
+const MongoDBStore = require("connect-mongodb-session")(session);
 const { PORT, SECRET_KEY, DB_URL } = require("./config/constants");
 
 const { initRoutes } = require("./routes/routes");
@@ -43,7 +43,10 @@ app.use(
     secret: SECRET_KEY,
     resave: false,
     saveUninitialized: false,
-    store: store
+    store: store,
+    cookies: {
+      maxAge: 1000 * 60 * 60 * 24 * 30
+    }
   })
 );
 
