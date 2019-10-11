@@ -22,22 +22,13 @@ app.use((req, res, next) => {
   next();
 });
 
-// load local css and js files
-app.use(express.static(path.join(__dirname, '../public')));
+app.set('views', path.join(__dirname, 'views')) // Redirect to the views directory inside the src directory
+app.use(express.static(path.join(__dirname, '../public'))); // load local css and js files
+app.set('view engine', 'ejs'); 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser('super-secret-secret')); //Parse the cookie data (User ID).
-
-app.use(
-  session({
-    secret: SECRET_KEY,
-    resave: false,
-    saveUninitialized: false
-  })
-);
-
-app.set('view engine', 'ejs');
+app.use(cookieParser(SECRET_KEY)); //Parse the cookie data (User ID).
 
 initRoutes(app);
 
