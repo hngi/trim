@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser()); //Parse the cookie data (User ID).
 
 initRoutes(app);
-
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+const port = PORT || 3000;
+app.listen(port, () => console.log(`Server listening on port ${port}`));
 
 export default app;
