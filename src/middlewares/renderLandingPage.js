@@ -1,9 +1,11 @@
-const UrlShorten = require('../models/UrlShorten.js');
+import UrlShorten from '../models/UrlShorten';
+
 
 /**
  * This function renders the landing page and gets list of user trimmed urls
  * @param {object} req
  * @param {object} res
+ * @returns {object} response object with trimmed url
  */
 export const renderLandingPage = (req, res) => {
   UrlShorten.find({
@@ -15,5 +17,3 @@ export const renderLandingPage = (req, res) => {
 		res.render('../src/views/index', {userClips: clips, success: true}); // TODO: collect cookie data from req object
 	});
 };
-
-module.exports = renderLandingPage;

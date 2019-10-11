@@ -53,9 +53,6 @@ If you've created a new branch to work on rather than working directly on `Devel
 7. Finally, push your newly merged feature branch to the remote github server for backup.
     <pre>git push origin your-feature-branch</pre>   
 
-## Code Structrure
-### Routing
-Write your request/route handlers in separate files in the `middlewares` folder. Export the function, then import it in `middlewares.js` where it will be exported as part of the middlewares object.    
-In the `routes` folder, `routes.js` imports all request handlers from `middlewares.js` and registers them as listeners for the corresponding routes via the `initRoutes(app)` function. This function is then used in `index.js` to initialize all request handlers.
+## Code Structrure & Readability
 
 

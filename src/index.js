@@ -1,4 +1,3 @@
-const bodyParser = require('body-parser');
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -7,7 +6,6 @@ const { PORT,SECRET_KEY } = require('./config/constants');
 
 const { initRoutes } = require('./routes/routes');
 const db = require('./database/db');
-
 
 const app = express();
 
