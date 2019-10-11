@@ -31,7 +31,7 @@ app.use(cookieParser('super-secret-secret')); //Parse the cookie data (User ID).
 
 app.use(
   session({
-    secret: SECRET_KEY,
+    secret: 'SECRET_KEY',
     resave: false,
     saveUninitialized: false
   })
