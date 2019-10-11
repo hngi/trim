@@ -55,7 +55,10 @@ export const trimUrl = async (req, res) => {
             }
             UrlShorten.find({
               created_by: req.cookies.userID //Find all clips created by this user.
-            }).then(clips => {
+            })
+              .sort({
+                createdAt: "desc" // sort the created clips in a decending order
+              }).then(clips => {
               res.status(201).render("index", {
                 userClips: clips,
                 success: true,
