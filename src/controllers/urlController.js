@@ -18,7 +18,7 @@ export const trimUrl = (req, res) => {
     const newClipCount = count + 1;
 
     // Generate short code
-    let newUrlCode = nanoid(10); //36 is the highest supported radix.
+    let newUrlCode = nanoid(5); //36 is the highest supported radix.
 
     const newTrim = new UrlShorten({
       //Reassign the oldest deleted clip to the new long url.
@@ -31,7 +31,7 @@ export const trimUrl = (req, res) => {
 
     console.log("short code", newUrlCode);
     newTrim.save((err, newTrim) => {
-      if (!err) {
+      if (err) {
         res.status(500);
         res.render("../src/views/index", {
           userClips: [],
