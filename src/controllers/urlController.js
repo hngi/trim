@@ -38,7 +38,7 @@ export const trimUrl = async (req, res) => {
             long_url: req.url.href,
             clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
             urlCode: newUrlCode,
-            createdBy: userID,
+            created_by: userID,
             click_count: 0
           });
 
@@ -53,11 +53,13 @@ export const trimUrl = async (req, res) => {
                 created_by: userID
               });
             }
-            res.status(201);
             UrlShorten.find({
-              createdBy: req.cookies.userID //Find all clips created by this user.
-            }).then(clips => {
-              res.render("index", {
+              created_by: req.cookies.userID //Find all clips created by this user.
+            })
+              .sort({
+                createdAt: "desc" // sort the created clips in a decending order
+              }).then(clips => {
+              res.status(201).render("index", {
                 userClips: clips,
                 success: true,
                 created_by: userID

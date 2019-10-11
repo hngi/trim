@@ -11,7 +11,7 @@ export const renderLandingPage = (req, res) => {
   // This is undefined :(
   const { userID } = req.cookies;
   UrlShorten.find({
-    createdBy: userID //Find all clips created by this user.
+    created_by: userID //Find all clips created by this user.
   })
     .sort({
       createdAt: "desc" // sort the created clips in a decending order
