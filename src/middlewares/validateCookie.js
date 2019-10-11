@@ -1,9 +1,14 @@
-import nanoid from 'nanoid'
+import nanoid from "nanoid";
 export const validateCookie = (req, res, next) => {
-  const {cookies} = req
-  const newID = nanoid()
-  if(Object.entries(cookies).length === 0){
-		res.cookie('userID', newID, {maxAge: 1000*60*2, secure: process.env.NODE_ENV !== 'development', sameSite: true})
+  if (req.cookies.userID) {
+    next();
+  } else {
+    const newID = nanoid();
+    res.cookie("userID", newID, {
+      maxAge: 1000 * 60 * 60 * 60 * 30,
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: true
+    });
+    next();
   }
-  next()
 };
