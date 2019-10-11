@@ -77,15 +77,15 @@
                   <th scope="row"><%=clip.click_count%></th>
                   <td><%=clip.long_url%></td>
                   <td>
-                    <a class="trimmed" target="_blank" href="<%=clip.long_url%>"
-                      >trim/<%=clip.urlCode%></a
+                    <a class="trimmed" target="_blank" href="http://localhost:3000/<%=clip.urlCode%>"
+                      >localhost:3000/<%=clip.urlCode%></a
                     >
                   </td>
                   <td>
                     <button
                       type="button"
                       class="btn btn-sm btn-outline-primary copy"
-                      data="https://trim/<%=clip.urlCode%>"
+                      data="https://localhost:3000/<%=clip.urlCode%>"
                     >
                       COPY
                     </button>

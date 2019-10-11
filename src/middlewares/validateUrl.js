@@ -16,7 +16,7 @@ export const stripUrl = (req, res, next) => {
     const url = new URL(long_url);
 
     // Pass the hostname i.e 'google.com' or 'cnn.com' or 'trim.ng' for example
-    res.strippedUrl = url.hostname;
+    req.url = url;
   } catch (error) {
     // if it is invalid it will throw an error...
     return res.status(500).send({ success: false, message: "Url is invalid!" });
@@ -40,9 +40,9 @@ export const stripUrl = (req, res, next) => {
  */
 export const validateOwnDomain = (req, res, next) => {
   // The strippedUrl already contains the hostname, so match it against our own...
-  if (req.strippedUrl === process.env.DOMAIN_NAME) {
+  if (req.url.hostname === process.env.DOMAIN) {
     res.status(400);
-    res.render("../src/views/index", {
+    res.render("index", {
       userClips: [],
       success: false,
       error: "Cannot trim an already generated URL"
@@ -51,7 +51,7 @@ export const validateOwnDomain = (req, res, next) => {
 
   // if (req.strippedUrl.startsWith(DOMAIN_NAME)) {
   //   res.status(400);
-  //   res.render('../src/views/index', { userClips: [], success: false, error: 'Cannot trim an already generated URL' });
+  //   res.render('index', { userClips: [], success: false, error: 'Cannot trim an already generated URL' });
   // }
   next();
 };
@@ -64,8 +64,8 @@ export const validateOwnDomain = (req, res, next) => {
  */
 export const urlAlreadyTrimmedByUser = (req, res, next) => {
   const searchParams = {
-    long_url: req.strippedUrl,
-    created_by: req.cookies.userId
+    long_url: req.url.hostname,
+    createdBy: req.cookies.userID
   };
 
   UrlShorten.findOne(searchParams, (error, retrievedClip) => {
@@ -74,9 +74,9 @@ export const urlAlreadyTrimmedByUser = (req, res, next) => {
     }
     res.status(200);
     UrlShorten.find({
-      created_by: req.cookies.userId //Find all clips created by this user.
+      createdBy: req.cookies.userID //Find all clips created by this user.
     }).then(clips => {
-      res.render("../src/views/index", { userClips: clips, success: true });
+      res.render("index", { userClips: clips, success: true });
     });
   });
 };

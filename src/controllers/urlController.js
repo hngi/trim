@@ -18,21 +18,7 @@ export const trimUrl = async (req, res) => {
           error: error
         });
 
-      const newClipCount = count + 1;
-
-      // Generate short code
-      let newUrlCode = nanoid(5); //36 is the highest supported radix.
-
-      const newTrim = new UrlShorten({
-        //Reassign the oldest deleted clip to the new long url.
-        long_url: req.strippedUrl,
-        clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
-        urlCode: newUrlCode,
-        created_by: userID,
-        click_count: 0
-      });
-
-      dns.lookup(res.shortenedURl, (err, addr) => {
+      dns.lookup(req.strippedUrl, (err, addr, family) => {
         if (err) {
           return res
             .status(400)
@@ -41,39 +27,40 @@ export const trimUrl = async (req, res) => {
           // If the URL exists, check if the user has already trimmed it before...
           // if true, send that url back, if not create a new URL document.
 
-          console.log("DNS Result =>", addr);
-
           const newClipCount = count + 1;
+
+          const { userID } = req.cookies;
 
           // Generate short code
           let newUrlCode = nanoid(5); //36 is the highest supported radix.
 
           const newTrim = new UrlShorten({
-            //Reassign the oldest deleted clip to the new long url.
-            long_url: req.strippedUrl,
+            long_url: req.url.href,
             clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
             urlCode: newUrlCode,
-            created_by: req.cookies.userId,
+            createdBy: userID,
             click_count: 0
           });
 
-          console.log("short code", newUrlCode);
           newTrim.save((err, newTrim) => {
             if (err) {
+              console.log("Error =>", err);
               res.status(500);
-              res.render("../src/views/index", {
+              res.render("index", {
                 userClips: [],
                 success: false,
-                error: "Server error"
+                error: "Server error",
+                created_by: userID
               });
             }
             res.status(201);
             UrlShorten.find({
-              created_by: req.cookies.userId //Find all clips created by this user.
+              createdBy: req.cookies.userID //Find all clips created by this user.
             }).then(clips => {
-              res.render("../src/views/index", {
+              res.render("index", {
                 userClips: clips,
-                success: true
+                success: true,
+                created_by: userID
               });
             });
           });
@@ -104,9 +91,9 @@ export const deleteUrl = (req, res) => {
  */
 export const getUrlAndUpdateCount = async (req, res, next) => {
   try {
-    const { urlCode } = req.params;
-    const url = await Url.findOne({
-      urlCode
+    const { id } = req.params;
+    const url = await UrlShorten.findOne({
+      urlCode: id
     });
 
     if (!url) {
@@ -125,14 +112,4 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
       error: error.message
     });
   }
-};
-
-/**
- * This redirects user to main url
- * @param {object} req
- * @param {object} res
- * @returns {object} redirects to original url or 404 page if not found
- */
-export const redirectUrl = async (req, res, next) => {
-  return res.redirect(url.long_url);
 };
