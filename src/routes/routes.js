@@ -1,16 +1,12 @@
-const respondWithWarning = require('../helpers/responseHandler');
-const { 
-	renderLandingPage,
-	checkUrl,
-	trimUrl,
-	deleteUrl,
-	redirectUrlAndUpdateCount
-} = require("../middlewares/middlewares");
+import { 
+	  renderLandingPage, validateOwnDomain, validateCookie, urlAlreadyTrimmedByUser, stripUrl
+} from "../middlewares/middlewares";
+import { getUrlAndUpdateCount, trimUrl, deleteUrl, redirectUrl } from '../controllers/urlController';
 
-const initRoutes = (app) => {
-	app.get('/', renderLandingPage);
+export const initRoutes = (app) => {
+	  app.get('/', validateCookie, renderLandingPage);
 
-	app.post('/api/trim', checkUrl); //Calls next() to pass on to trimUrl if not found.
+	app.post('/api/trim', stripUrl, validateOwnDomain, urlAlreadyTrimmedByUser, trimUrl);
 
 	app.post('/api/trim', trimUrl); //Generates a new trim url if checkUrl didn't find an existing one.
 
@@ -18,7 +14,5 @@ const initRoutes = (app) => {
 
 	app.get('/:urlCode', redirectUrlAndUpdateCount); //Reverted url parameter back to urlCode to match the database schema.
 
-	app.all('*', (req, res) => respondWithWarning(res, 404, "Page not found"));
-};
-
-module.exports = initRoutes;
+	app.all('*', (req, res) => (res.status(404).render('../src/views/error')));
+}

@@ -2,7 +2,9 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const { PORT } = require('./config/constants');
+const session = require('express-session');
+const { PORT,SECRET_KEY } = require('./config/constants');
+
 const { initRoutes } = require('./routes/routes');
 const db = require('./database/db');
 
@@ -19,28 +21,25 @@ app.use((req, res, next) => {
     'Access-Control-Allow-Methods',
     'GET, POST, PUT, DELETE, PATCH, OPTIONS'
   );
-  //console.log('Response headers set');
   next();
 });
 
 // load local css and js files
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Set 'views' directory for any views 
-// being rendered res.render()
-app.set('views', path.join(__dirname, 'views'));
-//console.log(path.join(__dirname, 'views'))
-
-// Set view engine as EJS
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
-
-app.use(bodyParser.json());
-//app.use(cookieParser()); //Parse the cookie data (User ID).
-
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser('super-secret-secret')); //Parse the cookie data (User ID).
+
+app.use(
+  session({
+    secret: SECRET_KEY,
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
+app.set('view engine', 'ejs');
 
 initRoutes(app);
 

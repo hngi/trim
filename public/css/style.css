@@ -24,7 +24,6 @@ body {
   height: 135px;
   margin-top: 30px;
   margin-bottom: 40px;
-
 }
 
 form {
@@ -56,7 +55,6 @@ form {
   background-position: center;
   background-color: #0AD48B;
   border: none;
-
 }
 
 .small-heading {
@@ -71,7 +69,6 @@ form {
   margin: 1rem auto;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-
 }
 
 .click-metrics tbody {
@@ -97,41 +94,78 @@ form {
   padding: 0;
 }
 
+.click-metrics .btn-outline-primary {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.click-metrics .btn-outline-primary:hover {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+
+/* Error Page */
+.error-img {
+  height: 40vh;
+  width: 50vw;
+  object-fit: fill;
+  object-position: center;
+  margin: 0 auto;
+}
+
+.error-wrapper {
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.back-btn {
+  border-radius: 2.5rem;
+}
+
+.back-btn {
+  background-color: var(--primary);
+}
+
+.back-btn:hover {
+  border-color: #000;
+  color: #fff;
+  background-color: #000;
+}
+
 @media only screen and (max-width: 720px) {
+  .click-metrics {
+    width: 100%;
+  }
   .wrapper {
     margin-top: 1em;
   }
-
   .trim-logo {
     margin-bottom: 0;
   }
-
-  .big-heading{
+  .big-heading {
     margin-top: 0.52em;
     font-size: 2em;
   }
-
   .input-group {
     width: 300px;
   }
-
-  .click-metrics thead tr th:first-child{
+  .click-metrics thead tr th:first-child {
     width: 5em;
   }
-
   .click-metrics thead tr th:last-child {
     width: 7em;
   }
-
-  .click-metrics thead tr th:nth-child(2){
+  .click-metrics thead tr th:nth-child(2) {
     display: none;
   }
-
-  .click-metrics tbody tr{
+  .click-metrics tbody tr {
     display: flex;
     justify-content: space-around;
   }
-
   .click-metrics tbody tr td:nth-child(2) {
     display: none;
   }
