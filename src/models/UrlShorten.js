@@ -6,7 +6,7 @@ const UrlShortenSchema = new Schema({
   clipped_url: { type: String, required: true },
   urlCode: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
-  createdBy: { type: String, required: true },
+  created_by: { type: String, required: true },
   click_count: { type: Number, required: true, default: 0 }
 });
 

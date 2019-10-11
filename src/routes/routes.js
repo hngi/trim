@@ -6,11 +6,11 @@ import { getUrlAndUpdateCount, trimUrl, deleteUrl, redirectUrl } from '../contro
 export const initRoutes = (app) => {
 	  app.get('/', validateCookie, renderLandingPage);
 
-	app.post('/api/trim', stripUrl, validateOwnDomain, urlAlreadyTrimmedByUser, trimUrl);
+	app.post('/api/trim', validateCookie, stripUrl, validateOwnDomain, urlAlreadyTrimmedByUser, trimUrl);
 
 	app.delete('/api/trim/:id', deleteUrl);
 
 	app.get('/api/trim/:id', getUrlAndUpdateCount, redirectUrl);
 
-	app.all('*', (req, res) => (res.status(404).render('../src/views/error')));
+	app.all('*', (req, res) => (res.status(404).render('error')));
 }
