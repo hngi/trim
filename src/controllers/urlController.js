@@ -8,45 +8,50 @@ import { DOMAIN_NAME } from "../config/constants";
  * @param {object} res
  * @returns {object} response object with trimmed url
  */
-export const trimUrl = (req, res) => {
-  UrlShorten.countDocuments({}, (error, count) => {
-    if (error)
-      return res.status(500).json({
-        error: error
-      });
-
-    const newClipCount = count + 1;
-
-    // Generate short code
-    let newUrlCode = nanoid(5); //36 is the highest supported radix.
-
-    const newTrim = new UrlShorten({
-      //Reassign the oldest deleted clip to the new long url.
-      long_url: req.strippedUrl,
-      clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
-      urlCode: newUrlCode,
-      created_by: req.cookies.userId,
-      click_count: 0
-    });
-
-    console.log("short code", newUrlCode);
-    newTrim.save((err, newTrim) => {
-      if (err) {
-        res.status(500);
-        res.render("../src/views/index", {
-          userClips: [],
-          success: false,
-          error: "Server error"
+export const trimUrl = async(req, res) => {
+  try{
+    console.log(req.body, ' user', req.cookies.userID)
+    UrlShorten.countDocuments({}, (error, count) => {
+      if (error)
+        return res.status(500).json({
+          error: error
         });
-      }
-      res.status(201);
-      UrlShorten.find({
-        created_by: req.cookies.userId //Find all clips created by this user.
-      }).then(clips => {
-        res.render("../src/views/index", { userClips: clips, success: true });
+  
+      const newClipCount = count + 1;
+  
+      // Generate short code
+      let newUrlCode = nanoid(5); //36 is the highest supported radix.
+  
+      const newTrim = new UrlShorten({
+        //Reassign the oldest deleted clip to the new long url.
+        long_url: req.strippedUrl,
+        clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
+        urlCode: newUrlCode,
+        created_by: req.cookies.userId,
+        click_count: 0
+      });
+  
+      // console.log("short code", newUrlCode);
+      newTrim.save((err, newTrim) => {
+        if (err) {
+          res.status(500);
+          return res.render("../src/views/index", {
+            userClips: [],
+            success: false,
+            error: "Server error"
+          });
+        }
+        res.status(201);
+        UrlShorten.find({
+          created_by: req.cookies.userId //Find all clips created by this user.
+        }).then(clips => {
+          return res.render("../src/views/index", { userClips: clips, success: true });
+        });
       });
     });
-  });
+  }catch(err){
+    next(err);
+  }
 };
 
 /**
