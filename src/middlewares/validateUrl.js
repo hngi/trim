@@ -65,7 +65,7 @@ export const validateOwnDomain = (req, res, next) => {
 export const urlAlreadyTrimmedByUser = (req, res, next) => {
   const searchParams = {
     long_url: req.url.hostname,
-    createdBy: req.cookies.userID
+    created_by: req.cookies.userID
   };
 
   UrlShorten.findOne(searchParams, (error, retrievedClip) => {
@@ -73,7 +73,7 @@ export const urlAlreadyTrimmedByUser = (req, res, next) => {
       return next();
     }
     UrlShorten.find({
-      createdBy: req.cookies.userID //Find all clips created by this user.
+      created_by: req.cookies.userID //Find all clips created by this user.
     }).then(clips => {
       res.render("index", { userClips: clips, success: true });
     });
