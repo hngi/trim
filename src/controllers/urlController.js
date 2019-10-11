@@ -10,7 +10,7 @@ import { DOMAIN_NAME } from "../config/constants";
  */
 export const trimUrl = async(req, res) => {
   try{
-    console.log(req.body, ' user', req.cookies.userID)
+    const {userID} = req.cookies
     UrlShorten.countDocuments({}, (error, count) => {
       if (error)
         return res.status(500).json({
@@ -27,7 +27,7 @@ export const trimUrl = async(req, res) => {
         long_url: req.strippedUrl,
         clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
         urlCode: newUrlCode,
-        created_by: req.cookies.userId,
+        created_by: userID,
         click_count: 0
       });
   
@@ -35,9 +35,10 @@ export const trimUrl = async(req, res) => {
       newTrim.save((err, newTrim) => {
         if (err) {
           res.status(500);
-          return res.render("../src/views/index", {
+          return res.render("index", {
             userClips: [],
             success: false,
+            created_by: req.cookies.userID,
             error: "Server error"
           });
         }
@@ -45,7 +46,7 @@ export const trimUrl = async(req, res) => {
         UrlShorten.find({
           created_by: req.cookies.userId //Find all clips created by this user.
         }).then(clips => {
-          return res.render("../src/views/index", { userClips: clips, success: true });
+          return res.render("index", { userClips: clips, created_by: userID, success: true});
         });
       });
     });
