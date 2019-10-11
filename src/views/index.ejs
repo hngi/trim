@@ -1,15 +1,21 @@
 <% include partials/header %>
-
+<style>
+.copy:hover{
+  color: #fff;
+}
+</style>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v4.0&appId=1060385767685912&autoLogAppEvents=1"></script>
 <div class="wrapper">
   <div class="container">
     <!-- TRIM LOGO -->
     <div class="row">
       <div class="col-md-12 col-lg-12 col-sm-12">
-        <img
+        <a href=""> <img
           src="https://res.cloudinary.com/gabicle/image/upload/v1570611925/trim_SAMPLE3-02_va4xyq.png"
           alt="trim-logo"
           class="trim-logo"
-        />
+        /></a>
 
         <h1 class="big-heading">Shorten Your Links</h1>
 
@@ -62,6 +68,8 @@
                   <th>Trimmed url</th>
                   <th></th>
                   <th></th>
+                  <th></th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -70,24 +78,35 @@
                   <th scope="row"><%=clip.click_count%></th>
                   <td><%=clip.long_url%></td>
                   <td>
-                    <a target="_blank" href="<%=clip.long_url%>"
+                    <a class="trimmed" target="_blank" href="https://<%=clip.long_url%>"
                       >trim/<%=clip.urlCode%></a
                     >
                   </td>
                   <td>
                     <button
                       type="button"
-                      class="btn btn-sm btn-outline-primary"
+                      class="btn btn-sm btn-outline-primary copy"
+                      data="https://<%=clip.long_url%>"
                     >
                       COPY
                     </button>
                   </td>
                   <td>
                     <a
-                      href="https://api.whatsapp.com/send?phone=+*09023762810*&text=%20*trim/<%=clip.urlCode%>*"
+                      href="https://api.whatsapp.com/send?&text=htpps://trim/<%=clip.urlCode%>*"
                     >
                       <i class="fab fa-whatsapp fa-lg"></i>
                     </a>
+                  </td>
+                  <td>
+                    <div class="fb-share-button" data-href="https://trim/<%=clip.urlCode%>" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+                  </td>
+                  <td>
+                      <a class="twitter-share-button"
+                      href="https://twitter.com/intent/tweet?text=https://trim/<%=clip.urlCode%>"
+                      data-size="large">
+                    Tweet</a>
+                    <!-- <link rel="canonical" href="/web/tweet-button"> -->
                   </td>
                 </tr>
                 <%}%>
@@ -102,7 +121,55 @@
   </div>
 </div>
 <script>
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+
   function closeAlert() {
     document.querySelector('#msg').style.display = 'none';
   }
+
+
+  const copyToClipboard = str => {
+  const el = document.createElement('textarea');
+  el.value = str;                                
+  el.setAttribute('readonly', '');             
+  el.style.position = 'absolute';                 
+  el.style.left = '-9999px';                      
+  document.body.appendChild(el);                 
+  const selected =            
+    document.getSelection().rangeCount > 0       
+      ? document.getSelection().getRangeAt(0)    
+      : false;                                    
+  el.select();                                    
+  document.execCommand('copy');                 
+  document.body.removeChild(el);               
+  if (selected) {                                
+    document.getSelection().removeAllRanges();    
+    document.getSelection().addRange(selected);   
+  }
+  setInterval(function(){ this.textContent = "COPIED!" }, 3000);
+};
+let copies = document.querySelectorAll(".copy")
+for(var i=0; i<copies.length; i++){
+copies[i].addEventListener("click", function(){
+x=this.getAttribute("data")
+copyToClipboard(x);
+})
+}
+
 </script>
