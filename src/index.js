@@ -22,7 +22,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser('super-secret-secret')); //Parse the cookie data (User ID).
 app.use(session({
-    secret: env.SECRET_KEY,
+    secret: process.env.SECRET_KEY,
     resave: true,
 }));
 

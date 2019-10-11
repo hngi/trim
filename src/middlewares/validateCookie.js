@@ -1,8 +1,11 @@
 export const validateCookie = (req, res, next) => {
-  const userID = req.cookies.userId;
-  if (userID == undefined) {
+  let userID = req.cookies.userId;
+  if (!userID) {
     userID = req.session.id;
-    res.cookie("userID", userID, { maxAge: 90000, httpOnly: true });
+    res.cookie("userID", userID, {
+      maxAge: 90000,
+      httpOnly: true
+    });
   }
-    next();
+  next();
 };
