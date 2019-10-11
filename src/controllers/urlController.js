@@ -27,18 +27,19 @@ export const trimUrl = async(req, res) => {
         long_url: req.strippedUrl,
         clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
         urlCode: newUrlCode,
-        created_by: userID,
+        createdBy: userID,
         click_count: 0
       });
-  
+
       // console.log("short code", newUrlCode);
       newTrim.save((err, newTrim) => {
         if (err) {
+            console.log(err);
           res.status(500);
           return res.render("index", {
             userClips: [],
             success: false,
-            created_by: req.cookies.userID,
+            createdBy: req.cookies.userID,
             error: "Server error"
           });
         }

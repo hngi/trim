@@ -31,7 +31,7 @@ export const stripUrl = (req, res, next) => {
 export const validateOwnDomain = (req, res, next) => {
   if (req.strippedUrl.startsWith(DOMAIN_NAME)) {
     res.status(400);
-    res.render('../src/views/index', { userClips: [], success: false, error: 'Cannot trim an already generated URL' });
+    res.render('index', { userClips: [], success: false, error: 'Cannot trim an already generated URL' });
   }
   next();
 };
@@ -58,7 +58,7 @@ export const urlAlreadyTrimmedByUser = (req, res, next) => {
       created_by: req.cookies.userId //Find all clips created by this user.
     })
       .then((clips) => {
-        res.render('../src/views/index', { userClips: clips, success: true });
+        res.render('index', { userClips: clips, success: true });
       });
   });
 };
