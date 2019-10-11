@@ -22,8 +22,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// load local css and js files
-app.use(express.static(path.join(__dirname, '../public')));
+app.set('view engine', 'ejs'); 
+app.set('/views', path.join(__dirname, 'views')) // Redirect to the views directory inside the src directory
+app.use(express.static(path.join(__dirname, '../public'))); // load local css and js files
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -37,7 +38,6 @@ app.use(
   })
 );
 
-app.set('view engine', 'ejs');
 
 initRoutes(app);
 
