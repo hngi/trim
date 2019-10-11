@@ -20,7 +20,7 @@
         <h1 class="big-heading">Shorten Your Links</h1>
 
         <!-- INPUT URL -->
-        <form action="/api/trim" method="post">
+        <form action="/api/trim" method="POST">
           <div class="input-group mb-3">
             <input
               type="text"
@@ -78,7 +78,7 @@
                   <th scope="row"><%=clip.click_count%></th>
                   <td><%=clip.long_url%></td>
                   <td>
-                    <a class="trimmed" target="_blank" href="https://<%=clip.long_url%>"
+                    <a class="trimmed" target="_blank" href="<%=clip.long_url%>"
                       >trim/<%=clip.urlCode%></a
                     >
                   </td>
