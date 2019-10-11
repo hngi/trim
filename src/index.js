@@ -28,16 +28,7 @@ app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser('super-secret-secret')); //Parse the cookie data (User ID).
-
-app.use(
-  session({
-    secret: SECRET_KEY,
-    resave: false,
-    saveUninitialized: false
-  })
-);
-
+app.use(cookieParser(SECRET_KEY)); //Parse the cookie data (User ID).
 
 initRoutes(app);
 
