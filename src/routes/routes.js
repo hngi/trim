@@ -1,4 +1,4 @@
-import { 
+import {
 	  renderLandingPage, validateOwnDomain, validateCookie, urlAlreadyTrimmedByUser, stripUrl
 } from "../middlewares/middlewares";
 import { getUrlAndUpdateCount, trimUrl, deleteUrl, redirectUrl } from '../controllers/urlController';

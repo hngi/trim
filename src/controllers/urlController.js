@@ -32,6 +32,7 @@ export const trimUrl = (req, res) => {
     console.log("short code", newUrlCode);
     newTrim.save((err, newTrim) => {
       if (err) {
+          console.log("error bi", err);
         res.status(500);
         res.render("../src/views/index", {
           userClips: [],
@@ -43,6 +44,7 @@ export const trimUrl = (req, res) => {
       UrlShorten.find({
         created_by: req.cookies.userId //Find all clips created by this user.
       }).then(clips => {
+          req.session.save();
         res.render("../src/views/index", { userClips: clips, success: true });
       });
     });
