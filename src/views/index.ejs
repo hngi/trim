@@ -59,33 +59,32 @@
                   <th scope="row"><%=clip.click_count%></th>
                   <td><%=clip.long_url%></td>
                   <td>
-                    <a class="trimmed" target="_blank" href="<%=clip.long_url%>"
-                      >trim/<%=clip.urlCode%></a
+                    <a class="trimmed" target="_blank" href="/<%=clip.urlCode%>"
+                      ><%=clip.clipped_url%></a
                     >
                   </td>
                   <td>
                     <button
                       type="button"
                       class="btn btn-sm btn-outline-primary copy"
-                      data="https://trim/<%=clip.urlCode%>"
+                      data="<%=clip.clipped_url%>"
                     >
                       COPY
                     </button>
                   </td>
                   <td>
                     <a
-                      href="https://api.whatsapp.com/send?&text=htpps://trim/<%=clip.urlCode%>*"
+                      href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url%>*"
                     >
                       <i class="fab fa-whatsapp fa-lg"></i>
                     </a>
                 </td>
                 <td>
-                  <div class="fb-share-button" data-href="https://trim/<%=clip.urlCode%>" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+                  <div class="fb-share-button" data-href="<%=clip.clipped_url%>" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
                 </td>
                 <td>
-                  <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=https://trim/<%=clip.urlCode%>" data-size="large">
+                  <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url%>" data-size="large">
                     Tweet</a>
-                  <!-- <link rel="canonical" href="/web/tweet-button"> -->
                 </td>
                 </tr>
                 <%}%>
