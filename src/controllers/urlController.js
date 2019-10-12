@@ -87,7 +87,11 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
     }
     url.click_count += 1;
     await url.save();
-    res.redirect(url.long_url);
+		
+		if(url.long_url.startsWith('http'))
+			return res.redirect(url.long_url);
+		else 
+			res.redirect(`http://${url.long_url}`);
   } catch (error) {
     return res.status(404).render('error');
   }
