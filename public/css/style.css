@@ -153,33 +153,15 @@ form {
   .input-group {
     width: 300px;
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> d7a14eb396cfcef293ead694bfb6cd8ab56e4df9
   .click-metrics thead tr th:first-child {
     width: 5em;
   }
   .click-metrics thead tr th:last-child {
     width: 7em;
   }
-<<<<<<< HEAD
-
-
   .click-metrics thead tr th:nth-child(2) {
     display: none;
   }
-
-
-  .click-metrics thead tr th:nth-child(2) {
-    display: none;
-  }
-
-=======
-  .click-metrics thead tr th:nth-child(2) {
-    display: none;
-  }
->>>>>>> d7a14eb396cfcef293ead694bfb6cd8ab56e4df9
   .click-metrics tbody tr {
     display: flex;
     justify-content: space-around;
