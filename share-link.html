@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+   <head>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+   </head>
+<div>
+   
+   <div class="share-buttons ">
+                    <a href="# " class="fa fa-facebook" style="color:#6D1AD8;"></a>
+                    <a href="# " class="fa fa-twitter" style="color:#6D1AD8;"></a>
+
+                </div>
+         
+       
+    </div>
+    <script>
+        let facebook_link = document.querySelector('.fa-facebook')
+        facebook_link.href = `https://www.facebook.com/sharer/sharer.php?u=${trimmedLink}`
+
+        let twitter_link = document.querySelector('.fa-twitter')
+        let trimmedLink = document.querySelector('#link').innerHTML //here is the content to be shared
+        twitter_link.href = `https://twitter.com/intent/tweet?url=${window.location.href}&amp;text=${trimmedLink}`
+
+     </script>
