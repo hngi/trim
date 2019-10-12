@@ -10,9 +10,8 @@ import { DOMAIN_NAME } from "../config/constants";
  * @returns {object} response object with trimmed url
  */
 export const trimUrl = async (req, res) => {
+  const { userID } = req.cookies;
   try {
-
-      const { userID } = req.cookies;
 
       // Generate short code
       let newUrlCode = nanoid(5); //36 is the highest supported radix.
@@ -21,17 +20,18 @@ export const trimUrl = async (req, res) => {
         long_url: req.url,
         clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
         urlCode: newUrlCode,
-        created_by: userID,
+        created_by: req.cookies.userID,
         click_count: 0
       });
 
       newTrim.save((err, newTrim) => {
-        if (!newTrim) {
-          res.status(500).render("index", {
+        if (err) {
+          console.log(err);
+          return res.status(500).render("index", {
             userClips: [],
             success: false,
             error: "Server error",
-            created_by: userID
+            created_by: req.cookies.userID
           });
         }
         UrlShorten.find({
@@ -40,19 +40,20 @@ export const trimUrl = async (req, res) => {
           .sort({
             createdAt: "desc" // sort the created clips in a decending order
           }).then(clips => {
-            res.status(201).render("index", {
+            return res.status(201).render("index", {
               userClips: clips,
               success: true,
-              created_by: userID
+              created_by: req.cookies.userID
             });
           });
       });
   } catch (err) {
-    res.status(500).render("index", {
+    console.log(err)
+    return res.status(500).render("index", {
       userClips: [],
       success: false,
       error: "Server error",
-      created_by: userID
+      created_by: req.cookies.userID
     });
   }
 };
