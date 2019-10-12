@@ -1,7 +1,7 @@
 import UrlShorten from "../models/UrlShorten";
 import nanoid from "nanoid";
-import dns from "dns";
 import { DOMAIN_NAME } from "../config/constants";
+import { renderWithWarning } from '../helpers/responseHandler';
 
 /**
  * This function trim a new url that hasn't been trimmed before
@@ -27,12 +27,7 @@ export const trimUrl = async (req, res) => {
       newTrim.save((err, newTrim) => {
         if (err) {
           console.log(err);
-          return res.status(500).render("index", {
-            userClips: [],
-            success: false,
-            error: "Server error",
-            created_by: req.cookies.userID
-          });
+          return renderWithWarning(res, 500, req.cookies.userID, "Server error");
         }
         UrlShorten.find({
           created_by: req.cookies.userID //Find all clips created by this user.
@@ -49,12 +44,7 @@ export const trimUrl = async (req, res) => {
       });
   } catch (err) {
     console.log(err)
-    return res.status(500).render("index", {
-      userClips: [],
-      success: false,
-      error: "Server error",
-      created_by: req.cookies.userID
-    });
+    return renderWithWarning(res, 500, req.cookies.userID, "Server error");
   }
 };
 

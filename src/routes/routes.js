@@ -15,7 +15,7 @@ import {
 export const initRoutes = app => {
   app.get("/", validateCookie, renderLandingPage);
   app.post(
-    "/api/trim",
+    "/",
     stripUrl,
     validateOwnDomain,
     urlAlreadyTrimmedByUser,
