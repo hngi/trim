@@ -15,3 +15,26 @@ describe('Home page', () => {
       });
   });
 });
+
+describe('GET by id', () => {
+  it('should give an error', (done) => {
+    const _id = "5d97a53e7d948138c8a32920";
+    chai.request(app)
+    .get(`/${_id}`)
+    .end((err, res) => {
+      expect(res).to.have.status(404)
+      done();
+    })
+  })
+})
+
+describe('GET wrong route', () => {
+  it('should give an error', (done) => {
+    chai.request(app)
+    .get('/*')
+    .end((err, res) => {
+      expect(res).to.have.status(404)
+      done();
+    })
+  })
+})
