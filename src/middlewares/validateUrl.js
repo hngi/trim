@@ -34,8 +34,12 @@ export const stripUrl = async (req, res, next) => {
  * @param {*} next
  */
 export const validateOwnDomain = (req, res, next) => {
-  // The strippedUrl already contains the hostname, so match it against our own...
-  if (req.url.startsWith(DOMAIN_NAME)) {
+	// The strippedUrl already contains the hostname, so match it against our own...
+	if (req.url.startsWith(DOMAIN_NAME) || 
+			req.url.startsWith(`https://${DOMAIN_NAME}`) || 
+			req.url.startsWith(`http://${DOMAIN_NAME}`) || 
+			req.url.startsWith(`www.${DOMAIN_NAME}`)
+			) {
     res.status(400).render("index", {
       userClips: [],
       success: false,
