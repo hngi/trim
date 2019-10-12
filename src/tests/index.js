@@ -58,5 +58,15 @@ describe('URL', () => {
     })
   })
 
+  describe('GET route', () => {
+    it('it should give an error', (done) => {
+      chai.request(app)
+        .get('/*')
+        .end((err, res) => {
+          expect(res).to.have.status(404)
+          done();
+        })
+    })
+  })
 
 })
