@@ -6,7 +6,7 @@ export const validateCookie = (req, res, next) => {
     const newID = nanoid();
     res.cookie("userID", newID, {
       maxAge: 1000 * 60 * 60 * 60 * 30,
-      secure: process.env.NODE_ENV !== "development",
+      //secure: process.env.NODE_ENV !== "development",
       sameSite: true
     });
     next();
