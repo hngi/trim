@@ -1,5 +1,6 @@
 import UrlShorten from "../models/UrlShorten";
 import nanoid from "nanoid";
+import dns from "dns";
 import { DOMAIN_NAME } from "../config/constants";
 
 /**
@@ -8,47 +9,68 @@ import { DOMAIN_NAME } from "../config/constants";
  * @param {object} res
  * @returns {object} response object with trimmed url
  */
-export const trimUrl = async(req, res) => {
-  try{
-    const { userID } = req.cookies
-    if(!userID) {
-     const userID = req.cookies.userID;
-    }
-    console.log(userID);
-    // Generate short code
-    let newUrlCode = nanoid(5); //36 is the highest supported radix.
-
-    const newTrim = new UrlShorten({
-      //Reassign the oldest deleted clip to the new long url.
-      long_url: req.strippedUrl,
-      clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
-      urlCode: newUrlCode,
-      created_by: userID,
-      click_count: 0
-    });
-
-    newTrim.save((err, newTrim) => {
-      if (!newTrim) {
-        console.log(err);
-        return res.status(500).render("index", {
-          userClips: [],
-          success: false,
-          created_by: req.cookies.userID,
-          error: "Server error"
+export const trimUrl = async (req, res) => {
+  try {
+    const { userID } = req.cookies;
+    UrlShorten.countDocuments({}, (error, count) => {
+      if (error)
+        return res.status(500).json({
+          error: error
         });
-      }
-      const { userID } = req.cookies
-      UrlShorten.find({
-        created_by: userID //Find all clips created by this user.
-      }).sort({
-        createdAt: 'desc' // sort the created clips in a decending order
-      })
-        .then((clips) => { //Pass the user's clips to the view engine to render the customized view for this user.
-          return res.status(200).render('index', { userClips: clips, created_by: userID, success: true }); // TODO: collect cookie data from req object
-        });
+
+      dns.lookup(req.strippedUrl, (err, addr, family) => {
+        if (err) {
+          return res
+            .status(400)
+            .send({ success: false, message: "URL does not exist bro :(" });
+        } else {
+          // If the URL exists, check if the user has already trimmed it before...
+          // if true, send that url back, if not create a new URL document.
+
+          const newClipCount = count + 1;
+
+          const { userID } = req.cookies;
+
+          // Generate short code
+          let newUrlCode = nanoid(5); //36 is the highest supported radix.
+
+          const newTrim = new UrlShorten({
+            long_url: req.url.href,
+            clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
+            urlCode: newUrlCode,
+            created_by: userID,
+            click_count: 0
+          });
+
+          newTrim.save((err, newTrim) => {
+            if (err) {
+              console.log("Error =>", err);
+              res.status(500);
+              res.render("index", {
+                userClips: [],
+                success: false,
+                error: "Server error",
+                created_by: userID
+              });
+            }
+            UrlShorten.find({
+              created_by: req.cookies.userID //Find all clips created by this user.
+            })
+              .sort({
+                createdAt: "desc" // sort the created clips in a decending order
+              }).then(clips => {
+              res.status(201).render("index", {
+                userClips: clips,
+                success: true,
+                created_by: userID
+              });
+            });
+          });
+        }
+      });
     });
-  } catch(err) {
-    return res.status(500).render('error');
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -71,9 +93,9 @@ export const deleteUrl = (req, res) => {
  */
 export const getUrlAndUpdateCount = async (req, res, next) => {
   try {
-    const { urlCode } = req.params;
-    const url = await Url.findOne({
-      urlCode
+    const { id } = req.params;
+    const url = await UrlShorten.findOne({
+      urlCode: id
     });
 
     if (!url) {
@@ -86,14 +108,4 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
   } catch (error) {
     return res.status(404).render('error')
   }
-};
-
-/**
- * This redirects user to main url
- * @param {object} req
- * @param {object} res
- * @returns {object} redirects to original url or 404 page if not found
- */
-export const redirectUrl = async (req, res, next) => {
-  return res.redirect(url.long_url);
 };
