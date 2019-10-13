@@ -78,13 +78,13 @@ describe('GET /', () => {
       });
   });
 
-  it('it should redirect to original website', (done) => {
-    const id = "17867567576";
-    chai.request(app)
-      .get(`/${clips[0].urlCode}`)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        done();
-      });
-  });
+  // it('it should redirect to original website', (done) => {
+  //   const id = "17867567576";
+  //   chai.request(app)
+  //     .get(`/${clips[0].urlCode}`)
+  //     .end((err, res) => {
+  //       expect(res).to.have.status(200);
+  //       done();
+  //     });
+  // });
 });

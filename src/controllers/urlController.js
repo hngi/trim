@@ -34,7 +34,7 @@ export const trimUrl = async (req, res) => {
           .sort({
             createdAt: "desc" // sort the created clips in a decending order
           }).then(clips => {
-            return res.status(201).json({ clips }).render("index", {
+            return res.status(201).render("index", {
               userClips: clips,
               success: true,
               created_by: req.cookies.userID
