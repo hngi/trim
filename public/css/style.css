@@ -9,9 +9,10 @@
 }
 
 body {
+  background-color: #90e1c3;
+  /* background-color: white; */
   margin: 0;
   padding: 0;
-  background-color: #90E1C3;
   position: relative;
   width: 100%;
   height: 100vh;
@@ -23,9 +24,9 @@ body {
 }
 
 .trim-logo {
-  width: 135px;
-  height: 135px;
-  margin-top: 30px;
+  width: 180px;
+  /* height: 135px; */
+  margin-top: 5rem;
   margin-bottom: 40px;
 }
 
@@ -35,7 +36,7 @@ form {
 }
 
 .form-control {
-  border: 2px solid #0AD48B;
+  border: 2px solid #0ad48b;
 }
 
 .big-heading {
@@ -53,10 +54,10 @@ form {
 }
 
 .clip-btn {
-  background-image: url('https://res.cloudinary.com/gabicle/image/upload/v1570616642/ion-cut-outline_qg8jga.png');
+  background-image: url("https://res.cloudinary.com/gabicle/image/upload/v1570616642/ion-cut-outline_qg8jga.png");
   width: 60px;
   background-position: center;
-  background-color: #0AD48B;
+  background-color: #0ad48b;
   border: none;
 }
 
@@ -66,7 +67,7 @@ form {
 }
 
 .click-metrics {
-  background: #FFFCFC;
+  background: #fffcfc;
   opacity: 0.7;
   width: 100%;
   margin: 1rem auto;
@@ -96,7 +97,6 @@ form {
 .click-metrics td.action-btn a {
   margin-left: 0.7em;
 }
-
 
 /* Error Page */
 
@@ -184,7 +184,6 @@ form {
     display: none;
   }
 }
-
 a.copy:hover {
   color: #0056b3;
 }
