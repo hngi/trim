@@ -20,7 +20,7 @@ export const trimUrl = async (req, res) => {
         long_url: req.url,
         clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
         urlCode: newUrlCode,
-        created_by: req.cookies.userID,
+        created_by: req.cookies.userID ,
         click_count: 0
       });
 
