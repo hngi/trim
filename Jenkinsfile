@@ -17,7 +17,7 @@ pipeline {
         stage('Deploy'){
             steps {
                 echo 'Deploying'
-                sh 'npm run start-dev'
+                sh 'npm run build && npm start'
 
             }
         }
