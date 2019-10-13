@@ -18,7 +18,7 @@ export const renderLandingPage = (req, res) => {
     })
     .then(clips => {
       //Pass the user's clips to the view engine to render the customized view for this user.
-      res.render("index", {
+      return res.status(200).render("index", {
         userClips: clips,
         created_by: userID,
         success: true

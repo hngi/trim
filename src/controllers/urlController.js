@@ -1,7 +1,7 @@
 import UrlShorten from "../models/UrlShorten";
 import nanoid from "nanoid";
-import dns from "dns";
 import { DOMAIN_NAME } from "../config/constants";
+import { renderWithWarning } from '../helpers/responseHandler';
 
 /**
  * This function trim a new url that hasn't been trimmed before
@@ -20,19 +20,13 @@ export const trimUrl = async (req, res) => {
         long_url: req.url,
         clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
         urlCode: newUrlCode,
-        created_by: req.cookies.userID,
+        created_by: req.cookies.userID ,
         click_count: 0
       });
 
       newTrim.save((err, newTrim) => {
         if (err) {
-          console.log(err);
-          return res.status(500).render("index", {
-            userClips: [],
-            success: false,
-            error: "Server error",
-            created_by: req.cookies.userID
-          });
+          return renderWithWarning(res, 500, req.cookies.userID, "Server error");
         }
         UrlShorten.find({
           created_by: req.cookies.userID //Find all clips created by this user.
@@ -40,7 +34,7 @@ export const trimUrl = async (req, res) => {
           .sort({
             createdAt: "desc" // sort the created clips in a decending order
           }).then(clips => {
-            return res.status(201).render("index", {
+            return res.status(201).json({ clips }).render("index", {
               userClips: clips,
               success: true,
               created_by: req.cookies.userID
@@ -49,23 +43,8 @@ export const trimUrl = async (req, res) => {
       });
   } catch (err) {
     console.log(err)
-    return res.status(500).render("index", {
-      userClips: [],
-      success: false,
-      error: "Server error",
-      created_by: req.cookies.userID
-    });
+    return renderWithWarning(res, 500, req.cookies.userID, "Server error");
   }
-};
-
-/**
- * This function delete a trimmed url
- * @param {object} req
- * @param {object} res
- * @returns {object} response object with trimmed url
- */
-export const deleteUrl = (req, res) => {
-  return;
 };
 
 /**

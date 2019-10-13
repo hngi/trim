@@ -1,9 +1,17 @@
 import chaiHttp from 'chai-http';
 import chai from 'chai';
 import app from '../index';
+import UrlShorten from "../models/UrlShorten";
+
+
+
 
 chai.use(chaiHttp);
-const { expect } = chai;
+chai.should()
+
+const {
+  expect
+} = chai;
 
 describe('Home page', () => {
   it('it should take users to the landing page', (done) => {
