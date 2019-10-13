@@ -17,7 +17,8 @@ export const stripUrl = async (req, res, next) => {
   
     const { error } = await schema.validate({ url: long_url });
     if (error) {
-      return renderWithWarning(res, 400, req.cookies.userID, "Not a valid URL");
+      const result = renderWithWarning(res, 400, req.cookies.userID, "Not a valid URL");
+      return result;
     }
     req.url = long_url;
     next(); 
@@ -37,7 +38,8 @@ export const validateOwnDomain = (req, res, next) => {
 			req.url.startsWith(`www.${DOMAIN_NAME}`)
 			) {
 
-    return renderWithWarning(res, 400, req.cookies.userID, "Cannot trim an already generated URL");
+    const result = renderWithWarning(res, 400, req.cookies.userID, "Cannot trim an already generated URL");
+    return result;
   }
   next();
 };
@@ -58,6 +60,7 @@ export const urlAlreadyTrimmedByUser = (req, res, next) => {
     if (!retrievedClip) {
       return next();
     }
-    return renderWithWarning(res, 409, req.cookies.userID, "URL already trimmed");
+    const result = renderWithWarning(res, 409, req.cookies.userID, "URL already trimmed");
+    return result;
   });
 };
