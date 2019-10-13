@@ -1,9 +1,17 @@
 import chaiHttp from 'chai-http';
 import chai from 'chai';
 import app from '../index';
+import UrlShorten from "../models/UrlShorten";
+
+
+
 
 chai.use(chaiHttp);
-const { expect } = chai;
+chai.should()
+
+const {
+  expect
+} = chai;
 
 describe('Home page', () => {
   it('it should take users to the landing page', (done) => {
@@ -16,25 +24,49 @@ describe('Home page', () => {
   });
 });
 
-describe('GET by id', () => {
-  it('should give an error', (done) => {
-    const _id = "5d97a53e7d948138c8a32920";
-    chai.request(app)
-    .get(`/${_id}`)
-    .end((err, res) => {
-      expect(res).to.have.status(404)
-      done();
-    })
-  })
-})
 
-describe('GET wrong route', () => {
-  it('should give an error', (done) => {
-    chai.request(app)
-    .get('/*')
-    .end((err, res) => {
-      expect(res).to.have.status(404)
+describe('URL', () => {
+  beforeEach((done) => { //Before each test we empty the database
+    UrlShorten.remove({}, (err) => {
       done();
+    });
+  });
+  /*
+   * Test the /GET route
+   */
+  describe('/GET Url', () => {
+    it('it should GET all the Urls', (done) => {
+      chai.request(app)
+        .get('/')
+        .end((err, res) => {
+          expect(res).to.have.status(200)
+          expect(res).to.be.a('object')
+          done();
+        });
+    });
+  });
+
+  describe('/GET/:id newTrim', () => {
+    it('it should give an error', (done) => {
+      const id = "1";
+      chai.request(app)
+        .get(`/${id}`)
+        .end((err, res) => {
+          expect(res).to.have.status(404)
+          done();
+        })
     })
   })
+
+  describe('GET route', () => {
+    it('it should give an error', (done) => {
+      chai.request(app)
+        .get('/*')
+        .end((err, res) => {
+          expect(res).to.have.status(404)
+          done();
+        })
+    })
+  })
+
 })
