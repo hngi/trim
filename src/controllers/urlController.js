@@ -26,7 +26,8 @@ export const trimUrl = async (req, res) => {
 
       newTrim.save((err, newTrim) => {
         if (err) {
-          return renderWithWarning(res, 500, req.cookies.userID, "Server error");
+          const result = renderWithWarning(res, 500, req.cookies.userID, "Server error");
+          return result;
         }
         UrlShorten.find({
           created_by: req.cookies.userID //Find all clips created by this user.
@@ -43,7 +44,8 @@ export const trimUrl = async (req, res) => {
       });
   } catch (err) {
     console.log(err)
-    return renderWithWarning(res, 500, req.cookies.userID, "Server error");
+    const result = renderWithWarning(res, 500, req.cookies.userID, "Server error");
+    return result;
   }
 };
 

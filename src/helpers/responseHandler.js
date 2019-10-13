@@ -9,10 +9,9 @@ import UrlShorten from '../models/UrlShorten';
   * @returns {Object} null
   */
 export const renderWithWarning = (res, statusCode, userID, error) => {
-  UrlShorten.find({
+  return UrlShorten.find({
     created_by: userID //Find all clips created by this user.
-  })
-    .sort({
+  }).sort({
       createdAt: "desc" // sort the created clips in a decending order
     }).then(clips => {
     res.status(statusCode).render("index", {
