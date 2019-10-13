@@ -26,7 +26,6 @@ export const trimUrl = async (req, res) => {
 
       newTrim.save((err, newTrim) => {
         if (err) {
-          console.log(err);
           return renderWithWarning(res, 500, req.cookies.userID, "Server error");
         }
         UrlShorten.find({
@@ -35,7 +34,7 @@ export const trimUrl = async (req, res) => {
           .sort({
             createdAt: "desc" // sort the created clips in a decending order
           }).then(clips => {
-            return res.status(201).render("index", {
+            return res.status(201).json({ clips }).render("index", {
               userClips: clips,
               success: true,
               created_by: req.cookies.userID
@@ -46,16 +45,6 @@ export const trimUrl = async (req, res) => {
     console.log(err)
     return renderWithWarning(res, 500, req.cookies.userID, "Server error");
   }
-};
-
-/**
- * This function delete a trimmed url
- * @param {object} req
- * @param {object} res
- * @returns {object} response object with trimmed url
- */
-export const deleteUrl = (req, res) => {
-  return;
 };
 
 /**

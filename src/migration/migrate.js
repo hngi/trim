@@ -17,8 +17,10 @@ class Database {
         if (list.length !== 0) {
           await UrlShorten.collection.drop();
           console.log('collection %s deleted', UrlShorten.collection.name);
+          mongoose.connection.close();
         } else {
           console.log('collection %s does not exist', UrlShorten.collection.name);
+          mongoose.connection.close();
         }
         mongoose.connection.close();
       })
