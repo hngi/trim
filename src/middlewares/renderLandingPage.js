@@ -11,14 +11,14 @@ export const renderLandingPage = (req, res) => {
   // This is undefined :(
   const { userID } = req.cookies;
   UrlShorten.find({
-    createdBy: userID //Find all clips created by this user.
+    created_by: userID //Find all clips created by this user.
   })
     .sort({
       createdAt: "desc" // sort the created clips in a decending order
     })
     .then(clips => {
       //Pass the user's clips to the view engine to render the customized view for this user.
-      res.render("index", {
+      return res.status(200).render("index", {
         userClips: clips,
         created_by: userID,
         success: true

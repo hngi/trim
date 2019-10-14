@@ -1,5 +1,7 @@
+import Joi from '@hapi/joi';
 import UrlShorten from "../models/UrlShorten";
 import { DOMAIN_NAME, VALID_URL } from "../config/constants";
+import { renderWithWarning } from '../helpers/responseHandler';
 
 /**
  * Remove http:// and https;// from long_url
@@ -7,29 +9,19 @@ import { DOMAIN_NAME, VALID_URL } from "../config/constants";
  * @param {*} res
  * @param {*} next
  */
-export const stripUrl = (req, res, next) => {
-  let { long_url } = req.body;
-
-  // Check if the url is valid...
-  // If the url is valid...
-  try {
-    const url = new URL(long_url);
-
-    // Pass the hostname i.e 'google.com' or 'cnn.com' or 'trim.ng' for example
-    req.url = url;
-  } catch (error) {
-    // if it is invalid it will throw an error...
-    return res.status(500).send({ success: false, message: "Url is invalid!" });
-  }
-
-  // if (long_url.startsWith('https://')) {
-  //   res.strippedUrl = long_url.slice(8, long_url.length);
-  // }
-  // if (long_url.startsWith('http://')) {
-  //   res.strippedUrl = long_url.slice(7, long_url.length);
-  // }
-  // req.strippedUrl = long_url; // henceforthe req.strippedUrl is used in place of req.body.long_url
-  next();
+export const stripUrl = async (req, res, next) => {
+  const { long_url } = req.body;
+  const schema = Joi.object({
+    url: Joi.string().regex(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/),
+  })
+  
+    const { error } = await schema.validate({ url: long_url });
+    if (error) {
+      const result = renderWithWarning(res, 400, req.cookies.userID, "Not a valid URL");
+      return result;
+    }
+    req.url = long_url;
+    next(); 
 };
 
 /**
@@ -39,20 +31,16 @@ export const stripUrl = (req, res, next) => {
  * @param {*} next
  */
 export const validateOwnDomain = (req, res, next) => {
-  // The strippedUrl already contains the hostname, so match it against our own...
-  if (req.url.hostname === process.env.DOMAIN_NAME) {
-    res.status(400);
-    res.render("index", {
-      userClips: [],
-      success: false,
-      error: "Cannot trim an already generated URL"
-    });
-  }
+	// The strippedUrl already contains the hostname, so match it against our own...
+	if (req.url.startsWith(DOMAIN_NAME) || 
+			req.url.startsWith(`https://${DOMAIN_NAME}`) || 
+			req.url.startsWith(`http://${DOMAIN_NAME}`) || 
+			req.url.startsWith(`www.${DOMAIN_NAME}`)
+			) {
 
-  // if (req.strippedUrl.startsWith(DOMAIN_NAME)) {
-  //   res.status(400);
-  //   res.render('index', { userClips: [], success: false, error: 'Cannot trim an already generated URL' });
-  // }
+    const result = renderWithWarning(res, 400, req.cookies.userID, "Cannot trim an already generated URL");
+    return result;
+  }
   next();
 };
 
@@ -64,18 +52,15 @@ export const validateOwnDomain = (req, res, next) => {
  */
 export const urlAlreadyTrimmedByUser = (req, res, next) => {
   const searchParams = {
-    long_url: req.url.hostname,
-    createdBy: req.cookies.userID
+    long_url: req.url,
+    created_by: req.cookies.userID
   };
 
   UrlShorten.findOne(searchParams, (error, retrievedClip) => {
     if (!retrievedClip) {
       return next();
     }
-    UrlShorten.find({
-      createdBy: req.cookies.userID //Find all clips created by this user.
-    }).then(clips => {
-      res.render("index", { userClips: clips, success: true });
-    });
+    const result = renderWithWarning(res, 409, req.cookies.userID, "URL already trimmed");
+    return result;
   });
 };
