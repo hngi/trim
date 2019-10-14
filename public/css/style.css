@@ -134,6 +134,12 @@ form {
   display: none;
 }
 
+#fancy-scissors {
+  width: 20%;
+  height: auto;
+  margin-bottom: 3rem;
+}
+
 @media only screen and (max-width: 720px) {
   .wrapper {
     margin-top: 1em;
