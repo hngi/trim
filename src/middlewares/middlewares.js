@@ -1,5 +1,5 @@
-import renderLandingPage from './renderLandingPage';
-import trimUrl from './trim-url';
-import deleteUrl from './delete-url';
+import { validateCookie } from './validateCookie';
+import { renderLandingPage } from './renderLandingPage';
+import { validateOwnDomain, urlAlreadyTrimmedByUser, stripUrl } from './validateUrl';
 
-export default { renderLandingPage, trimUrl, deleteUrl };
+export { renderLandingPage, validateOwnDomain, validateCookie, urlAlreadyTrimmedByUser, stripUrl };

@@ -1,9 +1,17 @@
 import chaiHttp from 'chai-http';
 import chai from 'chai';
 import app from '../index';
+import UrlShorten from "../models/UrlShorten";
+
+
+
 
 chai.use(chaiHttp);
-const { expect } = chai;
+chai.should()
+
+const {
+  expect
+} = chai;
 
 describe('Home page', () => {
   it('it should take users to the landing page', (done) => {
@@ -11,9 +19,6 @@ describe('Home page', () => {
       .get('/')
       .end((error, res) => {
         expect(res).to.have.status(200);
-        expect(res.body).to.have.property('success');
-        expect(res.body.success).to.equal(true);
-        expect(res.body).to.have.property('message');
         done();
       });
   });

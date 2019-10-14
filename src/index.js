@@ -1,37 +1,36 @@
+const path = require('path');
 const express = require('express');
-const mongoose = require('mongoose');
-
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-
-const {DB_URL, PORT} = require('../config/constants.js');
-
-import initRoutes from './routes/routes';
+const session = require('express-session');
+const { PORT, SECRET_KEY } = require('./config/constants');
+const { initRoutes } = require('./routes/routes');
+const db = require('./database/db');
 
 const app = express();
 
-mongoose.connect(DB_URL)
-  .then(() => {
-    console.log('Successfully connected to MongoDB Atlas!');
-  })
-  .catch((error) => {
-    console.log('Unable to connect to MongoDB Atlas!');
-    console.error(error);
-	});
-	
-app.set('view engine', 'ejs');
-
 app.use((req, res, next) => {
   //res.setHeader('Access-Control-Allow-Origin', '*'); //Don't think we need CORS here.
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-  console.log('Response headers set');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'
+  );
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, PUT, DELETE, PATCH, OPTIONS'
+  );
   next();
 });
 
-app.use(bodyParser.json());
+app.set('views', path.join(__dirname, 'views')) // Redirect to the views directory inside the src directory
+app.use(express.static(path.join(__dirname, '../public'))); // load local css and js files
+app.set('view engine', 'ejs'); 
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser()); //Parse the cookie data (User ID).
 
 initRoutes(app);
+const port = PORT || 3000;
+app.listen(port, () => console.log(`Server listening on port ${port}`));
 
-app.listen(PORT, ()=> console.log(`Server listening on port ${PORT}`));
+export default app;

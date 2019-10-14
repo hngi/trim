@@ -1,9 +1,26 @@
-import { renderLandingPage, trimUrl, deleteUrl } from "../middlewares/middlewares";
+import {
+  renderLandingPage,
+  validateOwnDomain,
+  validateCookie,
+  urlAlreadyTrimmedByUser,
+  stripUrl
+} from "../middlewares/middlewares";
+import {
+  getUrlAndUpdateCount,
+  trimUrl,
+  deleteUrl,
+  redirectUrl
+} from "../controllers/urlController";
 
-export default initRoutes = (app)=> {
-	app.get('/', (req, res)=> renderLandingPage(req, res));
-
-	app.post('/api/clip', (req, res)=> trimUrl(req, res));
-
-	app.delete('/api/clip/:id', (req, res)=> deleteUrl(req, res));
+export const initRoutes = app => {
+  app.get("/", validateCookie, renderLandingPage);
+  app.post(
+    "/",
+    stripUrl,
+    validateOwnDomain,
+    urlAlreadyTrimmedByUser,
+    trimUrl
+  );
+  app.get("/:id", getUrlAndUpdateCount);
+  app.all("*", (req, res) => res.status(404).render("error"));
 };
