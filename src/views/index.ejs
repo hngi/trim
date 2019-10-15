@@ -9,19 +9,17 @@
     <div class="container">
       <!-- TRIM LOGO -->
       <div class="row">
-        <div class="col-md-12 col-lg-12 col-sm-12">
+        <div id="page-info" class="col-md-12 col-lg-12 col-sm-12">
           <a href="/"> <img src="https://res.cloudinary.com/leankhan/image/upload/v1570985383/trim/trim-logo-2.png" alt="trim-logo" class="trim-logo" /></a>
 
           <h1 class="big-heading">Shorten Your Links</h1>
           <!-- INPUT URL -->
-          <div class="row">
-            <form action="/" method="POST">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control form-control-lg" name="long_url" required />
-                <input type="hidden" name="created_by" value="<%=created_by%>">
-                <div class="input-group-append">
-                  <button type="submit" onclick="closeAlert()" class=" clip-btn btn btn-success"></button>
-                </div>
+          <form onsubmit="return false">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control form-control-lg" name="long_url" required />
+              <input type="hidden" name="created_by" value="<%=created_by%>">
+              <div class="input-group-append">
+                <button onclick="addLink()" class=" clip-btn btn btn-success"></button>
               </div>
             </form>
           </div>
@@ -31,14 +29,14 @@
           </h5>
 
           <!-- LINK OVERVIEW SECTION -->
-          <%if(!success){ %>
+          <!-- <%if(!success){ %>
             <div id="msg" class="alert alert-danger">
               <%=error%>
-                <a href="#" class="fa-pull-right" onclick="closeAlert()" aria-label="close">&times;</a
-          >
-        </div>
+                <a href="#" class="fa-pull-right" onclick="closeAlert()" aria-label="close">&times;</a>
+            </div> -->
 
-        <% } %> <% if(userClips.length > 0){%>
+        <!-- <% } %>  -->
+        <% if(userClips.length > 0){%>
 
         <div class="container col-md-12">
           <div class="card click-metrics">
@@ -51,35 +49,9 @@
                   <th scope="col" ></th>
                 </tr>
               </thead>
-              <tbody>
-                <% for (let clip of userClips) {%>
-                <tr>
-                  <td><%=clip.click_count%></td>
-                  <td><%=clip.long_url%></td>
-                  <td>
-                    <a class="trimmed" target="_blank" href="/<%=clip.urlCode%>"
-                      ><%=clip.clipped_url%></a
-                    >
-                  </td>
-                  <td class="action-btn">
-                    <a href="#"
-                      class="fas fa-copy fa-lg copy"
-                      data="<%=clip.clipped_url%>"
-                    >
-                       </a>
-                <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url%>*">
-                  <i class="fab fa-whatsapp fa-lg"></i>
-                </a>
-                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url%>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
-                <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url%>" data-size="large">
-                  <i class="fab fa-twitter fa-lg"></i>
-                </a>
-            </div>
-            </td>
-            </tr>
-            <%}%>
-              </tbody>
+              <tbody class='tbody'></tbody>
               </table>
+          </div>
         </div>
 
         <%}%>
@@ -104,13 +76,7 @@
       };
 
       return t;
-    }(document, "script", "twitter-wjs"));
-
-
-    function closeAlert() {
-      document.querySelector('#msg').style.display = 'none';
-    }
-
+    }(document, "script", "twitter-wjs"))
 
     const copyToClipboard = str => {
       const el = document.createElement('textarea');
@@ -143,5 +109,6 @@
     }
   </script>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v4.0&appId=1060385767685912&autoLogAppEvents=1"></script>
+  <script src="js/app.js" type="text/babel"></script>
 
   <% include partials/footer %>
