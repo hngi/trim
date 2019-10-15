@@ -1,32 +1,30 @@
 import UrlShorten from "../models/UrlShorten";
 import nanoid from "nanoid";
 import { DOMAIN_NAME } from "../config/constants";
-import { renderWithWarning } from '../helpers/responseHandler';
+import { respondWithWarning } from '../helpers/responseHandler';
 
 /**
- * This function trim a new url that hasn't been trimmed before
+ * This function trims a new url that hasn't been trimmed before
  * @param {object} req
  * @param {object} res
  * @returns {object} response object with trimmed url
  */
 export const trimUrl = async (req, res) => {
-  const { userID } = req.cookies;
-  try {
-
+	try {
       // Generate short code
-      let newUrlCode = nanoid(5); //36 is the highest supported radix.
+      let newUrlCode = nanoid(5);
 
       const newTrim = new UrlShorten({
         long_url: req.url,
         clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
         urlCode: newUrlCode,
-        created_by: req.cookies.userID ,
+        created_by: req.cookies.userID,
         click_count: 0
       });
 
       newTrim.save((err, newTrim) => {
         if (err) {
-          const result = renderWithWarning(res, 500, req.cookies.userID, "Server error");
+          const result = respondWithWarning(res, 500, "Server error");
           return result;
         }
         UrlShorten.find({
@@ -44,7 +42,7 @@ export const trimUrl = async (req, res) => {
       });
   } catch (err) {
     console.log(err)
-    const result = renderWithWarning(res, 500, req.cookies.userID, "Server error");
+    const result = respondWithWarning(res, 500, "Server error");
     return result;
   }
 };
