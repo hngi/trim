@@ -1,0 +1,92 @@
+body {
+    font: 20px/2.0 Arial, Helvetica, sans-serif;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: rgb(46, 180, 86);
+}
+
+header {
+    height: 100px;
+}
+
+header a {
+    color: rgb(46, 180, 86);
+    font-size: 16px;
+}
+
+header a:hover {
+    text-decoration: none;
+    color: rgb(97, 167, 121);
+    ;
+    font-size: 20px;
+    transition: 0.5s all
+}
+
+nav {
+    margin-top: 20px;
+}
+
+nav li {
+    display: inline;
+    list-style-type: none;
+    margin: 30px;
+}
+
+li {
+    list-style-type: none;
+}
+
+span:hover {
+    cursor: pointer;
+    color: white;
+    background-color: white;
+}
+
+.trim-logo {
+    width: 20%;
+}
+
+.team {
+    width: 150px;
+    height: 150px;
+}
+
+.flex {
+    display: flex;
+}
+
+.contact-us {
+    align-self: center;
+}
+
+#platform-text {
+    font-size: 56px;
+}
+
+#team {
+    margin-top: 50px;
+}
+
+.btn-secondary :hover {}
+
+#carouselExampleIndicators {
+    margin-top: 49px;
+}
+
+#join-us {
+    margin-top: 56px;
+}
+
+article {
+    bottom: 78px;
+}
+
+footer {
+    padding: 20px;
+    margin-top: 90px;
+    background-color: rgb(46, 180, 86);
+    text-align: center;
+    color: #ffffff
+}
