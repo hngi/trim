@@ -1,4 +1,5 @@
 import {
+  aboutPage,
   renderLandingPage,
   validateOwnDomain,
   validateCookie,
@@ -22,5 +23,6 @@ export const initRoutes = app => {
     trimUrl
   );
   app.get("/:id", getUrlAndUpdateCount);
+  app.get("/page/about", aboutPage);
   app.all("*", (req, res) => res.status(404).render("error"));
 };

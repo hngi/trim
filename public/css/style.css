@@ -187,3 +187,35 @@ form {
 a.copy:hover {
   color: #0056b3;
 }
+
+.footer-wrapper{
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.footer-link, .footer-text{
+  margin-bottom: 0;
+  font-weight: bold;
+}
+.footer-link a{
+  text-decoration: none;
+    color: #0ad48b;
+}
+.footer-link a:hover{
+  color: green;
+  transition: 0.5s ease-out;
+}
+.footer-link a{
+  text-decoration: none;
+
+}
+footer p{
+  font-size: 1rem;
+}
+hr{
+  width: 60%;
+  margin: 30px auto 10px auto;
+}
+.copy-text{
+  margin-bottom: 20px;
+}
