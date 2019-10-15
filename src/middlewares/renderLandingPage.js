@@ -1,6 +1,5 @@
 import UrlShorten from "../models/UrlShorten";
 import path from "path";
-import { runInNewContext } from "vm";
 
 /**
  * This function renders the landing page and gets list of user trimmed urls
@@ -26,5 +25,3 @@ export const renderLandingPage = (req, res) => {
       }); // TODO: collect cookie data from req object
     });
 };
-
-
