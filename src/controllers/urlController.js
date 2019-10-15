@@ -1,7 +1,7 @@
 import UrlShorten from "../models/UrlShorten";
 import nanoid from "nanoid";
-import dns from "dns";
 import { DOMAIN_NAME } from "../config/constants";
+import { renderWithWarning } from '../helpers/responseHandler';
 
 /**
  * This function trim a new url that hasn't been trimmed before
@@ -20,19 +20,14 @@ export const trimUrl = async (req, res) => {
         long_url: req.url,
         clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
         urlCode: newUrlCode,
-        created_by: req.cookies.userID,
+        created_by: req.cookies.userID ,
         click_count: 0
       });
 
       newTrim.save((err, newTrim) => {
         if (err) {
-          console.log(err);
-          return res.status(500).render("index", {
-            userClips: [],
-            success: false,
-            error: "Server error",
-            created_by: req.cookies.userID
-          });
+          const result = renderWithWarning(res, 500, req.cookies.userID, "Server error");
+          return result;
         }
         UrlShorten.find({
           created_by: req.cookies.userID //Find all clips created by this user.
@@ -49,23 +44,9 @@ export const trimUrl = async (req, res) => {
       });
   } catch (err) {
     console.log(err)
-    return res.status(500).render("index", {
-      userClips: [],
-      success: false,
-      error: "Server error",
-      created_by: req.cookies.userID
-    });
+    const result = renderWithWarning(res, 500, req.cookies.userID, "Server error");
+    return result;
   }
-};
-
-/**
- * This function delete a trimmed url
- * @param {object} req
- * @param {object} res
- * @returns {object} response object with trimmed url
- */
-export const deleteUrl = (req, res) => {
-  return;
 };
 
 /**

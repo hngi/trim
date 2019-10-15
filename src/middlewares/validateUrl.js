@@ -1,6 +1,7 @@
 import Joi from '@hapi/joi';
 import UrlShorten from "../models/UrlShorten";
 import { DOMAIN_NAME, VALID_URL } from "../config/constants";
+import { renderWithWarning } from '../helpers/responseHandler';
 
 /**
  * Remove http:// and https;// from long_url
@@ -16,12 +17,8 @@ export const stripUrl = async (req, res, next) => {
   
     const { error } = await schema.validate({ url: long_url });
     if (error) {
-      res.status(400).render("index", {
-        userClips: [],
-        success: false,
-        created_by: req.cookies.userID,
-        error: "Not a valid URL"
-      });
+      const result = renderWithWarning(res, 400, req.cookies.userID, "Not a valid URL");
+      return result;
     }
     req.url = long_url;
     next(); 
@@ -40,12 +37,9 @@ export const validateOwnDomain = (req, res, next) => {
 			req.url.startsWith(`http://${DOMAIN_NAME}`) || 
 			req.url.startsWith(`www.${DOMAIN_NAME}`)
 			) {
-    res.status(400).render("index", {
-      userClips: [],
-      success: false,
-      created_by: req.cookies.userID,
-      error: "Cannot trim an already generated URL"
-    });
+
+    const result = renderWithWarning(res, 400, req.cookies.userID, "Cannot trim an already generated URL");
+    return result;
   }
   next();
 };
@@ -58,7 +52,7 @@ export const validateOwnDomain = (req, res, next) => {
  */
 export const urlAlreadyTrimmedByUser = (req, res, next) => {
   const searchParams = {
-    long_url: req.url.hostname,
+    long_url: req.url,
     created_by: req.cookies.userID
   };
 
@@ -66,14 +60,7 @@ export const urlAlreadyTrimmedByUser = (req, res, next) => {
     if (!retrievedClip) {
       return next();
     }
-    UrlShorten.find({
-      created_by: req.cookies.userID //Find all clips created by this user.
-    }).then(clips => {
-      res.status(200).render("index", {
-        userClips: clips,
-        success: true,
-        created_by: req.cookies.userID,
-      });
-    });
+    const result = renderWithWarning(res, 409, req.cookies.userID, "URL already trimmed");
+    return result;
   });
 };

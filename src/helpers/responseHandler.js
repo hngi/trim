@@ -1,27 +1,24 @@
-/**
- * Handles all http responses
- * @exports respondWithSuccess
- * @exports respondWithWarning
- */
+import UrlShorten from '../models/UrlShorten';
+
 
 /**
   * @param  {Object} res
   * @param  {Number} statusCode
-  * @param  {String} message
-  * @param {Object} additionalFields
+  * @param  {String} userID
+  * @param  {String} error
   * @returns {Object} null
   */
-export const respondWithSuccess = (res, statusCode = 200, message, additionalFields) => {
-
-  return res.status(statusCode).send({ success: true, message, payload: { ...additionalFields } });
-}
-
-/**
-  * @param  {Object} res
-  * @param  {Number} statusCode
-  * @param  {String} message
-  * @param {Object} additionalFields
-  * @returns {Object} null
-  */
-export const respondWithWarning = (res, statusCode = 500, message, additionalFields) => res
-  .status(statusCode).send({ success: false, message, payload: { ...additionalFields } });
+export const renderWithWarning = (res, statusCode, userID, error) => {
+  return UrlShorten.find({
+    created_by: userID //Find all clips created by this user.
+  }).sort({
+      createdAt: "desc" // sort the created clips in a decending order
+    }).then(clips => {
+    res.status(statusCode).render("index", {
+      userClips: clips,
+      success: false,
+      created_by: userID,
+      error,
+    });
+  });
+};
