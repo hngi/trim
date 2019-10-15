@@ -27,20 +27,14 @@ export const trimUrl = async (req, res) => {
           const result = respondWithWarning(res, 500, "Server error");
           return result;
         }
-        UrlShorten.find({
-          created_by: req.cookies.userID //Find all clips created by this user.
-        })
-          .sort({
-            createdAt: "desc" // sort the created clips in a decending order
-          }).then(clips => {
-            return res.status(201).render("index", {
-              userClips: clips,
-              success: true,
-              created_by: req.cookies.userID
-            });
-          });
+        
+        res.status(201).json({
+          success: true,
+          payload: newTrim
+        });
       });
-  } catch (err) {
+  } 
+  catch (err) {
     console.log(err)
     const result = respondWithWarning(res, 500, "Server error");
     return result;
