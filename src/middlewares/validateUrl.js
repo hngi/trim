@@ -1,10 +1,10 @@
 import Joi from '@hapi/joi';
 import UrlShorten from "../models/UrlShorten";
 import { DOMAIN_NAME, VALID_URL } from "../config/constants";
-import { renderWithWarning } from '../helpers/responseHandler';
+import { respondWithWarning } from '../helpers/responseHandler';
 
 /**
- * Remove http:// and https;// from long_url
+ * Remove http:// and https:// from long_url
  * @param {*} req
  * @param {*} res
  * @param {*} next
@@ -17,7 +17,7 @@ export const stripUrl = async (req, res, next) => {
   
     const { error } = await schema.validate({ url: long_url });
     if (error) {
-      const result = renderWithWarning(res, 400, req.cookies.userID, "Not a valid URL");
+      const result = respondWithWarning(res, 400, "Not a valid URL");
       return result;
     }
     req.url = long_url;
@@ -38,7 +38,7 @@ export const validateOwnDomain = (req, res, next) => {
 			req.url.startsWith(`www.${DOMAIN_NAME}`)
 			) {
 
-    const result = renderWithWarning(res, 400, req.cookies.userID, "Cannot trim an already generated URL");
+    const result = respondWithWarning(res, 400, "Cannot trim an already generated URL");
     return result;
   }
   next();
@@ -60,7 +60,7 @@ export const urlAlreadyTrimmedByUser = (req, res, next) => {
     if (!retrievedClip) {
       return next();
     }
-    const result = renderWithWarning(res, 409, req.cookies.userID, "URL already trimmed");
+    const result = respondWithWarning(res, 409, "URL already trimmed");
     return result;
   });
 };

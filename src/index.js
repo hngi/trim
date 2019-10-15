@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const { PORT, SECRET_KEY } = require('./config/constants');
 const { initRoutes } = require('./routes/routes');
+const {apis} = require('./routes/apis')
 const db = require('./database/db');
 
 const app = express();
@@ -29,6 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser()); //Parse the cookie data (User ID).
 
+apis(app);
 initRoutes(app);
 const port = PORT || 3000;
 app.listen(port, () => console.log(`Server listening on port ${port}`));
