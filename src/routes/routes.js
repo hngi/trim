@@ -1,4 +1,5 @@
 import {
+  aboutPage,
   renderLandingPage,
   validateOwnDomain,
   validateCookie,
@@ -22,6 +23,8 @@ export const initRoutes = app => {
     urlAlreadyTrimmedByUser,
     trimUrl
   );
+  app.get("/about", aboutPage);
+
   app.get("/:id", getUrlAndUpdateCount);
   app.all("*", (req, res) => res.status(404).render("error"));
 };

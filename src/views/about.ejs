@@ -1,62 +1,246 @@
 <% include partials/header %>
-
-<!-- About section -->
-<div class="wrapper">
-  <div class="container">
-    <div class="row">
-      <!-- TRIM LOGO -->
-      <div class="col-md-12 col-lg-12 col-sm-12">
-        <a href="http://trimly.tk"> <img
-            src="https://res.cloudinary.com/leankhan/image/upload/v1570985383/trim/trim-logo-2.png" alt="trim-logo"
-            class="trim-logo" /></a>
-      </div>
-      <div class="col-md-10 offset-md-1 col-lg-6 offset-lg-3 col-sm-12">
-        <h1 class="mv-3">About</h1>
-        <p class="p-3">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-          laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-          ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in
-          hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero
-          eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te
-          feugait nulla facilisi. <br>
-          Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-          laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-          ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-        </p>
-      </div>
-
-      <!-- Fancy Scissors icon -->
-      <div class="col-md-12 col-lg-12 col-sm-12">
-        <?xml version="1.0"?>
-        <svg xmlns="http://www.w3.org/2000/svg" id="fancy-scissors" enable-background="new 0 0 512.035 512.035" height="512px"
-          viewBox="0 0 512.035 512.035" width="512px" class="">
-          <g>
-            <path
-              d="m484.788 359.132c-19.77-26.89-50.14-38.96-79.65-36.59-23.48 1.89-46.63-6.37-63.29-23.03l-43.43-43.43 161.11-161.22c23.43-23.43 23.43-61.42 0-84.85l-203.53 203.65-203.49-203.65c-23.43 23.43-23.43 61.42 0 84.85l161.07 161.24-43.39 43.41c-16.66 16.66-39.81 24.92-63.29 23.03-29.51-2.37-59.88 9.7-79.65 36.59-21.65 29.44-23.12 70.6-3.16 101.21 32.51 49.88 100 54.98 139.67 15.31 19.16-19.17 27.71-44.77 25.87-69.81-1.74-23.72 6.18-47.1 23-63.92l43.38-43.4 43.4 43.4c16.82 16.82 24.74 40.2 23 63.92-1.84 25.04 6.71 50.64 25.87 69.81 39.67 39.67 107.16 34.57 139.67-15.31 19.96-30.61 18.49-71.769-3.16-101.21zm-349.32 88.24c-19.52 19.52-51.18 19.52-70.71 0-19.53-19.53-19.53-51.19 0-70.72 19.53-19.52 51.19-19.52 70.71 0 19.53 19.53 19.53 51.191 0 70.72zm311.81 0c-19.53 19.52-51.19 19.52-70.71 0-19.53-19.53-19.53-51.19 0-70.72 19.52-19.52 51.18-19.52 70.71 0 19.53 19.53 19.53 51.191 0 70.72z"
-              fill="#b9b6ec" data-original="#B9B6EC" class="active-path" data-old_color="#b9b6ec"
-              style="fill:#33D48B" />
-            <circle cx="256.018" cy="256.012" r="10" data-original="#000000" class="" style="fill:#000000" />
-            <path
-              d="m256.018 66.012c5.522 0 10-4.477 10-10v-46c0-5.523-4.478-10-10-10s-10 4.477-10 10v46c0 5.523 4.478 10 10 10z"
-              data-original="#000000" class="" style="fill:#000000" />
-            <path
-              d="m256.018 166.012c5.522 0 10-4.477 10-10v-46c0-5.523-4.478-10-10-10s-10 4.477-10 10v46c0 5.523 4.478 10 10 10z"
-              data-original="#000000" class="" style="fill:#000000" />
-            <path
-              d="m142.539 369.581c-23.389-23.387-61.45-23.39-84.853 0-23.45 23.451-23.456 61.406.002 84.864 23.395 23.383 61.457 23.391 84.851-.001 23.452-23.453 23.455-61.408 0-84.863zm-14.142 70.72c-15.592 15.592-40.97 15.592-56.567 0-15.633-15.631-15.64-40.938-.002-56.576 15.594-15.587 40.971-15.6 56.569-.001 15.635 15.633 15.639 40.94 0 56.577z"
-              data-original="#000000" class="" style="fill:#000000" />
-            <path
-              d="m492.844 353.209c-20.753-28.228-53.838-43.416-88.509-40.635-20.747 1.676-40.95-5.667-55.416-20.133l-36.361-36.361 154.041-154.146c27.355-27.355 27.358-71.634 0-98.993-1.876-1.875-4.42-2.929-7.073-2.929-2.652 0-5.196 1.055-7.071 2.931l-196.455 196.572-196.418-196.571c-1.876-1.876-4.419-2.931-7.072-2.932-.001 0-.001 0-.002 0-2.652 0-5.195 1.054-7.071 2.929-27.35 27.35-27.362 71.63-.004 98.989l154.008 154.171-36.324 36.341c-14.465 14.466-34.678 21.799-55.418 20.133-34.666-2.79-67.754 12.406-88.506 40.634-24.223 32.936-25.667 78.574-3.483 112.593 9.32 14.3 21.393 25.631 35.883 33.678 4.823 2.682 10.914.942 13.597-3.887 2.682-4.828.941-10.916-3.888-13.597-11.611-6.449-21.313-15.571-28.837-27.115-17.493-26.827-16.325-63.763 2.84-89.825 16.619-22.604 43.094-34.771 70.79-32.546 26.614 2.139 52.546-7.309 71.165-25.928 9.994-9.999 76.671-76.706 85.571-85.61.052-.049.109-.091.16-.141.085-.083.158-.174.24-.259l195.596-195.712c12.534 18.88 11.153 45.408-6.372 62.934-.451.451-246.416 246.576-246.897 247.058-18.451 18.451-27.893 44.593-25.901 71.724 1.697 23.104-6.675 45.704-22.968 62.006-5.344 5.343-11.37 9.884-17.911 13.498-4.834 2.67-6.588 8.754-3.917 13.588 2.671 4.835 8.753 6.588 13.589 3.917 8.182-4.52 15.711-10.193 22.383-16.863 20.407-20.418 30.894-48.707 28.771-77.611-1.565-21.327 5.761-41.781 20.099-56.119l36.309-36.326 36.327 36.328c14.337 14.336 21.663 34.791 20.099 56.116-2.124 28.905 8.362 57.194 28.771 77.614 44.626 44.624 119.509 37.717 155.117-16.919 22.153-33.974 20.77-79.618-3.482-112.596zm-433.265-265.418c-17.242-17.241-19.138-43.697-6.371-62.93l188.653 188.8-28.281 28.294zm419.991 367.091c-28.478 43.693-88.311 49.611-124.219 13.701-16.296-16.303-24.668-38.904-22.97-62.009 1.99-27.129-7.451-53.271-25.902-71.722l-36.331-36.332 28.273-28.292 36.356 36.356c18.619 18.618 44.563 28.069 71.162 25.926 27.699-2.226 54.173 9.941 70.793 32.547 19.164 26.06 20.332 62.997 2.838 89.825z"
-              data-original="#000000" class="" style="fill:#000000" />
-            <path
-              d="m369.496 369.581c-23.452 23.453-23.454 61.407 0 84.862 23.392 23.39 61.453 23.386 84.853 0 23.45-23.451 23.456-61.406-.002-84.864-23.398-23.386-61.462-23.385-84.851.002zm70.712 70.719c-15.6 15.592-40.978 15.593-56.569.001-15.635-15.633-15.639-40.94 0-56.577 15.592-15.592 40.97-15.592 56.567 0 15.633 15.631 15.641 40.938.002 56.576z"
-              data-original="#000000" class="" style="fill:#000000" />
-            <circle cx="100.018" cy="502.012" r="10" data-original="#000000" class="" style="fill:#000000" />
-          </g>
-        </svg>
-      </div>
+<div class="body">
+  <!-- About section -->
+  <header>
+    <div class="container">
+      <img src="https://res.cloudinary.com/leankhan/image/upload/v1570985383/trim/trim-logo-2.png" alt="trim-logo"
+        class="trimLogo">
+      <nav class="float-right">
+        <ul>
+          <li> <a href="/">Home</a> </li>
+          <li> <a href="#choose-us">Why trim?</a> </li>
+          <li> <a href="#features">Features</a> </li>
+        </ul>
+      </nav>
     </div>
-  </div>
+  </header>
+
+  <section id="company">
+    <h1 class="text-center jumbotron" id="platform-text"> Our Platform</h1>
+    <div class="container">
+      <p> We aim to make life eaiser for users by creating customizable short Url Links for effective and efficient
+        Internet Surfing through Our optimized Algorithm</p>
+    </div>
+  </section>
+
+  <section id="choose-us">
+    <div class="container">
+      <h1> Why trim?</h1>
+      <p>Trim offers the oppurtunity to customize your shortened URL links the way you see fit sharing it across
+        different
+        social media links</p>
+
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="container">
+      <h1> Features?</h1>
+      <ul>
+        <li>Url shortening</li>
+        <li> customizable Links</li>
+        <li> Share links to social media</li>
+        <li>Count number of clicks.</li>
+      </ul>
+
+    </div>
+  </section>
+
+
+
+  <section id="team">
+    <div class="container">
+      <h1>Meet The team</h1>
+      <p>Through hardwork, focus, Determination along with sleepless nights of planning and implementation, These
+        individuals made it posssible for us to use this platform without stress. Their dedication towards making
+        internet
+        surfing very easy for
+        all, made it possible for this platform to be born.</p>
+      <!-- 
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://res.cloudinary.com/enny/image/upload/v1571151108/IMG_20170712_124822_869_bkm3w4.jpg"
+            alt="Enny" class="team img-fluid">
+          <img src="https://res.cloudinary.com/goldolar/image/upload/v1569331786/quicksquare_2019729124619272.jpg"
+            alt="Goldin" class="team img-fluid">
+          <img src="https://pbs.twimg.com/profile_images/1168077853847707648/j3uTyFEL_400x400.jpg" alt="kubiat"
+            class="team img-fluid">
+          <img src="https://res.cloudinary.com/seyiogunjuyigbe/image/upload/v1571136484/0_1_kqz3ef.jpg"
+            alt="seyiogunjuyigbe" class="team img-fluid">
+          <img src="https://res.cloudinary.com/feranmiakinlade/image/upload/v1566544753/My_dp_lx8bwu.jpg"
+            alt="feranmiakinlade" class="team img-fluid">
+          <img
+            src="https://res.cloudinary.com/normad/image/upload/v1571137139/234_813_161_6439_20190828_082309_01_n5sqkz.jpg"
+            alt="Korey" class="team img-fluid">
+          <img src="https://res.cloudinary.com/ezeko/image/upload/v1571137857/images/IMG-20190928-WA0071_mjg5ho.jpg"
+            alt="ezeko" class="team img-fluid">
+          <img src="https://res.cloudinary.com/gabicle/image/upload/v1566550268/Gabrielle_fu6e1a.png" alt="Gabrielle"
+            class="team img-fluid">
+          <img src="https://res.cloudinary.com/cypher01/image/upload/v1571139240/IMG_20190824_124602_z6qdnl.jpg"
+            alt="Mustapha" class="team img-fluid">
+          <img src="https://res.cloudinary.com/endowed/image/upload/v1571139738/umcie2uriaf08lwtedym.jpg"
+            alt="Tourmaline" class="team img-fluid">
+          <img src="https://res.cloudinary.com/rexdavinci/image/upload/v1567307411/Abdulhafiz.jpg" alt="Ahmed"
+            class="team img-fluid">
+        </div>
+        <div class="carousel-item">
+          <img
+            src="https://res.cloudinary.com/normad/image/upload/v1571137139/234_813_161_6439_20190828_082309_01_n5sqkz.jpg"
+            alt="Korey" class="team img-fluid">
+          <img src="https://res.cloudinary.com/ezeko/image/upload/v1571137857/images/IMG-20190928-WA0071_mjg5ho.jpg"
+            alt="ezeko" class="team img-fluid">
+          <img src="https://res.cloudinary.com/gabicle/image/upload/v1566550268/Gabrielle_fu6e1a.png" alt="Gabrielle"
+            class="team img-fluid">
+          <img src="https://res.cloudinary.com/cypher01/image/upload/v1571139240/IMG_20190824_124602_z6qdnl.jpg"
+            alt="Mustapha" class="team img-fluid">
+          <img src="https://res.cloudinary.com/endowed/image/upload/v1571139738/umcie2uriaf08lwtedym.jpg"
+            alt="Tourmaline" class="team img-fluid">
+          <img src="https://res.cloudinary.com/rexdavinci/image/upload/v1567307411/Abdulhafiz.jpg" alt="Ahmed"
+            class="team img-fluid">
+        </div>
+        <div class="carousel-item">
+          <img
+            src="https://res.cloudinary.com/normad/image/upload/v1571137139/234_813_161_6439_20190828_082309_01_n5sqkz.jpg"
+            alt="Korey" class="team img-fluid">
+          <img src="https://res.cloudinary.com/ezeko/image/upload/v1571137857/images/IMG-20190928-WA0071_mjg5ho.jpg"
+            alt="ezeko" class="team img-fluid">
+          <img src="https://res.cloudinary.com/gabicle/image/upload/v1566550268/Gabrielle_fu6e1a.png" alt="Gabrielle"
+            class="team img-fluid">
+          <img src="https://res.cloudinary.com/cypher01/image/upload/v1571139240/IMG_20190824_124602_z6qdnl.jpg"
+            alt="Mustapha" class="team img-fluid">
+          <img src="https://res.cloudinary.com/endowed/image/upload/v1571139738/umcie2uriaf08lwtedym.jpg"
+            alt="Tourmaline" class="team img-fluid">
+          <img src="https://res.cloudinary.com/rexdavinci/image/upload/v1567307411/Abdulhafiz.jpg" alt="Ahmed"
+            class="team img-fluid">
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div> -->
+
+
+      <section class="team">
+        <div class="container">
+          <div class="row team-container">
+            <div class="team-member card">
+              <img class="card-img-top"
+                src="https://res.cloudinary.com/goldolar/image/upload/v1569331786/quicksquare_2019729124619272.jpg"
+                alt="Kubiat Morgan">
+              <div class="card-body">
+                <h5>Olamide Samuel</h5>
+                <p>MERN stack DEV</p>
+              </div>
+            </div>
+            <div class="team-member card">
+              <img class="card-img-top"
+                src="https://res.cloudinary.com/seyiogunjuyigbe/image/upload/v1571136484/0_1_kqz3ef.jpg"
+                alt="Kubiat Morgan">
+              <div class="card-body">
+                <h5>Oluwaseyi Ogunjuyigbe</h5>
+                <p>Junior Full Stack Developer
+                </p>
+              </div>
+            </div>
+            <div class="team-member card">
+              <img class="card-img-top"
+                src="https://res.cloudinary.com/feranmiakinlade/image/upload/v1566544753/My_dp_lx8bwu.jpg"
+                alt="Kubiat Morgan">
+              <div class="card-body">
+                <h5>Feranmi Akinlade</h5>
+                <p>Node.JS</p>
+              </div>
+            </div>
+            <div class="team-member card">
+              <img class="card-img-top"
+                src="https://res.cloudinary.com/normad/image/upload/v1571137139/234_813_161_6439_20190828_082309_01_n5sqkz.jpg"
+                alt="Kubiat Morgan">
+              <div class="card-body">
+                <h5>Korede Shonubi</h5>
+                <p>Write bugs, and then debug
+                </p>
+              </div>
+            </div>
+            <div class="team-member card">
+              <img class="card-img-top"
+                src="https://pbs.twimg.com/profile_images/1168077853847707648/j3uTyFEL_400x400.jpg" alt="Kubiat Morgan">
+              <div class="card-body">
+                <h5>Kubiat Morgan</h5>
+                <p>Backend Developer</p>
+              </div>
+            </div>
+            <div class="team-member card">
+              <img class="card-img-top"
+                src="https://res.cloudinary.com/ezeko/image/upload/v1571137857/images/IMG-20190928-WA0071_mjg5ho.jpg"
+                alt="Kubiat Morgan">
+              <div class="card-body">
+                <h5>Adejobi Ezekiel Adewole</h5>
+                <p>Frontend website development
+                </p>
+              </div>
+            </div>
+
+            <div class="team-member card">
+              <img class="card-img-top"
+                src="https://res.cloudinary.com/gabicle/image/upload/v1566550268/Gabrielle_fu6e1a.png" alt="">
+              <div class="card-body">
+                <h5>
+                  Gabrielle Kurah</h5>
+                <p>Frontend & Backend</p>
+              </div>
+            </div>
+
+            <div class="team-member card">
+              <img class="card-img-top"
+                src="https://res.cloudinary.com/endowed/image/upload/v1571139738/umcie2uriaf08lwtedym.jpg" alt="">
+              <div class="card-body">
+                <h5>Ayomikun Emmanuel</h5>
+                <p>Backend Developer</p>
+              </div>
+            </div>
+
+            <div class="team-member card">
+              <img class="card-img-top"
+                src="https://res.cloudinary.com/rexdavinci/image/upload/v1567307411/Abdulhafiz.jpg" alt="">
+              <div class="card-body">
+                <h5>Abdulhafiz Ahmed</h5>
+                <p>Backend Developer (NodeJS)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <Article>
+    <div class="container" id="join-us">
+      <h1>Want To Join us?</h1>
+      <p>We are always on the Lookout for Talents such as Yourself,You feel you have what it takes to join our team,
+        Contact us below</p>
+      <button class="btn btn-outline-success"> Contact us </button>
+
+    </div>
+  </Article>
+
+  <footer>
+    <p>about page</p>
+    <p>Trim Url Shortener, &copy; HNG Interns 2019 </p>
+    <p> Click <a class="btn btn-success" href="https://hng.tech/" target="_blank">here </a> for more info about HNG
+      Internship </p>
+
+  </footer>
 </div>
 
 <% include partials/footer %>
