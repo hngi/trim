@@ -1,20 +1,18 @@
 import UrlShorten from "../models/UrlShorten";
 import nanoid from "nanoid";
-import dns from "dns";
 import { DOMAIN_NAME } from "../config/constants";
+import { respondWithWarning } from '../helpers/responseHandler';
 
 /**
- * This function trim a new url that hasn't been trimmed before
+ * This function trims a new url that hasn't been trimmed before
  * @param {object} req
  * @param {object} res
  * @returns {object} response object with trimmed url
  */
 export const trimUrl = async (req, res) => {
-  const { userID } = req.cookies;
-  try {
-
+	try {
       // Generate short code
-      let newUrlCode = nanoid(5); //36 is the highest supported radix.
+      let newUrlCode = nanoid(5);
 
       const newTrim = new UrlShorten({
         long_url: req.url,
@@ -26,46 +24,21 @@ export const trimUrl = async (req, res) => {
 
       newTrim.save((err, newTrim) => {
         if (err) {
-          console.log(err);
-          return res.status(500).render("index", {
-            userClips: [],
-            success: false,
-            error: "Server error",
-            created_by: req.cookies.userID
-          });
+          const result = respondWithWarning(res, 500, "Server error");
+          return result;
         }
-        UrlShorten.find({
-          created_by: req.cookies.userID //Find all clips created by this user.
-        })
-          .sort({
-            createdAt: "desc" // sort the created clips in a decending order
-          }).then(clips => {
-            return res.status(201).render("index", {
-              userClips: clips,
-              success: true,
-              created_by: req.cookies.userID
-            });
-          });
+        
+        res.status(201).json({
+          success: true,
+          payload: newTrim
+        });
       });
-  } catch (err) {
+  } 
+  catch (err) {
     console.log(err)
-    return res.status(500).render("index", {
-      userClips: [],
-      success: false,
-      error: "Server error",
-      created_by: req.cookies.userID
-    });
+    const result = respondWithWarning(res, 500, "Server error");
+    return result;
   }
-};
-
-/**
- * This function delete a trimmed url
- * @param {object} req
- * @param {object} res
- * @returns {object} response object with trimmed url
- */
-export const deleteUrl = (req, res) => {
-  return;
 };
 
 /**
