@@ -191,6 +191,7 @@ a.copy:hover {
 .footer-wrapper{
   text-align: center;
   text-transform: uppercase;
+  letter-spacing: 3px;
 }
 
 .footer-link, .footer-text{
