@@ -15,12 +15,12 @@
 
           <h1 class="big-heading">Shorten Your Links</h1>
           <!-- INPUT URL -->
-          <form action="/" method="POST">
+          <form onsubmit="return false">
             <div class="input-group mb-3">
               <input type="text" class="form-control form-control-lg" name="long_url" required />
               <input type="hidden" name="created_by" value="<%=created_by%>">
               <div class="input-group-append">
-                <button type="submit" onclick="closeAlert()" class=" clip-btn btn btn-success"></button>
+                <button onclick="addLink()" class=" clip-btn btn btn-success"></button>
               </div>
             </div>
           </form>
@@ -33,9 +33,8 @@
           <%if(!success){ %>
             <div id="msg" class="alert alert-danger">
               <%=error%>
-                <a href="#" class="fa-pull-right" onclick="closeAlert()" aria-label="close">&times;</a
-          >
-        </div>
+                <a href="#" class="fa-pull-right" onclick="closeAlert()" aria-label="close">&times;</a>
+            </div>
 
         <% } %> <% if(userClips.length > 0){%>
 
@@ -152,3 +151,4 @@
       })
     }
   </script>
+  <script src="js/app.js" type="text/babel"></script>
