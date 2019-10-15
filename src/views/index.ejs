@@ -62,9 +62,10 @@
                     >
                   </td>
                   <td class="action-btn">
-                    <a href="#"
+                    <a href="javascript:void(0);"
                       class="fas fa-copy fa-lg copy"
                       data="<%=clip.clipped_url%>"
+                      data-tippy-placement="top" data-tippy-content="COPIED!"
                     >
                        </a>
                 <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url%>*">
@@ -88,6 +89,8 @@
   </div>
   </div>
   </div>
+  <script type="text/javascript" src="https://unpkg.com/popper.js@1.15.0/dist/umd/popper.min.js"></script>
+   <script type="text/javascript" src="/tippy.min.js"></script>
   <script>
     window.twttr = (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0],
@@ -111,7 +114,6 @@
       document.querySelector('#msg').style.display = 'none';
     }
 
-
     const copyToClipboard = str => {
       const el = document.createElement('textarea');
       el.value = str;
@@ -130,10 +132,16 @@
         document.getSelection().removeAllRanges();
         document.getSelection().addRange(selected);
       }
-      setInterval(function() {
-        this.textContent = "COPIED!"
-      }, 3000);
+
+      
     };
+    /*Tippy Tooltip*/
+tippy('.tippy, [data-tippy-content], [data-tooltip]', {
+    // flipOnUpdate: true,
+    // boundary: 'window',
+    trigger: 'click'
+});
+
     let copies = document.querySelectorAll(".copy")
     for (var i = 0; i < copies.length; i++) {
       copies[i].addEventListener("click", function() {
