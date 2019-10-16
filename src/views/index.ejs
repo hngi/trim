@@ -84,7 +84,7 @@
                           <th scope="col "></th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody id='tbody'>
                         <% for (let clip of userClips) {%>
                           <tr id="table-body ">
                             <td>
@@ -112,14 +112,13 @@
                                 <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>" data-size="large">
                                   <i class="fab fa-twitter fa-lg"></i>
                                 </a>
-                  </div>
-                  </td>
-                  </tr>
-                  <%}%>
-                    </tbody>
-                    </table>
-                </div>
-
+                              </td>
+                            </tr>
+                            <%}%>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                 <%}%>
         </div>
       </div>
