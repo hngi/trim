@@ -1,5 +1,6 @@
 const trimUrlForm = document.querySelector('.trim-url-form');
-const tr_body = document.querySelector('#tbody')
+const tr_body = document.querySelector('#tbody');
+const clipsListContainer = document.querySelector('#clips-list-container');
 
 let tr_clip = document.createElement('tr')
 let td_click_count = document.createElement('td')
@@ -15,7 +16,7 @@ let a_twitter = document.createElement('a')
 let clip_font_facebook = document.createElement('i')
 let clip_font_whatsapp = document.createElement('i')
 let clip_font_twitter = document.createElement('i')
-let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!"
+let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!";
 
 /**Gets the new trim returned from the server and adds it to the display.
  * Prints an error if the server returns an error message.
@@ -74,10 +75,10 @@ let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to 
 
 			tr_clip.appendChild(td_action_btn)
 
-			return tr_body.prepend(tr_clip)
-																
-
-		}catch(error){
+			clipsListContainer.style.display = "initial";
+			tr_body.prepend(tr_clip)											
+		}
+		catch(error) {
 			console.log(error)
 		}
 }

@@ -69,57 +69,59 @@
                 <a href="# " class="fa-pull-right " onclick="closeAlert() " aria-label="close ">&times;</a>
             </div>
 
-            <% } %>
-              <% if(userClips.length > 0){%>
-
-                <div class="container col-md-12 ">
-                  <div class="card click-metrics ">
-                    <table class="table ">
-                      <thead>
-                        <tr id="table-head ">
-                          <th width="15% " scope="col "><span class="click-title ">Clicks</span> <span class="click-icon "><i class="fas fa-mouse-pointer fa-lg "></i></span></th>
-                          <th scope="col ">Original url</th>
-                          <th scope="col ">Trimmed url</th>
-                          <th scope="col ">Expiry Date</th>
-                          <th scope="col "></th>
-                        </tr>
-                      </thead>
-                      <tbody id='tbody'>
-                        <% for (let clip of userClips) {%>
-                          <tr id="table-body ">
-                            <td>
-                              <%=clip.click_count%>
-                            </td>
-                            <td>
-                              <%=clip.long_url%>
-                            </td>
-                            <td>
-                              <a class="trimmed" target="_blank" href="/<%=clip.urlCode%>">
-                                <%=clip.clipped_url%>
-                              </a>
-                            </td>
-                            <td id="col-expiry">
-                              <%=clip.expiry_date || '—' %>
-                            </td>
-                            <td class="action-btn">
-                              <a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="<%=clip.clipped_url%>" data-tippy-placement="top" data-tippy-content="COPIED!">
-                              </a>
-                              <% let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!"; //add text on next line %>
-                                <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*">
-                                  <i class="fab fa-whatsapp fa-lg"></i>
-                                </a>
-                                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
-                                <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>" data-size="large">
-                                  <i class="fab fa-twitter fa-lg"></i>
-                                </a>
-                              </td>
-                            </tr>
-                            <%}%>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                <%}%>
+						<% } %>
+						
+						<div class="container col-md-12" id="clips-list-container" 
+								<% if(userClips.length == 0){%>
+									style="display:none;" <%}
+								%>
+							>
+							<div class="card click-metrics ">
+								<table class="table ">
+									<thead>
+										<tr id="table-head ">
+											<th width="15% " scope="col "><span class="click-title ">Clicks</span> <span class="click-icon "><i class="fas fa-mouse-pointer fa-lg "></i></span></th>
+											<th scope="col ">Original url</th>
+											<th scope="col ">Trimmed url</th>
+											<th scope="col ">Expiry Date</th>
+											<th scope="col "></th>
+										</tr>
+									</thead>
+									<tbody id='tbody'>
+										<% for (let clip of userClips) {%>
+											<tr id="table-body">
+												<td>
+													<%=clip.click_count%>
+												</td>
+												<td>
+													<%=clip.long_url%>
+												</td>
+												<td>
+													<a class="trimmed" target="_blank" href="/<%=clip.urlCode%>">
+														<%=clip.clipped_url%>
+													</a>
+												</td>
+												<td id="col-expiry">
+													<%=clip.expiry_date || '—' %>
+												</td>
+												<td class="action-btn">
+													<a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="<%=clip.clipped_url%>" data-tippy-placement="top" data-tippy-content="COPIED!">
+													</a>
+													<% let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!"; //add text on next line %>
+														<a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*">
+															<i class="fab fa-whatsapp fa-lg"></i>
+														</a>
+														<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
+														<a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>" data-size="large">
+															<i class="fab fa-twitter fa-lg"></i>
+														</a>
+													</td>
+												</tr>
+												<%}%>
+											</tbody>
+										</table>
+									</div>
+								</div>
         </div>
       </div>
     </div>
