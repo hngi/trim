@@ -4,7 +4,13 @@
   <!-- Header -->
 
   <head>
-    <title>Trim</title>
+    <title>
+      <% if (locals.title) { %>
+        <%= title %>
+      <% } else { %>
+        Trim
+        <% } %>
+    </title>
     <meta charset="utf-8">
     <meta name="active-menu" content="">
 
