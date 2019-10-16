@@ -24,7 +24,7 @@ let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to 
  * Prints an error if the server returns an error message.
  * @param {Response} response. The response object.
  */	
-	const printNewTrim = async(response)=> {
+const printNewTrim = async(response)=> {
 		if (!response.ok) 
 			showError(response, true);
 
@@ -82,9 +82,9 @@ let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to 
 		}									
 			//Handle browser error here.
 		catch(error) {
-			if(error.message === 'Body has already been consumed.'){
+			if(error.message === 'Body has already been consumed.')
 				return
-			}
+		}
 }
 
 /**Prints an error message for the user.
