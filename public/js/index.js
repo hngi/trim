@@ -9,7 +9,7 @@ const printNewTrim = (response)=> {
 		showError(response, true);
 
 	// Logic to add new trim to the list here.
-
+	console.log(response);
 }
 
 /**Prints an error message for the user.
@@ -19,10 +19,12 @@ const printNewTrim = (response)=> {
 const showError = (reason, isServerResponse = false)=> {
 	if (isServerResponse) {
 		//Handle error from server here.
+		console.log(reason);
 	}
 
 	else {
 		//Handle browser error here.
+		console.log(reason);
 	}
 }
 
