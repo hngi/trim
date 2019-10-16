@@ -1,4 +1,5 @@
 import {
+  aboutPage,
   renderLandingPage,
   validateOwnDomain,
   validateCookie,
@@ -14,6 +15,7 @@ import {
 
 export const initRoutes = app => {
   app.get("/", validateCookie, renderLandingPage);
+  app.get("/about", (req, res) => res.status(200).render("about"));
   app.post(
     "/",
     stripUrl,
@@ -21,6 +23,8 @@ export const initRoutes = app => {
     urlAlreadyTrimmedByUser,
     trimUrl
   );
+  app.get("/about", aboutPage);
+
   app.get("/:id", getUrlAndUpdateCount);
   app.all("*", (req, res) => res.status(404).render("error"));
 };

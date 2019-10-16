@@ -9,25 +9,25 @@
 }
 
 body {
-  background-color: #90e1c3;
-  /* background-color: white; */
+  background-color: #bddcd1;
   margin: 0;
   padding: 0;
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   font-size: 0.8em
 }
 
 .wrapper {
   text-align: center;
+  min-height: 100%;
+  position: relative;
 }
 
 .trim-logo {
   width: 180px;
-  /* height: 135px; */
-  margin-top: 5rem;
-  margin-bottom: 40px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 form {
@@ -36,12 +36,13 @@ form {
 }
 
 .form-control {
+  width: 500px;
   border: 2px solid #0ad48b;
 }
 
 .big-heading {
   text-align: center;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 }
 
 .input-group {
@@ -53,17 +54,9 @@ form {
   height: 30px;
 }
 
-.clip-btn {
-  background-image: url("https://res.cloudinary.com/gabicle/image/upload/v1570616642/ion-cut-outline_qg8jga.png");
-  width: 60px;
-  background-position: center;
-  background-color: #0ad48b;
-  border: none;
-}
-
 .small-heading {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .click-metrics {
@@ -76,7 +69,6 @@ form {
 }
 
 .click-metrics {
-  /* display: block; */
   max-height: 30vh;
   overflow-y: hidden;
   scroll-behavior: smooth;
@@ -97,6 +89,7 @@ form {
 .click-metrics td.action-btn a {
   margin-left: 0.7em;
 }
+
 
 /* Error Page */
 
@@ -134,6 +127,148 @@ form {
   display: none;
 }
 
+
+/* About Page Styles */
+
+.about-section {
+  min-height: 100%;
+  position: relative;
+}
+
+h1 {
+  color: rgb(46, 180, 86);
+}
+
+header {
+  height: 100px;
+}
+
+header a {
+  color: rgb(46, 180, 86);
+  font-size: 16px;
+  text-decoration: none;
+}
+
+header a:hover {
+  text-decoration: none;
+  color: rgb(97, 167, 121);
+  transition: 0.2s all ease-in-out;
+}
+
+nav {
+  margin-top: 20px;
+}
+
+nav li {
+  display: inline;
+  list-style-type: none;
+  margin: 30px;
+}
+
+li {
+  list-style-type: none;
+}
+
+span:hover {
+  cursor: pointer;
+  color: white;
+  background-color: white;
+}
+
+.about-section .trimLogo {
+  width: 20%;
+  float: left;
+}
+
+.flex {
+  display: flex;
+}
+
+.contact-us {
+  align-self: center;
+}
+
+#platform-text {
+  font-size: 56px;
+}
+
+#team {
+  margin-top: 50px;
+}
+
+#carouselExampleIndicators {
+  margin-top: 49px;
+}
+
+#join-us {
+  margin-top: 56px;
+}
+
+article {
+  bottom: 78px;
+}
+
+.copy:hover {
+  color: #fff;
+}
+
+
+/* Our team section */
+
+.team .big-heading {
+  margin-top: 3rem;
+  font-weight: bold;
+}
+
+.team-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
+
+.team-member {
+  margin: 1rem;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, .1);
+  border: 0;
+  height: fit-content;
+}
+
+.team-member .card-body {
+  height: 120px;
+}
+
+.team-member,
+.team-member img {
+  border-radius: 5px 5px 0 0;
+}
+
+.team-member img {
+  height: 250px;
+  object-fit: cover;
+  object-position: 50% 20%;
+}
+
+.team-member h5 {
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 992px) {
+  .team-container {
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .team-container {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .team-container {
+    grid-template-columns: auto;
+  }
+}
+
 @media only screen and (max-width: 720px) {
   .wrapper {
     margin-top: 1em;
@@ -167,7 +302,8 @@ form {
     margin-top: 0.52em;
     font-size: 2em;
   }
-  .input-group {
+  .input-group,
+  .form-control {
     width: 300px;
   }
   .click-metrics thead tr th:nth-child(4) {
@@ -184,6 +320,125 @@ form {
     display: none;
   }
 }
+
 a.copy:hover {
   color: #0056b3;
+}
+
+footer {
+  background: #6b6b6b;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  margin-top: 3rem;
+}
+
+.footer-wrapper {
+  text-align: center;
+  text-transform: uppercase;
+  /* letter-spacing: 3px; */
+}
+
+.footer-link,
+.footer-text {
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
+.footer-link a {
+  text-decoration: none;
+  color: #0ad48b;
+}
+
+.footer-link a:hover {
+  color: green;
+  transition: 0.5s ease-out;
+}
+
+.footer-link a {
+  text-decoration: none;
+}
+
+footer p {
+  font-size: 1rem;
+}
+
+hr {
+  width: 60%;
+  margin: 30px auto 10px auto;
+}
+
+.copy-text {
+  margin-bottom: 20px;
+}
+
+.switch {
+  position: relative;
+  width: 150px;
+  height: 30px;
+  text-align: center;
+  margin: 0 auto;
+  background: #00bc9c;
+  transition: all 0.2s ease;
+  border-radius: 25px;
+}
+
+.switch span {
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  margin: 10px 0px 0px -4px;
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  padding: 3px;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+input[type=radio] {
+  display: none;
+}
+
+.switch label {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.2);
+  width: 60px;
+  line-height: 30px;
+  transition: all 0.2s ease;
+}
+
+label[for=simple] {
+  position: absolute;
+  left: 0px;
+  height: 20px;
+}
+
+label[for=advance] {
+  position: absolute;
+  right: 0px;
+}
+
+#advance:checked~.switch {
+  background: #eb4f37;
+}
+
+#advance:checked~.switch span {
+  margin-left: -8px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+#advance:checked~.switch span:after {
+  height: 20px;
+  margin-top: -8px;
+  margin-left: 8px;
+}
+
+#simple:checked~.switch label[for=simple] {
+  color: #fff;
+}
+
+#advance:checked~.switch label[for=advance] {
+  color: #fff;
 }
