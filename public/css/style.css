@@ -83,7 +83,7 @@
   }
   
   .click-metrics {
-    max-height: 400px;
+    max-height: 300px;
     overflow-y: hidden;
     scroll-behavior: smooth;
     overflow-y: scroll;
