@@ -4,7 +4,8 @@ import {
   validateOwnDomain,
   validateCookie,
   urlAlreadyTrimmedByUser,
-  stripUrl
+  stripUrl,
+  userFeedback
 } from "../middlewares/middlewares";
 import {
   getUrlAndUpdateCount,
@@ -24,6 +25,9 @@ export const initRoutes = app => {
     trimUrl
   );
   app.get("/about", aboutPage);
+
+  app.get("/feedback", userFeedback); //working on post routes
+
 
   app.get("/:id", getUrlAndUpdateCount);
   app.all("*", (req, res) => res.status(404).render("error"));
