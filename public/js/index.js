@@ -1,8 +1,8 @@
 const trimUrlForm = document.querySelector('.trim-url-form');
+const tr_body = document.querySelector('#tbody');
+const clipsListContainer = document.querySelector('#clips-list-container');
 const tr_body = document.querySelector('#tbody')
 const err_msg = document.querySelector('#msg')
-
-
 
 let tr_clip = document.createElement('tr')
 let td_click_count = document.createElement('td')
@@ -18,13 +18,13 @@ let a_twitter = document.createElement('a')
 let clip_font_facebook = document.createElement('i')
 let clip_font_whatsapp = document.createElement('i')
 let clip_font_twitter = document.createElement('i')
-let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!"
+let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!";
 
 /**Gets the new trim returned from the server and adds it to the display.
  * Prints an error if the server returns an error message.
  * @param {Response} response. The response object.
  */	
-	const printNewTrim = async(response)=> {
+const printNewTrim = async(response)=> {
 		if (!response.ok) 
 			showError(response, true);
 
@@ -77,13 +77,13 @@ let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to 
 
 			tr_clip.appendChild(td_action_btn)
 
-			return tr_body.prepend(tr_clip)
-									
+			clipsListContainer.style.display = "initial";
+			tr_body.prepend(tr_clip)											
+		}									
 			//Handle browser error here.
-		}catch(error){
-			if(error.message === 'Body has already been consumed.'){
+		catch(error) {
+			if(error.message === 'Body has already been consumed.')
 				return
-			}
 		}
 }
 
