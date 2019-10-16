@@ -9,7 +9,7 @@
 }
 
 body {
-  background-color: #90e1c3;
+  background-color: #bddcd1;
   margin: 0;
   padding: 0;
   position: relative;
@@ -131,7 +131,8 @@ form {
 /* About Page Styles */
 
 .about-section {
-  background-color: #f4f4f4;
+  min-height: 100%;
+  position: relative;
 }
 
 h1 {
@@ -176,6 +177,7 @@ span:hover {
 
 .about-section .trimLogo {
   width: 20%;
+  float: left;
 }
 
 .flex {
@@ -324,12 +326,12 @@ a.copy:hover {
 }
 
 footer {
-  background: rgb(95, 99, 96);
+  background: #6b6b6b;
   padding: 0;
   position: absolute;
   width: 100%;
   top: 100%;
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
 
 .footer-wrapper {
