@@ -1,6 +1,8 @@
 const trimUrlForm = document.querySelector('.trim-url-form');
 const tr_body = document.querySelector('#tbody');
 const clipsListContainer = document.querySelector('#clips-list-container');
+const tr_body = document.querySelector('#tbody')
+const err_msg = document.querySelector('#msg')
 
 let tr_clip = document.createElement('tr')
 let td_click_count = document.createElement('td')
@@ -77,20 +79,25 @@ let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to 
 
 			clipsListContainer.style.display = "initial";
 			tr_body.prepend(tr_clip)											
-		}
+		}									
+			//Handle browser error here.
 		catch(error) {
-			console.log(error)
-		}
+			if(error.message === 'Body has already been consumed.'){
+				return
+			}
 }
 
 /**Prints an error message for the user.
  * @param {any} reason. An object representing the error, either from the browser, or sent back from the server.
  * @param {boolean} isServerResponse. A boolean value indicating if the response was gotten from the server.
  */
-const showError = (reason, isServerResponse = false)=> {
+const showError = async(reason, isServerResponse = false)=> {
 	if (isServerResponse) {
 		//Handle error from server here.
-		console.log(reason);
+		let message = await reason.json();
+		let msg = document.createTextNode(message.error)
+		err_msg.prepend(msg)
+		err_msg.style.display="block"
 	}
 
 	else {
