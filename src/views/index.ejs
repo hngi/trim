@@ -12,86 +12,141 @@
         <div class="col-md-12 col-lg-12 col-sm-12">
           <a href="/"> <img src="https://res.cloudinary.com/leankhan/image/upload/v1570985383/trim/trim-logo-2.png" alt="trim-logo" class="trim-logo" /></a>
 
-          <h1 class="big-heading">Shorten Your Links</h1>
+          <h1 class="mb-2">Shorten Your Links</h1>
           <!-- INPUT URL -->
           <div class="row">
-            <form action="/" method="POST">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control form-control-lg" name="long_url" required />
-                <input type="hidden" name="created_by" value="<%=created_by%>">
-                <div class="input-group-append">
-                  <button type="submit" onclick="closeAlert()" class=" clip-btn btn btn-success"></button>
+            <div class="col-md-12 col-lg-12 col-sm-12" style="margin: 0 auto;">
+              <form action="/" method="POST">
+                <div class="input-groupp mb-3">
+                  <div class="toggle-radio">
+                    <input type="radio" name="rdo" id="simple" checked>
+                    <input type="radio" name="rdo" id="advance">
+                    <div class="switch">
+                      <label for="simple">Simple</label>
+                      <label for="advance">Advance</label>
+                      <span></span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </form>
+                <div id="form-type">
+                  <div id="simple-form">
+                    <div class="input-group mb-2">
+                      <input type="text" class="form-control form-control-lg" name="long_url" required />
+                      <input type="hidden" name="created_by" value="<%=created_by%>">
+                      <div class="input-group-append">
+                        <button type="submit" onclick="closeAlert()" class="btn btn-success custom-btn"><i class="fas fa-cut fa-lg" style="width: 30px;"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="advance-form">
+                    <div class="input-groupp mb-2">
+                      <input type="hidden" id="created_by " name="created_by" value="<%=created_by%>">
+                      <input type="text" class="form-control form-control-lg" id="long_url" name="long_url" placeholder="Long URL" required />
+                    </div>
+                    <div class="input-groupp mb-2">
+                      <input type="text" class="form-control form-control-lg" id="custom_url" placeholder="Custom URL">
+                    </div>
+                    <div class="input-groupp mb-3">
+                      <input id=" expiry_date " class="form-control form-control-lg" type="text" placeholder="Expiry Date " onfocusin="(this.type='date' )" onfocusout="(this.type='text' ) ">
+                    </div>
+                    <div class="float-left">
+                      <button type="submit " onclick="closeAlert() " class="btn btn-success custom-btn btn-advance"><i class="fas fa-cut fa-lg "></i>&nbsp;&nbsp;Trim</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
 
-          <h5 class="small-heading">
+          <h5 class="small-heading ">
             ...the platform that gets all links trimmed efficiently
           </h5>
 
           <!-- LINK OVERVIEW SECTION -->
           <%if(!success){ %>
-            <div id="msg" class="alert alert-danger">
+            <div id="msg " class="alert alert-danger ">
               <%=error%>
-                <a href="#" class="fa-pull-right" onclick="closeAlert()" aria-label="close">&times;</a
-          >
-        </div>
-
-        <% } %> <% if(userClips.length > 0){%>
-
-        <div class="container col-md-12">
-          <div class="card click-metrics">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th width="15%" scope="col" ><span class="click-title">Clicks</span> <span class="click-icon"><i class="fas fa-mouse-pointer fa-lg"></i></span></th>
-                  <th scope="col" >Original url</th>
-                  <th scope="col" >Trimmed url</th>
-                  <th scope="col" ></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% for (let clip of userClips) {%>
-                <tr>
-                  <td><%=clip.click_count%></td>
-                  <td><%=clip.long_url%></td>
-                  <td>
-                    <a class="trimmed" target="_blank" href="/<%=clip.urlCode%>"
-                      ><%=clip.clipped_url%></a
-                    >
-                  </td>
-                  <td class="action-btn">
-                    <a href="javascript:void(0);"
-                      class="fas fa-copy fa-lg copy"
-                      data="<%=clip.clipped_url%>"
-                      data-tippy-placement="top" data-tippy-content="COPIED!"
-                    >
-                       </a>
-                       <% let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!"; //add text on next line %>
-                <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*">
-                  <i class="fab fa-whatsapp fa-lg"></i>
-                </a>
-                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
-                <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>" data-size="large">
-                  <i class="fab fa-twitter fa-lg"></i>
-                </a>
+                <a href="# " class="fa-pull-right " onclick="closeAlert() " aria-label="close ">&times;</a>
             </div>
-            </td>
-            </tr>
-            <%}%>
-              </tbody>
-              </table>
-        </div>
 
-        <%}%>
+            <% } %>
+              <% if(userClips.length > 0){%>
+
+                <div class="container col-md-12 ">
+                  <div class="card click-metrics ">
+                    <table class="table ">
+                      <thead>
+                        <tr id="table-head ">
+                          <th width="15% " scope="col "><span class="click-title ">Clicks</span> <span class="click-icon "><i class="fas fa-mouse-pointer fa-lg "></i></span></th>
+                          <th scope="col ">Original url</th>
+                          <th scope="col ">Trimmed url</th>
+                          <th scope="col ">Expiry Date</th>
+                          <th scope="col "></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for (let clip of userClips) {%>
+                          <tr id="table-body ">
+                            <td>
+                              <%=clip.click_count%>
+                            </td>
+                            <td>
+                              <%=clip.long_url%>
+                            </td>
+                            <td>
+                              <a class="trimmed" target="_blank" href="/<%=clip.urlCode%>">
+                                <%=clip.clipped_url%>
+                              </a>
+                            </td>
+                            <td id="col-expiry">
+                              <%=clip.expiry_date || '—' %>
+                            </td>
+                            <td class="action-btn">
+                              <a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="<%=clip.clipped_url%>" data-tippy-placement="top" data-tippy-content="COPIED!">
+                              </a>
+                              <% let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!"; //add text on next line %>
+                                <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*">
+                                  <i class="fab fa-whatsapp fa-lg"></i>
+                                </a>
+                                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
+                                <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>" data-size="large">
+                                  <i class="fab fa-twitter fa-lg"></i>
+                                </a>
+                  </div>
+                  </td>
+                  </tr>
+                  <%}%>
+                    </tbody>
+                    </table>
+                </div>
+
+                <%}%>
+        </div>
       </div>
     </div>
   </div>
-  </div>
-  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-wrapper">
+      <hr>
+      <h3 class="footer-link"> <a href="/about">About Trim </a> </h3>
+      <p class="footer-text">Site By HNG 6 Interns </p>
+      <p class="footer-link">
+        <a href="https://hng.tech/">HNG Internship</a>
+      </p>
+      <a href="https://twitter.com/hnginternship"><i class="fab fa-twitter fa-3x"></i></a>
+
+      <p class="copy-text">
+        &copy; 2019 | TRIM
+      </p>
+    </div>
+  </footer>
+  <!-- Footer -->
+
   <script type="text/javascript" src="https://unpkg.com/popper.js@1.15.0/dist/umd/popper.min.js"></script>
-   <script type="text/javascript" src="/tippy.min.js"></script>
+  <script type="text/javascript" src="/tippy.min.js"></script>
+
   <script>
     window.twttr = (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0],
@@ -134,14 +189,14 @@
         document.getSelection().addRange(selected);
       }
 
-      
+
     };
     /*Tippy Tooltip*/
-tippy('.tippy, [data-tippy-content], [data-tooltip]', {
-    // flipOnUpdate: true,
-    // boundary: 'window',
-    trigger: 'click'
-});
+    tippy('.tippy, [data-tippy-content], [data-tooltip]', {
+      // flipOnUpdate: true,
+      // boundary: 'window',
+      trigger: 'click'
+    });
 
     let copies = document.querySelectorAll(".copy")
     for (var i = 0; i < copies.length; i++) {
@@ -150,6 +205,24 @@ tippy('.tippy, [data-tippy-content], [data-tooltip]', {
         copyToClipboard(x);
       })
     }
+  </script>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v4.0&appId=1060385767685912&autoLogAppEvents=1">
+  </script>
+
+  <script>
+    const formType = document.querySelector('#form-type');
+    const tableHeading = document.querySelector('#table-head');
+    const tableBody = document.querySelector('#table-body');
+    const simpleForm = document.querySelector('#simple-form').innerHTML;
+    const advanceForm = document.querySelector('#advance-form').innerHTML;
+    document.querySelector('#advance-form').innerHTML = '';
+    document.querySelector('#simple').addEventListener('click', () => {
+      formType.innerHTML = simpleForm;
+    });
+
+    document.querySelector('#advance').addEventListener('click', () => {
+      formType.innerHTML = advanceForm;
+    });
   </script>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v4.0&appId=1060385767685912&autoLogAppEvents=1"></script>
 
