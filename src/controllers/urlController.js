@@ -1,7 +1,7 @@
 import UrlShorten from "../models/UrlShorten";
 import nanoid from "nanoid";
 import { DOMAIN_NAME } from "../config/constants";
-import { renderWithWarning } from '../helpers/responseHandler';
+import { renderWithWarning } from "../helpers/responseHandler";
 
 /**
  * This function trim a new url that hasn't been trimmed before
@@ -11,40 +11,52 @@ import { renderWithWarning } from '../helpers/responseHandler';
  */
 export const trimUrl = async (req, res) => {
   const { userID } = req.cookies;
+  const { expiresBy } = req.body;
   try {
+    // Generate short code
+    let newUrlCode = nanoid(5); //36 is the highest supported radix.
 
-      // Generate short code
-      let newUrlCode = nanoid(5); //36 is the highest supported radix.
+    const newTrim = new UrlShorten({
+      long_url: req.url,
+      clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
+      urlCode: newUrlCode,
+      created_by: req.cookies.userID,
+      click_count: 0,
+      expiresBy: new Date(expiresBy)
+    });
 
-      const newTrim = new UrlShorten({
-        long_url: req.url,
-        clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
-        urlCode: newUrlCode,
-        created_by: req.cookies.userID ,
-        click_count: 0
-      });
-
-      newTrim.save((err, newTrim) => {
-        if (err) {
-          const result = renderWithWarning(res, 500, req.cookies.userID, "Server error");
-          return result;
-        }
-        UrlShorten.find({
-          created_by: req.cookies.userID //Find all clips created by this user.
+    newTrim.save((err, newTrim) => {
+      if (err) {
+        const result = renderWithWarning(
+          res,
+          500,
+          req.cookies.userID,
+          "Server error"
+        );
+        return result;
+      }
+      UrlShorten.find({
+        created_by: req.cookies.userID //Find all clips created by this user.
+      })
+        .sort({
+          createdAt: "desc" // sort the created clips in a decending order
         })
-          .sort({
-            createdAt: "desc" // sort the created clips in a decending order
-          }).then(clips => {
-            return res.status(201).render("index", {
-              userClips: clips,
-              success: true,
-              created_by: req.cookies.userID
-            });
+        .then(clips => {
+          return res.status(201).render("index", {
+            userClips: clips,
+            success: true,
+            created_by: req.cookies.userID
           });
-      });
+        });
+    });
   } catch (err) {
-    console.log(err)
-    const result = renderWithWarning(res, 500, req.cookies.userID, "Server error");
+    console.log(err);
+    const result = renderWithWarning(
+      res,
+      500,
+      req.cookies.userID,
+      "Server error"
+    );
     return result;
   }
 };
@@ -64,16 +76,20 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
     });
 
     if (!url) {
-      return res.status(404).render('error');
+      return res.status(404).render("error");
+    } else if (url.expiresBy <= new Date()) {
+      return res.status(404).render("404", {
+        trim: url.clipped_url,
+        title: `trim not found :(`
+      });
+    } else {
+      url.click_count += 1;
+      await url.save();
+
+      if (url.long_url.startsWith("http")) return res.redirect(url.long_url);
+      else res.redirect(`http://${url.long_url}`);
     }
-    url.click_count += 1;
-    await url.save();
-		
-		if(url.long_url.startsWith('http'))
-			return res.redirect(url.long_url);
-		else 
-			res.redirect(`http://${url.long_url}`);
   } catch (error) {
-    return res.status(404).render('error');
+    return res.status(404).render("error");
   }
 };
