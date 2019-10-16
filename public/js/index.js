@@ -1,7 +1,6 @@
 const trimUrlForm = document.querySelector('.trim-url-form');
 const tr_body = document.querySelector('#tbody');
 const clipsListContainer = document.querySelector('#clips-list-container');
-const tr_body = document.querySelector('#tbody')
 const err_msg = document.querySelector('#msg')
 
 let tr_clip = document.createElement('tr')
