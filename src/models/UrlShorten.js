@@ -8,7 +8,7 @@ const UrlShortenSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
   created_by: { type: String, required: true },
   click_count: { type: Number, required: true, default: 0 },
-  expiresBy: {type: Date, default: null}
+  expiresBy: { type: Date }
 });
 
 export default mongoose.model("UrlShorten", UrlShortenSchema);

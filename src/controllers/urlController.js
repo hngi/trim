@@ -12,6 +12,7 @@ import { renderWithWarning } from "../helpers/responseHandler";
 export const trimUrl = async (req, res) => {
   const { userID } = req.cookies;
   const { expiresBy } = req.body;
+
   try {
     // Generate short code
     let newUrlCode = nanoid(5); //36 is the highest supported radix.
@@ -21,12 +22,16 @@ export const trimUrl = async (req, res) => {
       clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
       urlCode: newUrlCode,
       created_by: req.cookies.userID,
-      click_count: 0,
-      expiresBy: new Date(expiresBy)
+      click_count: 0
     });
+
+    if (expiresBy) {
+      newTrim.expiresBy = new Date(expiresBy);
+    }
 
     newTrim.save((err, newTrim) => {
       if (err) {
+        console.log("Error =>", err);
         const result = renderWithWarning(
           res,
           500,
@@ -77,7 +82,8 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
 
     if (!url) {
       return res.status(404).render("error");
-    } else if (url.expiresBy <= new Date()) {
+      // Check if the found url's expired by field
+    } else if (!!url.expiresBy && url.expiresBy <= new Date()) {
       return res.status(404).render("404", {
         trim: url.clipped_url,
         title: `trim not found :(`
