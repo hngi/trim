@@ -94,8 +94,7 @@ const showError = async(reason, isServerResponse = false)=> {
 	if (isServerResponse) {
 		//Handle error from server here.
 		let message = await reason.json();
-		let msg = document.createTextNode(message.error)
-		err_msg.prepend(msg)
+		err_msg.innerText = message.error;
 		err_msg.style.display="block"
 	}
 
