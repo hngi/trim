@@ -1,0 +1,353 @@
+{% include partials/header %}
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+    }
+
+    .give_feedback .btn-default {
+        color: #333;
+        background: #ff7429;
+        border-color: #ccc;
+        border-radius: 0px;
+        padding: 12px 60px;
+        font-size: 20px;
+        margin: 30px;
+        color: #fff;
+        font-weight: inherit;
+        text-align: center;
+    }
+
+    .progress-bar-info {
+        background-color: #ff7429 !important;
+    }
+
+    .ok {
+        background-color: #ff7429 !important;
+        padding: 9px 28px !important;
+        border-radius: 0px !important;
+        color: #fff;
+    }
+
+    .give_feedback .btn-default {
+        color: #333;
+        background: #ff7429;
+        border-color: #ccc;
+        border-radius: 0px;
+        padding: 12px 60px;
+        font-size: 20px;
+        margin: 30px;
+        color: #fff;
+        font-weight: inherit;
+        text-align: center;
+    }
+
+    .modal-dialog {
+        width: 70% !important;
+        height: auto;
+        margin: 0px auto;
+        padding: 0px;
+    }
+
+    .ok {
+        background: orangered;
+        padding: 9px 28px;
+        border-radius: 0px;
+        color: #fff;
+    }
+
+    .modal-content {
+        border-radius: 5px;
+        height: 520px;
+        overflow: hidden;
+    }
+
+    .close_model {
+        color: #000;
+    }
+
+    .close_model:hover {
+        color: orangered;
+    }
+
+    .img_main img {
+        width: 27%;
+    }
+
+    .img_main {
+        text-align: center;
+    }
+
+    .heading_msg h3 {
+        padding: 16px !important;
+        font-size: 16px;
+        margin: 10px 40px;
+        font-weight: 400;
+        text-align: center;
+        line-height: 22px;
+    }
+
+    .heading_msg2 h3 {
+        padding: 16px !important;
+        font-size: 16px;
+        margin: 10px 40px 10px 40px;
+        font-weight: 400;
+        text-align: center;
+        line-height: 22px;
+    }
+
+    .heading_msg2 span {
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 50px;
+    }
+
+    .thank_you_body {
+        margin: 90px 0px;
+    }
+
+    .modal-header h4 {
+        margin: 10px 40px;
+        font-size: 16px;
+        line-height: 1.42857143;
+    }
+
+    .modal-content .fa {
+        font-size: 2em;
+        padding: 0px 5px 18px 0px;
+        /* margin: 0px -8px; */
+    }
+
+    .modal-content h5 {
+        font-size: 15px;
+        line-height: 17px;
+    }
+
+
+    .modal-body {
+        padding: 45px;
+        padding-bottom: 15px;
+    }
+
+
+    /*MATERIAL INPUT*/
+
+    .mat-input {
+        margin-left: -14%;
+        width: 100%;
+    }
+
+    .mat-input-outer {
+        display: table;
+        width: 320px;
+        position: relative;
+        margin-bottom: 80px;
+    }
+
+    .mat-input-outer input {
+        height: 32px;
+        border-radius: 0;
+        outline: none;
+        border: none;
+        width: 100%;
+        padding: 0;
+        font-family: Montserrat;
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .mat-input-outer label {
+        font-family: Montserrat;
+        font-size: 15px;
+        left: 0px;
+        position: absolute;
+        top: 1px;
+        transition: .5s;
+        color: #000;
+        cursor: text;
+        font-weight: normal;
+        filter: alpha(opacity=40);
+    }
+
+    .mat-input-outer .border {
+        height: 2px;
+        background: #d2d2d2;
+        transition: .3s;
+        -webkit-transition: .3s;
+        -ms-transition: .3s;
+    }
+
+    .mat-input-outer input+label.active {
+        left: 0px;
+        top: -20px;
+        color: #ff5900;
+        border: none;
+        filter: alpha(opacity=100);
+    }
+
+    .modal-header .glyphicon-remove-circle {
+        left: 2%;
+    }
+
+    .rating {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+    }
+
+    .rating>span {
+        display: inline-block;
+        position: relative;
+        width: 1.5em;
+    }
+
+    .rating>span:hover:before,
+    .rating>span:hover~span:before {
+        content: "\2605";
+        position: absolute;
+    }
+
+    .second_tab {
+        padding: 45px !important;
+        font-weight: 500;
+    }
+
+    .modal-footer {
+        padding: 20px 45px;
+    }
+
+    .data-icon-bad {
+        color: red;
+    }
+
+    @media only screen and (max-width:768px) {
+        .modal-dialog {
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        .img_main img {
+            width: 90%;
+        }
+
+        .heading_msg h3 {
+            margin: 0px;
+            font-size: 18px;
+            /* margin: 10px 40px; */
+            font-weight: 400;
+            text-align: center;
+            line-height: 28px;
+        }
+
+        .modal-body {
+            padding: 5px 25px !important;
+        }
+
+        .mat-input-outer label {
+            font-family: Montserrat;
+            font-size: 15px;
+            left: 0px;
+            position: absolute;
+            top: 1px;
+            transition: .5s;
+            color: #000;
+            cursor: text;
+            font-weight: normal;
+            filter: alpha(opacity=40);
+        }
+
+        .mat-input-outer input {
+            height: 45px;
+            border-radius: 0;
+            outline: none;
+            border: none;
+            width: 100%;
+            padding: 0;
+            font-family: Montserrat;
+            font-size: 15px;
+        }
+
+        .modal-content {
+            border-radius: 5px;
+            height: auto;
+            padding: 20px 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 100%;
+        }
+    }
+</style>
+<div class="container">
+    <div id="page1" class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove-circle
+                        "></span></button>
+            <h4 class="modal-title">User Experience</h4>
+        </div>
+        <div class="modal-body row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="col-md-1 hidden-xs">
+                        <h5>a.</h5>
+                    </div>
+                    <div class="col-md-11">
+                        <h5>
+                            How would you rate the look and feel of the website?
+                        </h5>
+                        <div class="rating">
+                            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-1 hidden-xs">
+                        <h5>b.</h5>
+                    </div>
+                    <div class="col-md-11 hidden-xs">
+                        <h5>
+                            How would you rate the responsiveness of the website?
+                        </h5>
+                        <div class="rating">
+                            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="textarea1" class="materialize-textarea" rows="10"></textarea>
+                            <label for="textarea1">Are there any comments or suggestions you'd like to share with
+                                us?</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="page2" style="display:none;" class="modal-content">
+    <div class="modal-body ">
+        <div class="col-lg-12">
+            <button type="button" class="close close_model" data-dismiss="modal"><span class="glyphicon glyphicon-remove-circle
+                                "></span>
+            </button>
+        </div>
+        <div class="thank_you_body">
+            <div class="heading_msg2">
+                <h3>
+                    <span>Thanks!</span><br>We've received you feedback. We will work on it to improve our website.
+                </h3>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% include partials/footer %}
