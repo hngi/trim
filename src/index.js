@@ -9,13 +9,6 @@ const db = require('./database/db');
 const app = express();
 const aboutUsRouter = express.Router();
 
-aboutUsRouter.route('/')
-    .get((req, res) => {
-        res.render('about_us')
-    })
-
-app.use('/about_us', aboutUsRouter)
-
 app.use((req, res, next) => {
     //res.setHeader('Access-Control-Allow-Origin', '*'); //Don't think we need CORS here.
     res.setHeader(
