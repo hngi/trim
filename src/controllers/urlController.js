@@ -28,7 +28,7 @@ export const trimUrl = async (req, res) => {
     });		
 
     if(expiresBy){
-      newTrim.expiresBy = expiresBy.toString()
+      newTrim.expiresBy = expiresBy
     }
 
     const trimmed = await newTrim.save()
@@ -62,9 +62,18 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
       urlCode: id
     });
 
+    if(url.expiresBy){
+      const currentDate = new Date()
+      if(currentDate > url.expiresBy){
+        await UrlShorten.findByIdAndDelete(url._id)
+        return res.redirect('/');
+      }
+    }
+
     if (!url) {
       return res.status(404).render('error');
     }
+
     url.click_count += 1;
     await url.save();
 		
