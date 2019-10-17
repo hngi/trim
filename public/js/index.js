@@ -84,22 +84,20 @@ if(trimUrlForm){
 	trimUrlForm.onsubmit = (e)=> {
 		e.preventDefault()
 		const clipData = new FormData(trimUrlForm);
-		const newObj = {}; // constructing new obj.
+		const urlData = {}; // constructing new obj.
 	
 		// add the form key/value pairs
 		for (var pair of clipData.entries()) {
-			newObj[pair[0]] = pair[1];
+			urlData[pair[0]] = pair[1];
 		}
-		const {created_by, long_url} = newObj
-		const urlData = {
-			created_by, long_url
-		}
+	
+		console.log(urlData)
 		fetch('/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(urlData)
+			body: JSON.stringify({...urlData})
 		})
 		.then(printNewTrim) //Be sure to handle error response from the server.
 		.catch(showError) //If the browser fails to communicate with the server, handle such errors here.

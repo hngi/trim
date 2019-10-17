@@ -11,28 +11,35 @@ import { respondWithWarning } from '../helpers/responseHandler';
  */
 export const trimUrl = async (req, res) => {
 	try {
-      // Generate short code
-      let newUrlCode = nanoid(5);
+		// Generate short code
+		let newUrlCode = nanoid(5);
 
-      const newTrim = new UrlShorten({
-        long_url: req.url,
-        clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
-        urlCode: newUrlCode,
-        created_by: req.cookies.userID,
-        click_count: 0
-      });
+		const newTrim = new UrlShorten({
+			long_url: req.url,
+			clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
+			urlCode: newUrlCode,
+			created_by: req.cookies.userID,
+			click_count: 0
+		});
+			
+    const {expiresBy, custom_url} = req.body
 
-      newTrim.save((err, newTrim) => {
-        if (err) {
-          const result = respondWithWarning(res, 500, "Server error");
-          return result;
-        }
-        
-        res.status(201).json({
-          success: true,
-          payload: newTrim
-        });
-      });
+    if (expiresBy && custom_url) {
+      newTrim.expiresBy = new Date(expiresBy);
+      newTrim.custom_url = custom_url
+    }
+
+		newTrim.save((err, newTrim) => {
+			if (err) {
+				const result = respondWithWarning(res, 500, "Server error");
+				return result;
+			}
+			
+			res.status(201).json({
+				success: true,
+				payload: newTrim
+			});
+		});
   } 
   catch (err) {
     console.log(err)
