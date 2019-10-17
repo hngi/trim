@@ -13,6 +13,6 @@ const ClickSchema = new Schema({
     enum: ['mobile', 'desktop', 'tablet', 'other'],
     default: 'other'
   }
-});
+}, { timestamps: true });
 
 export default mongoose.model('Click', ClickSchema);
