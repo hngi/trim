@@ -51,6 +51,11 @@
       width: fit-content;
   }
   
+  .form-type {
+      margin: 0 auto;
+      width: max-content;
+  }
+  
   .form-control {
       width: 500px;
       border: 2px solid #0ad48b;

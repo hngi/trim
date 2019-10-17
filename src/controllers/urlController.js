@@ -27,17 +27,8 @@ export const trimUrl = async (req, res) => {
 			click_count: 0
 		});
 		
-		// If the user provided an expiry date, use it. If not, leave the field blank.
-		if (expiry_date) {
-			expiry_date = new Date(expiry_date);
-			const currentDate = new Date();
-
-			if (currentDate >= expiry_date) {
-				return respondWithWarning(res, 400, "Expiration must occur on a future date");
-			}
-
-			newTrim.expiry_date = expiry_date;
-		}		
+		// Date validation has been done already
+    newTrim.expiry_date = expiry_date ? new Date(expiry_date) : null;
 
 		const trimmed = await newTrim.save()
 		
