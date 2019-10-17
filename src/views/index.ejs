@@ -13,6 +13,9 @@
           <a href="/"> <img src="https://res.cloudinary.com/leankhan/image/upload/v1570985383/trim/trim-logo-2.png" alt="trim-logo" class="trim-logo" /></a>
 
           <h1 class="mb-2">Shorten Your Links</h1>
+          <h5 class="small-heading ">
+              ...the platform that gets all links trimmed efficiently
+            </h5>
           <!-- INPUT URL -->
           <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12" style="margin: 0 auto;">
@@ -44,10 +47,10 @@
                       <input type="text" class="form-control form-control-lg" id="long_url" name="long_url" placeholder="Long URL" required />
                     </div>
                     <div class="input-groupp mb-2">
-                      <input type="text" class="form-control form-control-lg" id="custom_url" placeholder="Custom URL">
+                      <input type="text" class="form-control form-control-lg" id="custom_url" name="custom_url" placeholder="Custom URL">
                     </div>
                     <div class="input-groupp mb-3">
-                      <input id=" expiry_date " class="form-control form-control-lg" type="text" placeholder="Expiry Date " onfocusin="(this.type='date' )" onfocusout="(this.type='text' ) ">
+                      <input id="expiry_date" name="expiry_date" class="form-control form-control-lg" type="text" placeholder="Expiry Date " onfocusin="(this.type='date' )" onfocusout="(this.type='text' ) ">
                     </div>
                     <div class="float-left">
                       <button type="submit " onclick="closeAlert() " class="btn btn-success custom-btn btn-advance"><i class="fas fa-cut fa-lg "></i>&nbsp;&nbsp;Trim</button>
@@ -57,10 +60,6 @@
               </form>
             </div>
           </div>
-
-          <h5 class="small-heading ">
-            ...the platform that gets all links trimmed efficiently
-          </h5>
 
           <!-- LINK OVERVIEW SECTION -->
             <div id="msg" class="alert alert-danger" style="display:none">
@@ -98,7 +97,12 @@
 													</a>
 												</td>
 												<td id="col-expiry">
-													<%=clip.expiry_date || '—' %>
+                          <%if(clip.expiry_date){%>
+                            <%let expiry_date = new Date(clip.expiry_date).toDateString()%>
+                            <%=expiry_date%>
+                          <%}else{%>
+                            —
+                          <%}%>
 												</td>
 												<td class="action-btn">
 													<a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="<%=clip.clipped_url%>" data-tippy-placement="top" data-tippy-content="COPIED!">
@@ -219,6 +223,10 @@
 
     document.querySelector('#advance').addEventListener('click', () => {
       formType.innerHTML = advanceForm;
+			const calendar = document.querySelector("#expiry_date");
+			const tomorrow = new Date();
+			tomorrow.setDate(tomorrow.getDate() + 1);
+      calendar.setAttribute('min', tomorrow.toISOString().split('T')[0]);
     });
   </script>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v4.0&appId=1060385767685912&autoLogAppEvents=1"></script>
