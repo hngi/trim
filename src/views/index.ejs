@@ -53,7 +53,7 @@
                       <input id="expiry_date" name="expiry_date" class="form-control form-control-lg" type="text" placeholder="Expiry Date " onfocusin="(this.type='date' )" onfocusout="(this.type='text' ) ">
                     </div>
                     <div class="float-left">
-                      <button type="submit " onclick="closeAlert() " class="btn btn-success custom-btn btn-advance"><i class="fas fa-cut fa-lg "></i>&nbsp;&nbsp;Trim</button>
+                      <button type="submit " onclick="closeAlert()" class="btn btn-success custom-btn btn-advance"><i class="fas fa-cut fa-lg "></i>&nbsp;&nbsp;Trim</button>
                     </div>
                   </div>
                 </div>
@@ -62,13 +62,13 @@
           </div>
 
           <!-- LINK OVERVIEW SECTION -->
-            <div id="msg" class="alert alert-danger" style="display:none">
-              <a href="# " class="fa-pull-right" onclick="closeAlert() " aria-label="close ">&times;</a>
-            </div>
-						
-						<div class="container col-md-12" id="clips-list-container" 
-								<% if(userClips.length == 0){%>
-									style="display:none;" <%}
+          <div id="msg" class="alert alert-danger" style="display:none">
+            <a href="# " class="fa-pull-right" onclick="closeAlert() " aria-label="close ">&times;</a>
+          </div>
+
+          <div class="container col-md-12" id="clips-list-container" <% if(userClips.length==0 ){%>
+            style="display:none;"
+            <%}
 								%>
 							>
 							<div class="card click-metrics ">

@@ -12,6 +12,7 @@ const printNewTrim = async(response)=> {
 	if (!response.ok) 
 		return showError(response, true);
 
+	trimUrlForm.reset();
 	let tr_clip = document.createElement('tr')
 	tr_clip.id = 'table-body'
 	// Logic to add new trim to the list here.
