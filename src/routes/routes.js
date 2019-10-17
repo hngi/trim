@@ -15,7 +15,6 @@ import {
 
 export const initRoutes = app => {
   app.get("/", validateCookie, renderLandingPage);
-  app.get("/about", (req, res) => res.status(200).render("about"));
   app.post("/", stripUrl, validateOwnDomain, urlAlreadyTrimmedByUser, trimUrl);
   app.get("/about", aboutPage);
 

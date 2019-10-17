@@ -2,6 +2,7 @@ import UrlShorten from "../models/UrlShorten";
 import nanoid from "nanoid";
 import { DOMAIN_NAME } from "../config/constants";
 import { respondWithWarning } from '../helpers/responseHandler';
+import { updateClickCount } from "../helpers/clickHandler";
 
 /**
  * This function trims a new url that hasn't been trimmed before
@@ -22,7 +23,6 @@ export const trimUrl = async (req, res) => {
       clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
       urlCode: newUrlCode,
       created_by: req.cookies.userID,
-      click_count: 0
     });
 
     if (expiresBy) {
@@ -83,8 +83,7 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
         title: `trim not found :(`
       });
     } else {
-      url.click_count += 1;
-      await url.save();
+      await updateClickCount(req, url._id).catch(err => { throw err; });
 
       if (url.long_url.startsWith("http")) return res.redirect(url.long_url);
       else res.redirect(`http://${url.long_url}`);
