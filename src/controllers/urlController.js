@@ -29,6 +29,11 @@ export const trimUrl = async (req, res) => {
 
     if(expiresBy){
       newTrim.expiresBy = expiresBy
+      const currentDate = new Date()
+      if(currentDate >= new Date(expiresBy)){
+        const result = respondWithWarning(res, 400, "Expiration must occur on a future date");
+        return result
+      }
     }
 
     const trimmed = await newTrim.save()
@@ -66,7 +71,7 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
       const currentDate = new Date()
       if(currentDate > url.expiresBy){
         await UrlShorten.findByIdAndDelete(url._id)
-        return res.redirect('/');
+        return res.status(404).render('error');
       }
     }
 
