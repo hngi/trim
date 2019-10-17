@@ -98,7 +98,8 @@
 													</a>
 												</td>
 												<td id="col-expiry">
-													<%=clip.expiry_date || '—' %>
+                          <%let expiry_date = new Date(clip.expiresBy).toDateString() %>
+													<%=expiry_date || '—' %>
 												</td>
 												<td class="action-btn">
 													<a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="<%=clip.clipped_url%>" data-tippy-placement="top" data-tippy-content="COPIED!">

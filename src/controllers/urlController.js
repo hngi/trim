@@ -47,8 +47,15 @@ export const trimUrl = async (req, res) => {
 		
 		// If the user provided an expiry date, use it. If not, leave the field blank.
 		if (expiry_date) {
-      newTrim.expiry_date = new Date(expiry_date);
-    }			
+			expiry_date = new Date(expiry_date);
+			const currentDate = new Date();
+			
+			if (currentDate >= expiry_date) {
+				return respondWithWarning(res, 400, "Expiration must occur on a future date");
+			}
+
+			newTrim.expiry_date = expiry_date;
+		}		
 
 		const trimmed = await newTrim.save()
 		
@@ -82,9 +89,18 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
       urlCode: id
     });
 
+    if(url.expiresBy){
+      const currentDate = new Date()
+      if(currentDate > url.expiresBy){
+        await UrlShorten.findByIdAndDelete(url._id)
+        return res.status(404).render('error');
+      }
+    }
+
     if (!url) {
       return res.status(404).render('error');
     }
+
     url.click_count += 1;
     await url.save();
 		
