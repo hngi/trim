@@ -11,30 +11,12 @@ import { respondWithWarning } from '../helpers/responseHandler';
  */
 export const trimUrl = async (req, res) => {
 	try {
-		const {expiry_date, custom_url} = req.body;
+		let {expiry_date, custom_url} = req.body;
 
 		let newUrlCode;
 
-		//If the user submitted a custom url, execute this block.
-		if (custom_url) {
-			//Search the db for this custom url.
-			let retrievedClip = await UrlShorten.findOne({urlCode: custom_url});
-			
-			//If an existing clip already has the same custom url code....
-			if (retrievedClip) {
-				//If the existing clip has expired...
-				if (retrievedClip.expiry_date && retrievedClip.expiry_date < Date.now()) {
-					//delete it. The custom_url will be considered available for use.
-					await UrlShorten.deleteOne(retrievedClip);
-				}
-				else //If the custom url is in use and not expired, respond with error.
-					return respondWithWarning(res, 409, "Custom URL already in use");
-			}
-
-			//If the custom url is available for use, make it the new url code.
-			newUrlCode = custom_url;
-			//console.log(custom_url + ' ' + newUrlCode);
-		}
+		//If the user submitted a custom url, use it. This has been validated by an earlier middleware.
+		if (custom_url) newUrlCode = encodeURIComponent(custom_url); //Sanitize the string as a valid uri comp. first.
 		else newUrlCode = nanoid(5); //If no custom url is provided, generate a random one.
     
 		const newTrim = new UrlShorten({
@@ -49,7 +31,7 @@ export const trimUrl = async (req, res) => {
 		if (expiry_date) {
 			expiry_date = new Date(expiry_date);
 			const currentDate = new Date();
-			
+
 			if (currentDate >= expiry_date) {
 				return respondWithWarning(res, 400, "Expiration must occur on a future date");
 			}
@@ -89,9 +71,9 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
       urlCode: id
     });
 
-    if(url.expiresBy){
+    if(url.expiry_date){
       const currentDate = new Date()
-      if(currentDate > url.expiresBy){
+      if(currentDate > url.expiry_date){
         await UrlShorten.findByIdAndDelete(url._id)
         return res.status(404).render('error');
       }

@@ -107,7 +107,7 @@ describe("GET /:id", () => {
       urlCode: "12345",
       created_by: SAMPLE_COOKIE,
       click_count: 0,
-      expiresBy: new Date("01/01/1970")
+      expiry_date: new Date("01/01/1970")
     });
 
     url.save();

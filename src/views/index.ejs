@@ -50,7 +50,7 @@
                       <input type="text" class="form-control form-control-lg" id="custom_url" name="custom_url" placeholder="Custom URL">
                     </div>
                     <div class="input-groupp mb-3">
-                      <input id=" expiry_date " name="expiry_date" class="form-control form-control-lg" type="text" placeholder="Expiry Date " onfocusin="(this.type='date' )" onfocusout="(this.type='text' ) ">
+                      <input id="expiry_date" name="expiry_date" class="form-control form-control-lg" type="text" placeholder="Expiry Date " onfocusin="(this.type='date' )" onfocusout="(this.type='text' ) ">
                     </div>
                     <div class="float-left">
                       <button type="submit " onclick="closeAlert() " class="btn btn-success custom-btn btn-advance"><i class="fas fa-cut fa-lg "></i>&nbsp;&nbsp;Trim</button>
@@ -97,8 +97,8 @@
 													</a>
 												</td>
 												<td id="col-expiry">
-                          <%if(clip.expiresBy){%>
-                            <%let expiry_date = new Date(clip.expiresBy).toDateString()%>
+                          <%if(clip.expiry_date){%>
+                            <%let expiry_date = new Date(clip.expiry_date).toDateString()%>
                             <%=expiry_date%>
                           <%}else{%>
                             —
@@ -223,8 +223,10 @@
 
     document.querySelector('#advance').addEventListener('click', () => {
       formType.innerHTML = advanceForm;
-      const calendar = document.querySelector("#expiry_date")
-      calendar.setAttribute('min', new Date().toISOString().split('T')[0]);
+			const calendar = document.querySelector("#expiry_date");
+			const tomorrow = new Date();
+			tomorrow.setDate(tomorrow.getDate() + 1);
+      calendar.setAttribute('min', tomorrow.toISOString().split('T')[0]);
     });
   </script>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v4.0&appId=1060385767685912&autoLogAppEvents=1"></script>
