@@ -66,3 +66,16 @@ export const urlAlreadyTrimmedByUser = (req, res, next) => {
     return result;
   });
 };
+
+export const customUrlExists = async(req, res, next) => {
+  const customUrl = req.body.custom_url
+  if(customUrl){ 
+    const retrievedClip = await UrlShorten.findOne({urlCode: customUrl})
+    if (!retrievedClip) {
+      return next();
+    }
+    const result = respondWithWarning(res, 409, "Custom URL exists");
+    return result;
+  };
+  next()
+};
