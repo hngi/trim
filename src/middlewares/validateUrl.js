@@ -22,7 +22,6 @@ export const stripUrl = async (req, res, next) => {
   const { error } = await schema.validate({ url: long_url, expiry: expiresBy, custom_url });
   if (error) {
     const result = respondWithWarning(res, 400, error.message);
-    console.log(error)
     return result;
   }
   req.url = long_url;
