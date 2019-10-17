@@ -8,7 +8,15 @@ chai.use(chaiHttp);
 const { expect } = chai;
 let clips = {};
 
-describe("POST /api/trim", () => {
+describe("TRIM POST /", () => {
+  before( () => {
+    return new Promise(function (resolve) {
+      UrlShorten.deleteOne({ long_url: 'www.google.com' })
+        .then(function (result) {
+          resolve();
+        });
+    });
+  });
   it("it create a new url", done => {
     chai
       .request(app)
