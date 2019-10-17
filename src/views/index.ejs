@@ -13,6 +13,9 @@
           <a href="/"> <img src="https://res.cloudinary.com/leankhan/image/upload/v1570985383/trim/trim-logo-2.png" alt="trim-logo" class="trim-logo" /></a>
 
           <h1 class="mb-2">Shorten Your Links</h1>
+          <h5 class="small-heading ">
+              ...the platform that gets all links trimmed efficiently
+            </h5>
           <!-- INPUT URL -->
           <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12" style="margin: 0 auto;">
@@ -58,10 +61,6 @@
             </div>
           </div>
 
-          <h5 class="small-heading ">
-            ...the platform that gets all links trimmed efficiently
-          </h5>
-
           <!-- LINK OVERVIEW SECTION -->
             <div id="msg" class="alert alert-danger" style="display:none">
               <a href="# " class="fa-pull-right" onclick="closeAlert() " aria-label="close ">&times;</a>
@@ -98,8 +97,12 @@
 													</a>
 												</td>
 												<td id="col-expiry">
-                          <%let expiry_date = new Date(clip.expiresBy).toDateString() %>
-													<%=expiry_date || '—' %>
+                          <%if(clip.expiresBy){%>
+                            <%let expiry_date = new Date(clip.expiresBy).toDateString()%>
+                            <%=expiry_date%>
+                          <%}else{%>
+                            —
+                          <%}%>
 												</td>
 												<td class="action-btn">
 													<a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="<%=clip.clipped_url%>" data-tippy-placement="top" data-tippy-content="COPIED!">
@@ -220,6 +223,8 @@
 
     document.querySelector('#advance').addEventListener('click', () => {
       formType.innerHTML = advanceForm;
+      const calendar = document.querySelector("#expiry_date")
+      calendar.setAttribute('min', new Date().toISOString().split('T')[0]);
     });
   </script>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v4.0&appId=1060385767685912&autoLogAppEvents=1"></script>
