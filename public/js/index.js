@@ -90,8 +90,6 @@ if(trimUrlForm){
 		for (var pair of clipData.entries()) {
 			urlData[pair[0]] = pair[1];
 		}
-	
-		console.log(urlData)
 		fetch('/', {
 			method: 'POST',
 			headers: {
