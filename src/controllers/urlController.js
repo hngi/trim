@@ -27,6 +27,10 @@ export const trimUrl = async (req, res) => {
 			click_count: 0
     });		
 
+    if(expiresBy){
+      newTrim.expiresBy = expiresBy.toString()
+    }
+
     const trimmed = await newTrim.save()
     if(!trimmed){
       const result = respondWithWarning(res, 500, "Server error");

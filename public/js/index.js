@@ -17,8 +17,8 @@ const printNewTrim = async(response)=> {
 	// Logic to add new trim to the list here.
 	try {
 		const newClip = await response.json()
-		const {click_count, long_url, urlCode, clipped_url, expiry_date} = await newClip.payload;
-
+		const {click_count, long_url, urlCode, clipped_url, expiresBy} = await newClip.payload;
+		const expiry_date = new Date(expiresBy).toDateString()
 		const clip_row = `
 			<td>
 				${click_count}
