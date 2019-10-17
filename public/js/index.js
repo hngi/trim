@@ -12,6 +12,7 @@ const printNewTrim = async(response)=> {
 	if (!response.ok) 
 		return showError(response, true);
 
+	trimUrlForm.reset();
 	let tr_clip = document.createElement('tr')
 	let td_click_count = document.createElement('td')
 	let td_long_url = document.createElement('td')
@@ -29,8 +30,8 @@ const printNewTrim = async(response)=> {
 
 	// Logic to add new trim to the list here.
 	try {
-		const newClip = await response.json()
-		const {click_count, long_url, urlCode, clipped_url, expiry_date} = await newClip.payload;
+		const newClip = await response.json();
+		const { click_count, long_url, urlCode, clipped_url, expiresBy } = await newClip.payload;
 
 		td_action_btn.classList.add('action-btn');
 
@@ -47,7 +48,7 @@ const printNewTrim = async(response)=> {
 		tr_clip.appendChild(td_trimmed)
 
 		td_expiry.id="col-expiry"
-		td_expiry.innerText = expiry_date || '—'
+		td_expiry.innerText = expiresBy ? new Date(expiresBy).toLocaleDateString("en-US") : '—'
 		tr_clip.appendChild(td_expiry)
 
 
@@ -112,15 +113,25 @@ trimUrlForm.onsubmit = (e)=> {
 	e.preventDefault()
 	const clipData = new FormData(trimUrlForm);
 	const newObj = {}; // constructing new obj.
+	let urlData; // data to be sent via json
 
 	// add the form key/value pairs
 	for (var pair of clipData.entries()) {
 		newObj[pair[0]] = pair[1];
 	}
-	const {created_by, long_url} = newObj
-	const urlData = {
-		created_by, long_url
+
+	if (newObj.expiresBy) {
+		const { created_by, long_url, expiresBy, custom_url } = newObj
+		urlData = {
+			created_by, long_url, expiresBy, custom_url
+		}
+	} else {
+		const {created_by, long_url} = newObj
+		urlData = {
+			created_by, long_url
+		}
 	}
+	
 
 	fetch('/', {
 		method: 'POST',

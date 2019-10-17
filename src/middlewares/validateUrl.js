@@ -10,16 +10,19 @@ import { respondWithWarning } from '../helpers/responseHandler';
  * @param {*} next
  */
 export const stripUrl = async (req, res, next) => {
-  const { long_url } = req.body;
+  const { long_url, expiresBy, custom_url } = req.body;
   const schema = Joi.object({
     url: Joi.string().regex(
       /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
-    )
+    ).error(new Error('Enter a valid URL')),
+    expiry: Joi.date().iso().greater(new Date()).error(new Error('Expiry date must be in the future')),
+    custom_url: Joi.string().alphanum().max(6),
   });
 
-  const { error } = await schema.validate({ url: long_url });
+  const { error } = await schema.validate({ url: long_url, expiry: expiresBy, custom_url });
   if (error) {
-    const result = respondWithWarning(res, 400, "Not a valid URL");
+    const result = respondWithWarning(res, 400, error.message);
+    console.log(error)
     return result;
   }
   req.url = long_url;
