@@ -13,10 +13,9 @@ import { updateClickCount } from "../helpers/clickHandler";
 export const trimUrl = async (req, res) => {
   const { userID } = req.cookies;
   const { expiresBy } = req.body;
-
   try {
     // Generate short code
-    let newUrlCode = nanoid(5); //36 is the highest supported radix.
+    let newUrlCode = nanoid(5);
 
     const newTrim = new UrlShorten({
       long_url: req.url,
@@ -25,36 +24,22 @@ export const trimUrl = async (req, res) => {
       created_by: req.cookies.userID,
     });
 
-    if (expiresBy) {
-      newTrim.expiresBy = new Date(expiresBy);
-    }
+    newTrim.expiresBy = expiresBy ? new Date(expiresBy) : null;
 
     newTrim.save((err, newTrim) => {
       if (err) {
-        console.log("Error =>", err);
-        const result = renderWithWarning(
-          res,
-          500,
-          req.cookies.userID,
-          "Server error"
-        );
+        const result = respondWithWarning(res, 500, "Server error");
         return result;
       }
-      UrlShorten.find({
-        created_by: req.cookies.userID //Find all clips created by this user.
-      })
-        .sort({
-          createdAt: "desc" // sort the created clips in a decending order
-        })
-        .then(clips => {
-          return res.status(201).render("index", {
-            userClips: clips,
-            success: true,
-            created_by: req.cookies.userID
-          });
-        });
+
+      res.status(201).json({
+        success: true,
+        payload: newTrim
+      });
     });
-  } catch (err) {
+  }
+  catch (err) {
+    console.log(err)
     const result = respondWithWarning(res, 500, "Server error");
     return result;
   }
