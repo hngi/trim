@@ -17,8 +17,10 @@ const printNewTrim = async(response)=> {
 	// Logic to add new trim to the list here.
 	try {
 		const newClip = await response.json()
-		const {click_count, long_url, urlCode, clipped_url, expiresBy} = await newClip.payload;
-		const expiry_date = new Date(expiresBy).toDateString()
+		let {click_count, long_url, urlCode, clipped_url, expiry_date} = await newClip.payload;
+
+		expiry_date = new Date(expiry_date).toDateString();
+				
 		const clip_row = `
 			<td>
 				${click_count}
@@ -80,9 +82,9 @@ const showError = async(reason, isServerResponse = false)=> {
 }
 
 if(trimUrlForm){
-
 	trimUrlForm.onsubmit = (e)=> {
-		e.preventDefault()
+		e.preventDefault();
+
 		const clipData = new FormData(trimUrlForm);
 		const urlData = {}; // constructing new obj.
 	
@@ -90,6 +92,7 @@ if(trimUrlForm){
 		for (var pair of clipData.entries()) {
 			urlData[pair[0]] = pair[1];
 		}
+
 		fetch('/', {
 			method: 'POST',
 			headers: {
@@ -98,6 +101,6 @@ if(trimUrlForm){
 			body: JSON.stringify({...urlData})
 		})
 		.then(printNewTrim) //Be sure to handle error response from the server.
-		.catch(showError) //If the browser fails to communicate with the server, handle such errors here.
+		.catch(showError); //If the browser fails to communicate with the server, handle such errors here.
 	}
 }

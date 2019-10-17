@@ -11,45 +11,67 @@ import { respondWithWarning } from '../helpers/responseHandler';
  */
 export const trimUrl = async (req, res) => {
 	try {
-		// Generate short code
-    const {expiresBy, custom_url} = req.body
-    let newUrlCode = custom_url
-    if(!custom_url){
-      newUrlCode = nanoid(5);
-    }
-    
+		const {expiry_date, custom_url} = req.body;
 
+		let newUrlCode;
+
+		//If the user submitted a custom url, execute this block.
+		if (custom_url) {
+			//Search the db for this custom url.
+			let retrievedClip = await UrlShorten.findOne({urlCode: custom_url});
+			
+			//If an existing clip already has the same custom url code....
+			if (retrievedClip) {
+				//If the existing clip has expired...
+				if (retrievedClip.expiry_date && retrievedClip.expiry_date < Date.now()) {
+					//delete it. The custom_url will be considered available for use.
+					await UrlShorten.deleteOne(retrievedClip);
+				}
+				else //If the custom url is in use and not expired, respond with error.
+					return respondWithWarning(res, 409, "Custom URL already in use");
+			}
+
+			//If the custom url is available for use, make it the new url code.
+			newUrlCode = custom_url;
+			//console.log(custom_url + ' ' + newUrlCode);
+		}
+		else newUrlCode = nanoid(5); //If no custom url is provided, generate a random one.
+    
 		const newTrim = new UrlShorten({
 			long_url: req.url,
 			clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
-			urlCode: newUrlCode ,
+			urlCode: newUrlCode,
 			created_by: req.cookies.userID,
 			click_count: 0
-    });		
+		});
+		
+		// If the user provided an expiry date, use it. If not, leave the field blank.
+		if (expiry_date) {
+			expiry_date = new Date(expiry_date);
+			const currentDate = new Date();
+			
+			if (currentDate >= expiry_date) {
+				return respondWithWarning(res, 400, "Expiration must occur on a future date");
+			}
 
-    if(expiresBy){
-      newTrim.expiresBy = expiresBy
-      const currentDate = new Date()
-      if(currentDate >= new Date(expiresBy)){
-        const result = respondWithWarning(res, 400, "Expiration must occur on a future date");
-        return result
-      }
-    }
+			newTrim.expiry_date = expiry_date;
+		}		
 
-    const trimmed = await newTrim.save()
-    if(!trimmed){
-      const result = respondWithWarning(res, 500, "Server error");
-      return result;
-    }
-			res.status(201).json({
-				success: true,
-				payload: trimmed
-			});
+		const trimmed = await newTrim.save()
+		
+    if (!trimmed) {
+      console.log("Failed to save new trim");
+			return respondWithWarning(res, 500, "Server error");
+		}
+		
+		res.status(201).json({
+			success: true,
+			payload: trimmed
+		});
   } 
   catch (err) {
-    console.log(err)
-    const result = respondWithWarning(res, 500, "Server error");
-    return result;
+		console.log(err);
+    return respondWithWarning(res, 500, "Server error");
   }
 };
 
