@@ -17,6 +17,8 @@ export const trimUrl = async (req, res) => {
     // Generate short code
     let newUrlCode = nanoid(5); //36 is the highest supported radix.
 
+    const {expiresBy, custom_url} = req.body
+
     const newTrim = new UrlShorten({
       long_url: req.url,
       clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
@@ -25,8 +27,9 @@ export const trimUrl = async (req, res) => {
       click_count: 0
     });
 
-    if (expiresBy) {
+    if (expiresBy && custom_url) {
       newTrim.expiresBy = new Date(expiresBy);
+      newTrim.custom_url = custom_url
     }
 
     newTrim.save((err, newTrim) => {
