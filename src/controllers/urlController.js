@@ -1,46 +1,51 @@
 import UrlShorten from "../models/UrlShorten";
 import nanoid from "nanoid";
 import { DOMAIN_NAME } from "../config/constants";
-import { respondWithWarning } from '../helpers/responseHandler';
+import { renderWithWarning } from '../helpers/responseHandler';
+import getMetric from '../middlewares/getMetrics'
 
 /**
- * This function trims a new url that hasn't been trimmed before
+ * This function trim a new url that hasn't been trimmed before
  * @param {object} req
  * @param {object} res
  * @returns {object} response object with trimmed url
  */
 export const trimUrl = async (req, res) => {
   const { userID } = req.cookies;
-  const { expiresBy } = req.body;
   try {
-    // Generate short code
-    let newUrlCode = nanoid(5);
 
-    const newTrim = new UrlShorten({
-      long_url: req.url,
-      clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
-      urlCode: newUrlCode,
-      created_by: req.cookies.userID,
-      click_count: 0
-    });
+      // Generate short code
+      let newUrlCode = nanoid(5); //36 is the highest supported radix.
 
-    newTrim.expiresBy = expiresBy ? new Date(expiresBy) : null;
-
-    newTrim.save((err, newTrim) => {
-      if (err) {
-        const result = respondWithWarning(res, 500, "Server error");
-        return result;
-      }
-
-      res.status(201).json({
-        success: true,
-        payload: newTrim
+      const newTrim = new UrlShorten({
+        long_url: req.url,
+        clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
+        urlCode: newUrlCode,
+        created_by: req.cookies.userID ,
+        click_count: 0
       });
-    });
-  }
-  catch (err) {
+
+      newTrim.save((err, newTrim) => {
+        if (err) {
+          const result = renderWithWarning(res, 500, req.cookies.userID, "Server error");
+          return result;
+        }
+        UrlShorten.find({
+          created_by: req.cookies.userID //Find all clips created by this user.
+        })
+          .sort({
+            createdAt: "desc" // sort the created clips in a decending order
+          }).then(clips => {
+            return res.status(201).render("index", {
+              userClips: clips,
+              success: true,
+              created_by: req.cookies.userID
+            });
+          });
+      });
+  } catch (err) {
     console.log(err)
-    const result = respondWithWarning(res, 500, "Server error");
+    const result = renderWithWarning(res, 500, req.cookies.userID, "Server error");
     return result;
   }
 };
@@ -60,21 +65,29 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
     });
 
     if (!url) {
-      return res.status(404).render("error");
-      // Check if the found url's expired by field
-    } else if (!!url.expiresBy && url.expiresBy <= new Date()) {
-      return res.status(404).render("404", {
-        trim: url.clipped_url,
-        title: `trim not found :(`
-      });
-    } else {
-      url.click_count += 1;
-      await url.save();
-
-      if (url.long_url.startsWith("http")) return res.redirect(url.long_url);
-      else res.redirect(`http://${url.long_url}`);
+      return res.status(404).render('error');
     }
+    url.click_count += 1;
+    getMetric;
+    await url.save();
+		
+		if(url.long_url.startsWith('http'))
+			return res.redirect(url.long_url);
+		else 
+			res.redirect(`http://${url.long_url}`);
   } catch (error) {
-    return res.status(404).render("error");
+    return res.status(404).render('error');
   }
 };
+
+export const getThisMetric= (req,res)=>{
+  const { id } = req.params;
+  const url = UrlShorten.findOne({
+    urlCode: id
+  });
+  if (!url) {
+    return res.status(404).render('error');
+  } else{
+    return res.render("metrics", {url:url})
+  }
+}
