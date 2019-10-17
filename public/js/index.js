@@ -19,7 +19,8 @@ const printNewTrim = async(response)=> {
 		const newClip = await response.json()
 		let {click_count, long_url, urlCode, clipped_url, expiry_date} = await newClip.payload;
 
-		expiry_date = new Date(expiry_date).toDateString();
+		if (expiry_date)
+			expiry_date = new Date(expiry_date).toDateString();
 				
 		const clip_row = `
 			<td>
