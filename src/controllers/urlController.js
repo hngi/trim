@@ -10,38 +10,50 @@ import { respondWithWarning } from '../helpers/responseHandler';
  * @returns {object} response object with trimmed url
  */
 export const trimUrl = async (req, res) => {
-  const { userID } = req.cookies;
-  const { expiresBy } = req.body;
-  try {
-    // Generate short code 
-    let newUrlCode = nanoid(5);
+	try {
+		let {expiry_date, custom_url} = req.body;
 
-    const newTrim = new UrlShorten({
-      long_url: req.url,
-      clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
-      urlCode: newUrlCode,
-      created_by: req.cookies.userID,
-      click_count: 0
-    });
+		let newUrlCode;
 
-    newTrim.expiresBy = expiresBy ? new Date(expiresBy) : null;
+		//If the user submitted a custom url, use it. This has been validated by an earlier middleware.
+		if (custom_url) newUrlCode = encodeURIComponent(custom_url); //Sanitize the string as a valid uri comp. first.
+		else newUrlCode = nanoid(5); //If no custom url is provided, generate a random one.
+    
+		const newTrim = new UrlShorten({
+			long_url: req.url,
+			clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
+			urlCode: newUrlCode,
+			created_by: req.cookies.userID,
+			click_count: 0
+		});
+		
+		// If the user provided an expiry date, use it. If not, leave the field blank.
+		if (expiry_date) {
+			expiry_date = new Date(expiry_date);
+			const currentDate = new Date();
 
-    newTrim.save((err, newTrim) => {
-      if (err) {
-        const result = respondWithWarning(res, 500, "Server error");
-        return result;
-      }
+			if (currentDate >= expiry_date) {
+				return respondWithWarning(res, 400, "Expiration must occur on a future date");
+			}
 
-      res.status(201).json({
-        success: true,
-        payload: newTrim
-      });
-    });
-  }
+			newTrim.expiry_date = expiry_date;
+		}		
+
+		const trimmed = await newTrim.save()
+		
+    if (!trimmed) {
+      console.log("Failed to save new trim");
+			return respondWithWarning(res, 500, "Server error");
+		}
+		
+		res.status(201).json({
+			success: true,
+			payload: trimmed
+		});
+  } 
   catch (err) {
-    console.log(err)
-    const result = respondWithWarning(res, 500, "Server error");
-    return result;
+		console.log(err);
+    return respondWithWarning(res, 500, "Server error");
   }
 };
 
@@ -59,22 +71,26 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
       urlCode: id
     });
 
-    if (!url) {
-      return res.status(404).render("error");
-      // Check if the found url's expired by field
-    } else if (!!url.expiresBy && url.expiresBy <= new Date()) {
-      return res.status(404).render("404", {
-        trim: url.clipped_url,
-        title: `trim not found :(`
-      });
-    } else {
-      url.click_count += 1;
-      await url.save();
-
-      if (url.long_url.startsWith("http")) return res.redirect(url.long_url);
-      else res.redirect(`http://${url.long_url}`);
+    if(url.expiry_date){
+      const currentDate = new Date()
+      if(currentDate > url.expiry_date){
+        await UrlShorten.findByIdAndDelete(url._id)
+        return res.status(404).render('error');
+      }
     }
+
+    if (!url) {
+      return res.status(404).render('error');
+    }
+
+    url.click_count += 1;
+    await url.save();
+		
+		if(url.long_url.startsWith('http'))
+			return res.redirect(url.long_url);
+		else 
+			res.redirect(`http://${url.long_url}`);
   } catch (error) {
-    return res.status(404).render("error");
+    return res.status(404).render('error');
   }
 };
