@@ -13,7 +13,7 @@ export const trimUrl = async (req, res) => {
   const { userID } = req.cookies;
   const { expiresBy } = req.body;
   try {
-    // Generate short code
+    // Generate short code 
     let newUrlCode = nanoid(5);
 
     const newTrim = new UrlShorten({
