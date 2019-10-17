@@ -108,27 +108,30 @@ const showError = async(reason, isServerResponse = false)=> {
 	}
 }
 
-trimUrlForm.onsubmit = (e)=> {
-	e.preventDefault()
-	const clipData = new FormData(trimUrlForm);
-	const newObj = {}; // constructing new obj.
+if(trimUrlForm){
 
-	// add the form key/value pairs
-	for (var pair of clipData.entries()) {
-		newObj[pair[0]] = pair[1];
+	trimUrlForm.onsubmit = (e)=> {
+		e.preventDefault()
+		const clipData = new FormData(trimUrlForm);
+		const newObj = {}; // constructing new obj.
+	
+		// add the form key/value pairs
+		for (var pair of clipData.entries()) {
+			newObj[pair[0]] = pair[1];
+		}
+		const {created_by, long_url} = newObj
+		const urlData = {
+			created_by, long_url
+		}
+	
+		fetch('/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(urlData)
+		})
+		.then(printNewTrim) //Be sure to handle error response from the server.
+		.catch(showError) //If the browser fails to communicate with the server, handle such errors here.
 	}
-	const {created_by, long_url} = newObj
-	const urlData = {
-		created_by, long_url
-	}
-
-	fetch('/', {
-		method: 'POST',
-		headers: {
-      'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(urlData)
-	})
-	.then(printNewTrim) //Be sure to handle error response from the server.
-	.catch(showError) //If the browser fails to communicate with the server, handle such errors here.
 }
