@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const device = require('express-device');
 const { PORT, SECRET_KEY } = require('./config/constants');
 const { initRoutes } = require('./routes/routes');
 const db = require('./database/db');
@@ -21,7 +22,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.set('views', path.join(__dirname, 'views')) // Redirect to the views directory inside the src directory
+app.use(device.capture()); // setup express to detect device types
+
+app.set('views', path.join(__dirname, 'views')); // Redirect to the views directory inside the src directory
 app.use(express.static(path.join(__dirname, '../public'))); // load local css and js files
 app.set('view engine', 'ejs'); 
 
