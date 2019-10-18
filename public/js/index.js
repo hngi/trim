@@ -1,7 +1,7 @@
 const trimUrlForm = document.querySelector('.trim-url-form');
 const table_body = document.querySelector('#tbody');
 const clipsListContainer = document.querySelector('#clips-list-container');
-const err_msg = document.querySelector('#msg')
+const err_msg = document.querySelector('#msg');
 const clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!";
 
 /**Gets the new trim returned from the server and adds it to the display.
@@ -25,7 +25,9 @@ const printNewTrim = async(response)=> {
 				
 		const clip_row = `
 			<td>
-				${click_count}
+			<a id="clipCount" href="#chartModal" data-clip="<%=clip._id%>" onclick="getChartInfo(event, 'device')" data-toggle="modal">
+      	${click_count}
+      </a>		
 			</td>
 			<td>
 				${long_url}
