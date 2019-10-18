@@ -17,8 +17,10 @@ import { getUrlClickMetrics } from '../controllers/metricsController';
 
 export const initRoutes = app => {
   app.get("/", validateCookie, renderLandingPage);
+
   app.get("/about", (req, res) => res.status(200).render("about"));
   app.post("/", stripUrl, validateOwnDomain, urlAlreadyTrimmedByUser, customUrlExists, trimUrl);
+
   app.get("/about", aboutPage);
 
   app.get("/:id", getUrlAndUpdateCount);

@@ -52,6 +52,7 @@
     "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "nanoid": "^2.1.2",
+    "request": "^2.88.0",
     "saslprep": "^1.0.3"
   }
 }
