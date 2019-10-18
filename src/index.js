@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const device = require('express-device');
 const { PORT, SECRET_KEY } = require('./config/constants');
 const { initRoutes } = require('./routes/routes');
 const db = require('./database/db');
@@ -28,6 +29,7 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser()); //Parse the cookie data (User ID).
+app.use(device.capture());
 
 initRoutes(app);
 const port = PORT || 3000;

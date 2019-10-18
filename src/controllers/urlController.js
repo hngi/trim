@@ -2,6 +2,7 @@ import UrlShorten from "../models/UrlShorten";
 import nanoid from "nanoid";
 import { DOMAIN_NAME } from "../config/constants";
 import { respondWithWarning } from '../helpers/responseHandler';
+import { getMetric } from '../middlewares/getMetrics';
 
 /**
  * This function trims a new url that hasn't been trimmed before
@@ -23,8 +24,7 @@ export const trimUrl = async (req, res) => {
 			long_url: req.url,
 			clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
 			urlCode: newUrlCode,
-			created_by: req.cookies.userID,
-			click_count: 0
+			created_by: req.cookies.userID
 		});
 		
 		// Date validation has been done already
@@ -61,6 +61,7 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
     const url = await UrlShorten.findOne({
       urlCode: id
     });
+    getMetric(url._id, req);
 
     if(url.expiry_date){
       const currentDate = new Date()
@@ -73,7 +74,6 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
     if (!url) {
       return res.status(404).render('error');
     }
-
     url.click_count += 1;
     await url.save();
 		
