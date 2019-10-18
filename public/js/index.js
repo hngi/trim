@@ -25,7 +25,9 @@ const printNewTrim = async(response)=> {
 				
 		const clip_row = `
 			<td>
-				${click_count}
+			<a href="#exampleModal" onclick="showChart('device-chart')" data-toggle="modal">
+      	${click_count}
+      </a>		
 			</td>
 			<td>
 				${long_url}
