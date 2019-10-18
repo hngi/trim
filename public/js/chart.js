@@ -1,5 +1,8 @@
     // Load charts
-function showChart(divElement) {
+function showChart(ev, divElement) {
+  const data = getChartInfo(ev.target.dataset.clip); // retrieve metrics for the selected url
+  console.log(data);
+
   var chartCanvas = document.getElementById(divElement);
   google.charts.load('current', {
     'packages': ['corechart']
@@ -30,3 +33,10 @@ function showChart(divElement) {
   }
 }
 
+
+function getChartInfo(urlShortenId) {
+  fetch(`/metrics/${urlShortenId}`)
+  .then(res => res.json())
+  .then(data => console.log(data)) //Be sure to handle error response from the server.
+  .catch(console.error); //If the browser fails to communicate with the server, handle such errors here.
+}
