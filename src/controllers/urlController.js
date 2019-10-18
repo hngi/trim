@@ -2,11 +2,7 @@ import UrlShorten from "../models/UrlShorten";
 import nanoid from "nanoid";
 import { DOMAIN_NAME } from "../config/constants";
 import { respondWithWarning } from '../helpers/responseHandler';
-<<<<<<< HEAD
 import { getMetric } from '../middlewares/getMetrics';
-=======
-import { updateClickCount } from "../helpers/clickHandler";
->>>>>>> ebd888b00f3b9f8ef19e270dbce44f391046f6a9
 
 /**
  * This function trims a new url that hasn't been trimmed before
@@ -18,13 +14,7 @@ export const trimUrl = async (req, res) => {
 	try {
 		let {expiry_date, custom_url} = req.body;
 
-    const newTrim = new UrlShorten({
-      long_url: req.url,
-      clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
-      urlCode: newUrlCode,
-      created_by: req.cookies.userID,
-    });
-
+		let newUrlCode;
 
 		//If the user submitted a custom url, use it. This has been validated by an earlier middleware.
 		if (custom_url) newUrlCode = encodeURIComponent(custom_url); //Sanitize the string as a valid uri comp. first.
@@ -72,17 +62,6 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
       urlCode: id
     });
     getMetric(url._id, req);
-
-    if (!url) {
-      return res.status(404).render("error");
-      // Check if the found url's expired by field
-    } else if (!!url.expiresBy && url.expiresBy <= new Date()) {
-      return res.status(404).render("404", {
-        trim: url.clipped_url,
-        title: `trim not found :(`
-      });
-    } else {
-      await updateClickCount(req, url._id).catch(err => { throw err; });
 
     if(url.expiry_date){
       const currentDate = new Date()
