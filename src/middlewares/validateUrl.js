@@ -68,3 +68,26 @@ export const urlAlreadyTrimmedByUser = (req, res, next) => {
     return result;
   });
 };
+
+export const customUrlExists = async(req, res, next) => {
+	const customUrl = req.body.custom_url;
+	
+	if(customUrl) {
+		//Search the db for this custom url.
+		let retrievedClip = await UrlShorten.findOne({urlCode: customUrl});
+		
+		//If an existing clip already has the same custom url code....
+		if (retrievedClip) {
+			//If the existing clip has expired...
+			if (retrievedClip.expiry_date && retrievedClip.expiry_date < Date.now()) {
+				//delete it. The custom_url will be considered available for use.
+				await UrlShorten.deleteOne(retrievedClip);
+				return next();
+			}
+			else //If the custom url is in use and not expired, respond with error.
+				return respondWithWarning(res, 409, "Custom URL already in use. Please try another");
+		}
+	};
+	
+  next()
+};

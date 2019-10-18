@@ -22,6 +22,7 @@ UrlShortenSchema.post('find', async function (docs) {
   for (const doc of docs) {
     await doc.populate('click_count').execPopulate();
   }
+
 });
 
 export default mongoose.model("UrlShorten", UrlShortenSchema);

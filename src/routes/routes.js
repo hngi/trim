@@ -4,7 +4,8 @@ import {
   validateOwnDomain,
   validateCookie,
   urlAlreadyTrimmedByUser,
-  stripUrl
+  stripUrl,
+  customUrlExists
 } from "../middlewares/middlewares";
 import {
   getUrlAndUpdateCount,
@@ -15,7 +16,10 @@ import {
 
 export const initRoutes = app => {
   app.get("/", validateCookie, renderLandingPage);
-  app.post("/", stripUrl, validateOwnDomain, urlAlreadyTrimmedByUser, trimUrl);
+
+  app.get("/about", (req, res) => res.status(200).render("about"));
+  app.post("/", stripUrl, validateOwnDomain, urlAlreadyTrimmedByUser, customUrlExists, trimUrl);
+
   app.get("/about", aboutPage);
 
   app.get("/:id", getUrlAndUpdateCount);
