@@ -14,13 +14,13 @@
 
           <h1 class="mb-2">Shorten Your Links</h1>
           <h5 class="small-heading ">
-              ...the platform that gets all links trimmed efficiently
-            </h5>
+            ...the platform that gets all links trimmed efficiently
+          </h5>
           <!-- INPUT URL -->
           <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12" style="margin: 0 auto;">
-              <form class="trim-url-form">
-                <div class="input-groupp mb-3">
+              <form class="trim-url-form" style="margin: 0 auto;">
+                <div class="mb-3">
                   <div class="toggle-radio">
                     <input type="radio" name="rdo" id="simple" checked>
                     <input type="radio" name="rdo" id="advance">
@@ -31,7 +31,7 @@
                     </div>
                   </div>
                 </div>
-                <div id="form-type">
+                <div id="form-type" class="form-type">
                   <div id="simple-form">
                     <div class="input-group mb-2">
                       <input type="text" class="form-control form-control-lg" name="long_url" required />
@@ -49,149 +49,145 @@
                     <div class="input-groupp mb-2">
                       <input type="text" class="form-control form-control-lg" id="custom_url" name="custom_url" placeholder="Custom URL">
                     </div>
-                    <div class="input-groupp mb-3">
-                      <input id="expiry_date" name="expiry_date" class="form-control form-control-lg" type="text" placeholder="Expiry Date " onfocusin="(this.type='date' )" onfocusout="(this.type='text' ) ">
+                    <div class="input-groupp mb-2">
+                      <input id="expiry_date" name="expiry_date" class="form-control form-control-lg" type="text" max="9999-12-31" placeholder="Expiry Date " onfocusin="(this.type='date')" onfocusout="(this.type='text') ">
                     </div>
-
-                    <div class="container col-md-12" id="clips-list-container" <% if(userClips.length==0 ){%>
-                        style="display:none;"
-                        <%}
-								%>
-                            >
-                            <div class="card click-metrics ">
-                                <table class="table ">
-                                    <thead>
-                                        <tr id="table-head ">
-                                            <th width="15% " scope="col "><span class="click-title ">Clicks</span> <span class="click-icon "><i class="fas fa-mouse-pointer fa-lg "></i></span></th>
-                                            <th scope="col ">Original url</th>
-                                            <th scope="col ">Trimmed url</th>
-                                            <th scope="col ">Expiry Date</th>
-                                            <th scope="col "></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id='tbody'>
-                                        <% for (let clip of userClips) {%>
-                                            <tr id="table-body">
-                                                <td>
-                                                    <%=clip.click_count%>
-                                                </td>
-                                                <td>
-                                                    <%=clip.long_url%>
-                                                </td>
-                                                <td>
-                                                    <a class="trimmed" target="_blank" href="/<%=clip.urlCode%>">
-                                                        <%=clip.clipped_url%>
-                                                    </a>
-                                                </td>
-                                                <td id="col-expiry">
-                                                    <%=clip.expiresBy ? new Date(clip.expiresBy).toLocaleDateString("en-US") : '—' %>
-                                                </td>
-                                                <td class="action-btn">
-                                                    <a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="<%=clip.clipped_url%>" data-tippy-placement="top" data-tippy-content="COPIED!">
-                                                    </a>
-                                                    <% let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!"; //add text on next line %>
-                                                        <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*">
-                                                            <i class="fab fa-whatsapp fa-lg"></i>
-                                                        </a>
-                                                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
-                                                        <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>" data-size="large">
-                                                            <i class="fab fa-twitter fa-lg"></i>
-                                                        </a>
-                                                </td>
-                                            </tr>
-                                            <%}%>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="float-left mb 4">
+                      <button type="submit " onclick="closeAlert()" class="btn btn-success custom-btn btn-advance"><i class="fas fa-cut fa-lg "></i>&nbsp;&nbsp;Trim</button>
                     </div>
+                  </div>
                 </div>
+              </form>
             </div>
           </div>
 
           <!-- LINK OVERVIEW SECTION -->
-          <div id="msg" class="alert alert-danger" style="display:none">
-            <a href="# " class="fa-pull-right" onclick="closeAlert() " aria-label="close ">&times;</a>
-          </div>
+          <section class="mb-4 mt-3">
+            <div class="container">
+              <div id="msg" class="alert alert-danger btn-advance" style="display:none;margin:0 auto;">
+                <a href="# " class="fa-pull-right" onclick="closeAlert()" aria-label="close">&times;</a>
+              </div>
+            </div>
+          </section>
 
-          <div class="container col-md-12" id="clips-list-container" <% if(userClips.length==0 ){%>
-            style="display:none;"
-            <%}
-								%>
-							>
-							<div class="card click-metrics ">
-								<table class="table ">
-									<thead>
-										<tr id="table-head ">
-											<th width="15% " scope="col "><span class="click-title ">Clicks</span> <span class="click-icon "><i class="fas fa-mouse-pointer fa-lg "></i></span></th>
-											<th scope="col ">Original url</th>
-											<th scope="col ">Trimmed url</th>
-											<th scope="col ">Expiry Date</th>
-											<th scope="col "></th>
-										</tr>
-									</thead>
-									<tbody id='tbody'>
-										<% for (let clip of userClips) {%>
-											<tr id="table-body">
-												<td>
-													<%=clip.click_count%>
-												</td>
-												<td>
-													<%=clip.long_url%>
-												</td>
-												<td>
-													<a class="trimmed" target="_blank" href="/<%=clip.urlCode%>">
-														<%=clip.clipped_url%>
-													</a>
-												</td>
-												<td id="col-expiry">
-                          <%if(clip.expiry_date){%>
-                            <%let expiry_date = new Date(clip.expiry_date).toDateString()%>
-                            <%=expiry_date%>
-                          <%}else{%>
-                            —
-                          <%}%>
-												</td>
-												<td class="action-btn">
-													<a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="<%=clip.clipped_url%>" data-tippy-placement="top" data-tippy-content="COPIED!">
-													</a>
-													<% let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!"; //add text on next line %>
-														<a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*">
-															<i class="fab fa-whatsapp fa-lg"></i>
-														</a>
-														<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
-														<a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>" data-size="large">
-															<i class="fab fa-twitter fa-lg"></i>
-														</a>
-													</td>
-												</tr>
-												<%}%>
-											</tbody>
-										</table>
-									</div>
-								</div>
+
+          <div class="container col-md-12" id="clips-list-container">
+            <div class="card click-metrics ">
+              <table class="table ">
+                <thead>
+                  <tr id="table-head ">
+                    <th width="15% " scope="col "><span class="click-title ">Clicks</span> <span class="click-icon "><i class="fas fa-mouse-pointer fa-lg "></i></span></th>
+                    <th scope="col ">Original url</th>
+                    <th scope="col ">Trimmed url</th>
+                    <th scope="col ">Expiry Date</th>
+                    <th scope="col "></th>
+                  </tr>
+                </thead>
+                <tbody id='tbody'>
+
+                  <% for (let clip of userClips) {%>
+                    <tr id="table-body">
+                      <td>
+                        <a href="#exampleModal" onclick="showChart('device-chart')" data-toggle="modal">
+                          <%=clip.click_count%>
+                        </a>
+                      </td>
+                      <td>
+                        <%=clip.long_url%>
+                      </td>
+                      <td>
+                        <a class="trimmed" target="_blank" href="/<%=clip.urlCode%>">
+                          <%=clip.clipped_url%>
+                        </a>
+                      </td>
+                      <td id="col-expiry">
+                        <%=clip.expiry_date ? new Date(clip.expiry_date).toDateString() : '—' %>
+                      </td>
+                      <td class="action-btn">
+                        <a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="<%=clip.clipped_url%>" data-tippy-placement="top" data-tippy-content="COPIED!">
+                        </a>
+                        <% let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!"; //add text on next line %>
+                          <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*">
+                            <i class="fab fa-whatsapp fa-lg"></i>
+                          </a>
+                          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
+                          <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>" data-size="large">
+                            <i class="fab fa-twitter fa-lg"></i>
+                          </a>
+                      </td>
+                    </tr>
+                    <%}%>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-wrapper">
-      <hr>
-      <h3 class="footer-link"> <a href="/about">About Trim </a> </h3>
-      <p class="footer-text">Site By HNG 6 Interns </p>
-      <p class="footer-link">
-        <a href="https://hng.tech/">HNG Internship</a>
-      </p>
-      <a href="https://twitter.com/hnginternship"><i class="fab fa-twitter fa-3x"></i></a>
-
-      <p class="copy-text">
-        &copy; 2019 | TRIM
-      </p>
+    <!-- Button to trigger modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="col-sm-12">
+              <form>
+                <div class="form-row align-items-center mb-1">
+                  <div class="col-sm-5 col-md-5 my-1">
+                    <input style="width:100%;" type="date" class="form-control" id="inlineFormInputName" placeholder="From" onfocusin="(this.type='date')" onfocusout="(this.type='text')">
+                  </div>
+                  <div class="col-sm-5 col-md-5 my-1">
+                    <input style="width:100%;" type="date" class="form-control" id="inlineFormInputGroupUsername" placeholder="To" onfocusin="(this.type='date')" onfocusout="(this.type='text') ">
+                  </div>
+                  <div class="col-md-1 my-1">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane"></i></button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <ul class="nav nav-tabs mt-0" id="myTab" role="tablist" style="font-size: 0.8em;">
+              <li class="nav-item">
+                <a class="nav-link active" id="device-tab" onclick="showChart('device-chart')" data-toggle="tab" href="#device" role="tab" aria-controls="device" aria-selected="true">Device</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="location-tab" onclick="showChart('location-chart')" data-toggle="tab" href="#location" role="tab" aria-controls="location" aria-selected="false">Location</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="device" role="tabpanel" aria-labelledby="device-tab">
+                <div class="loader" id="device-chart"></div>
+              </div>
+              <div class="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
+                <div class="loader" id="location-chart"></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
     </div>
-  </footer>
-  <!-- Footer -->
 
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-wrapper">
+        <hr>
+        <h3 class="footer-link"> <a href="/about">About Trim </a> </h3>
+        <p class="footer-text">Site By HNG 6 Interns </p>
+        <p class="footer-link">
+          <a href="https://hng.tech/">HNG Internship</a>
+        </p>
+        <a href="https://twitter.com/hnginternship"><i class="fab fa-twitter fa-3x"></i></a>
+
+        <p class="copy-text">
+          &copy; 2019 | TRIM
+        </p>
+      </div>
+    </footer>
+    <!-- Footer -->
+  </div>
   <script type="text/javascript" src="https://unpkg.com/popper.js@1.15.0/dist/umd/popper.min.js"></script>
   <script type="text/javascript" src="/tippy.min.js"></script>
 
@@ -254,8 +250,6 @@
       })
     }
   </script>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v4.0&appId=1060385767685912&autoLogAppEvents=1">
-  </script>
 
   <script>
     const formType = document.querySelector('#form-type');
@@ -270,9 +264,9 @@
 
     document.querySelector('#advance').addEventListener('click', () => {
       formType.innerHTML = advanceForm;
-			const calendar = document.querySelector("#expiry_date");
-			const tomorrow = new Date();
-			tomorrow.setDate(tomorrow.getDate() + 1);
+      const calendar = document.querySelector("#expiry_date");
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
       calendar.setAttribute('min', tomorrow.toISOString().split('T')[0]);
     });
   </script>
