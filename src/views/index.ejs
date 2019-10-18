@@ -106,8 +106,9 @@
                       <td class="action-btn">
                         <a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="<%=clip.clipped_url%>" data-tippy-placement="top" data-tippy-content="COPIED!">
                         </a>
-                        <% let clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!"; //add text on next line %>
-                          <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*">
+                        <% let clipText = " \n Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!";%>
+                          <!--add text and url link to copied clip-->
+                          <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*">	                                                        <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText %>"><!--remove extra * from whatsapp sharing link-->
                             <i class="fab fa-whatsapp fa-lg"></i>
                           </a>
                           <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
