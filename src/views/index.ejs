@@ -88,7 +88,7 @@
                   <% for (let clip of userClips) {%>
                     <tr id="table-body">
                       <td>
-                        <a href="#exampleModal" onclick="showChart('device-chart')" data-toggle="modal">
+                        <a href="#exampleModal" data-clip="<%=clip._id%>" onclick="showChart(event, 'device-chart')" data-toggle="modal">
                           <%=clip.click_count%>
                         </a>
                       </td>
