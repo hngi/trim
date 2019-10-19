@@ -18,14 +18,14 @@ const printNewTrim = async(response)=> {
 	// Logic to add new trim to the list here.
 	try {
 		const newClip = await response.json()
-		let {click_count, long_url, urlCode, clipped_url, expiry_date} = await newClip.payload;
+		let { _id, click_count, long_url, urlCode, clipped_url, expiry_date} = await newClip.payload;
 
 		if (expiry_date)
 			expiry_date = new Date(expiry_date).toDateString();
 				
 		const clip_row = `
 			<td>
-			<a id="clipCount" href="#chartModal" data-clip="<%=clip._id%>" onclick="getChartInfo(event, 'device')" data-toggle="modal">
+			<a id="clipCount" href="#chartModal" data-clip="${_id}" onclick="getChartInfo(event, 'device')" data-toggle="modal">
       	${click_count}
       </a>		
 			</td>
