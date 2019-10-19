@@ -16,7 +16,8 @@ export const stripUrl = async (req, res, next) => {
     url: Joi.string().regex(
       /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
     ).error(new Error('Enter a valid URL')),
-    expiry: Joi.date().iso().greater(new Date()).error(new Error('Expiry date must be in the future')),
+    expiry: Joi.date().iso().greater(new Date()).allow('').error(new Error('Expiry date must be in the future')),
+    custom_url: Joi.string().alphanum().allow(''),
   });
   const validationOptions = {
     allowUnknown: true, // allow unknown keys that will be ignored
