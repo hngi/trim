@@ -115,11 +115,11 @@
                         </a>
                         <% let clipText = " \n Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!";%>
                           <!--add text and url link to copied clip-->
-                          <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*">	                                                        <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText %>"><!--remove extra * from whatsapp sharing link-->
+                          <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*" target="_blank">	                                                        <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText %>"><!--remove extra * from whatsapp sharing link-->
                             <i class="fab fa-whatsapp fa-lg"></i>
                           </a>
-                          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
-                          <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>" data-size="large">
+                          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse" target="_blank" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
+                          <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>" data-size="large" target="_blank">
                             <i class="fab fa-twitter fa-lg"></i>
                           </a>
                       </td>
