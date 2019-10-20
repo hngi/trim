@@ -44,7 +44,7 @@
                   <div id="advance-form">
                     <div class="input-groupp mb-2">
                       <input type="hidden" id="created_by " name="created_by" value="<%=created_by%>">
-                      <input type="text" class="form-control form-control-lg" id="long_url" name="long_url" placeholder="Long URL" required />
+                      <input type="text" class="form-control form-control-lg" id="long_url" name="long_url" placeholder="URL" required />
                     </div>
                     <div class="input-groupp mb-2">
                       <input type="text" class="form-control form-control-lg" id="custom_url" name="custom_url" placeholder="Custom URL">
@@ -115,11 +115,11 @@
                         </a>
                         <% let clipText = " \n Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!";%>
                           <!--add text and url link to copied clip-->
-                          <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*">	                                                        <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText %>"><!--remove extra * from whatsapp sharing link-->
+                          <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*" target="_blank">	                                                        <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText %>"><!--remove extra * from whatsapp sharing link-->
                             <i class="fab fa-whatsapp fa-lg"></i>
                           </a>
-                          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
-                          <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>" data-size="large">
+                          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse" target="_blank" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
+                          <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>" data-size="large" target="_blank">
                             <i class="fab fa-twitter fa-lg"></i>
                           </a>
                       </td>
@@ -177,25 +177,7 @@
       </div>
     </div>
 
-
-    <!-- Footer -->
-    <footer>
-      <div class="footer-wrapper">
-        <hr>
-        <h3 class="footer-link"> <a href="/about">About Trim </a> </h3>
-        <p class="footer-text">Site By HNG 6 Interns </p>
-        <p class="footer-link">
-          <a href="https://hng.tech/">HNG Internship</a>
-        </p>
-        <a href="https://twitter.com/hnginternship"><i class="fab fa-twitter fa-3x"></i></a>
-
-        <p class="copy-text">
-          &copy; 2019 | TRIM
-        </p>
-      </div>
-    </footer>
-    <!-- Footer -->
-  </div>
+ <% include partials/footer %>
   <script type="text/javascript" src="https://unpkg.com/popper.js@1.15.0/dist/umd/popper.min.js"></script>
   <script type="text/javascript" src="/tippy.min.js"></script>
 
@@ -280,4 +262,4 @@
   </script>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v4.0&appId=1060385767685912&autoLogAppEvents=1"></script>
 
-  <% include partials/footer %>
+ 
