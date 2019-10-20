@@ -54,6 +54,7 @@
 
   const copyToClipboard = str => {
     const el = document.createElement('textarea');
+    console.log(str)
     el.value = str;
     el.setAttribute('readonly', '');
     el.style.position = 'absolute';
@@ -83,7 +84,9 @@
   let copies = document.querySelectorAll(".copy")
   for (var i = 0; i < copies.length; i++) {
     copies[i].addEventListener("click", function() {
-      x = this.getAttribute("data")
+      var x = this.getAttribute("data")
+      console.log(this);
+      console.log('X =>', x)
       copyToClipboard(x);
     })
   }
