@@ -294,6 +294,14 @@
   .copy:hover {
     color: #fff;
   }
+.contact-link{
+  color: #0ad48b;
+}
+.contact-link:hover{
+  text-decoration: none;
+  color: #fff;
+}
+
   
   /* Our team section */
   .team-header{
