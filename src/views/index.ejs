@@ -80,7 +80,6 @@
                     <th scope="col ">Original url</th>
                     <th scope="col ">Trimmed url</th>
                     <th scope="col ">Expiry Date</th>
-                    <th scope="col">View Metrics</th>
                     <th scope="col "></th>
                     
                   </tr>
@@ -104,11 +103,6 @@
                       </td>
                       <td id="col-expiry">
                         <%=clip.expiry_date ? new Date(clip.expiry_date).toDateString() : '—' %>
-                      </td>
-                      <td>
-                      <a id="clipCount" href="#chartModal" data-clip="<%=clip._id%>" data-toggle="modal">
-                      <i class="far fa-chart-bar"></i>
-                      </a>
                       </td>
                       <td class="action-btn">
                         <a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="<%=clip.clipped_url%>" data-tippy-placement="top" data-tippy-content="COPIED!">
