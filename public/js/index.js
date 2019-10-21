@@ -25,20 +25,14 @@ const printNewTrim = async(response)=> {
 				
 		const clip_row = `
 			<td>
-			<a id="clipCount" href="#chartModal" data-clip="${_id}" onclick="getChartInfo(event, 'device')" data-toggle="modal">
-      	${click_count}
-      </a>		
-			</td>
-			<td>
-				${long_url}
+				<a id="clipCount" href="#chartModal" data-clip="${_id}" onclick="getChartInfo(event, 'device')" data-toggle="modal">
+					${click_count}
+				</a>		
 			</td>
 			<td>
 				<a class="trimmed" target="_blank" href="/${urlCode}">
 					${clipped_url}
 				</a>
-			</td>
-			<td id="col-expiry">
-				${expiry_date || '—'}
 			</td>
 			<td class="action-btn">
 				<a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="${clipped_url}" data-tippy-placement="top" data-tippy-content="COPIED!">
@@ -50,6 +44,12 @@ const printNewTrim = async(response)=> {
 				<a class="" href="https://twitter.com/intent/tweet?text=${clipped_url}+' '+ ${clipText}%>" data-size="large">
 					<i class="fab fa-twitter fa-lg"></i>
 				</a>
+			</td>
+			<td>
+				<a class="long-url" href="${long_url}">${long_url}</a>
+			</td>
+			<td id="col-expiry">
+				${expiry_date || '—'}
 			</td>
 			`
 
