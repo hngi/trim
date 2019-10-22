@@ -105,28 +105,3 @@ describe("GET /", () => {
   //     });
   // });
 });
-
-describe("GET /:id", () => {
-  it("should return 404 Not Found if given trim is expired", done => {
-    const url = new UrlShorten({
-      long_url:
-        "https://www.atlassian.com/git/tutorials/source-code-management",
-      clipped_url: `${DOMAIN_NAME}/12345`,
-      urlCode: "12345",
-      created_by: SAMPLE_COOKIE,
-      click_count: 0,
-      expiry_date: new Date("01/01/1970")
-    });
-
-    url.save();
-
-    const id = "12345";
-    chai
-      .request(app)
-      .get(`/${id}`)
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-        done();
-      });
-  });
-});

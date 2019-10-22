@@ -1,7 +1,7 @@
 const trimUrlForm = document.querySelector('.trim-url-form');
 const table_body = document.querySelector('#tbody');
 const clipsListContainer = document.querySelector('#clips-list-container');
-const err_msg = document.querySelector('#msg')
+const err_msg = document.querySelector('#msg');
 const clipText = " \n  Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!";
 
 /**Gets the new trim returned from the server and adds it to the display.
@@ -18,25 +18,21 @@ const printNewTrim = async(response)=> {
 	// Logic to add new trim to the list here.
 	try {
 		const newClip = await response.json()
-		let {click_count, long_url, urlCode, clipped_url, expiry_date} = await newClip.payload;
+		let { _id, click_count, long_url, urlCode, clipped_url, expiry_date} = await newClip.payload;
 
 		if (expiry_date)
 			expiry_date = new Date(expiry_date).toDateString();
 				
 		const clip_row = `
 			<td>
-				${click_count}
-			</td>
-			<td>
-				${long_url}
+				<a id="clipCount" href="#chartModal" data-clip="${_id}" onclick="getChartInfo(event, 'device')" data-toggle="modal">
+					${click_count}
+				</a>		
 			</td>
 			<td>
 				<a class="trimmed" target="_blank" href="/${urlCode}">
 					${clipped_url}
 				</a>
-			</td>
-			<td id="col-expiry">
-				${expiry_date || '—'}
 			</td>
 			<td class="action-btn">
 				<a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="${clipped_url}" data-tippy-placement="top" data-tippy-content="COPIED!">
@@ -48,6 +44,12 @@ const printNewTrim = async(response)=> {
 				<a class="" href="https://twitter.com/intent/tweet?text=${clipped_url}+' '+ ${clipText}%>" data-size="large">
 					<i class="fab fa-twitter fa-lg"></i>
 				</a>
+			</td>
+			<td>
+				<a class="long-url" href="${long_url}">${long_url}</a>
+			</td>
+			<td id="col-expiry">
+				${expiry_date || '—'}
 			</td>
 			`
 

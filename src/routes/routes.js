@@ -13,6 +13,7 @@ import {
   deleteUrl,
   redirectUrl
 } from "../controllers/urlController";
+import { getUrlClickMetrics } from '../controllers/metricsController';
 
 export const initRoutes = app => {
   app.get("/", validateCookie, renderLandingPage);
@@ -21,5 +22,7 @@ export const initRoutes = app => {
   app.get("/about", aboutPage);
 
   app.get("/:id", getUrlAndUpdateCount);
+
+  app.get('/metrics/:urlShortenId', getUrlClickMetrics);
   app.all("*", (req, res) => res.status(404).render("error"));
 };
