@@ -1,129 +1,141 @@
 <% include partials/header %>
-  <style>
-    .copy:hover {
-      color: #fff;
-    }
-  </style>
-  <div id="fb-root"></div>
-  <div class="wrapper">
-    <div class="container">
-      <!-- TRIM LOGO -->
-      <div class="row">
-        <div class="col-md-12 col-lg-12 col-sm-12">
-          <a href="/"> <img src="https://res.cloudinary.com/leankhan/image/upload/v1570985383/trim/trim-logo-2.png" alt="trim-logo" class="trim-logo" /></a>
+<style>
+  .copy:hover {
+    color: #fff;
+  }
+</style>
+<div id="fb-root"></div>
+<div class="wrapper">
+  <div class="container">
+    <!-- TRIM LOGO -->
+    <div class="row">
+      <div class="col-md-12 col-lg-12 col-sm-12">
+        <a href="/"> <img src="https://res.cloudinary.com/leankhan/image/upload/v1570985383/trim/trim-logo-2.png"
+            alt="trim-logo" class="trim-logo" /></a>
 
-          <h1 class="mb-2">Shorten Your Links</h1>
-          <h5 class="small-heading ">
-            ...the platform that gets all links trimmed efficiently
-          </h5>
-          <!-- INPUT URL -->
-          <div class="row">
-            <div class="col-md-12 col-lg-12 col-sm-12" style="margin: 0 auto;">
-              <form class="trim-url-form" style="margin: 0 auto;">
-                <div class="mb-3">
-                  <div class="toggle-radio">
-                    <input type="radio" name="rdo" id="simple" checked>
-                    <input type="radio" name="rdo" id="advance">
-                    <div class="switch">
-                      <label for="simple">Simple</label>
-                      <label for="advance">Advance</label>
-                      <span></span>
+        <h1 class="mb-2 title">Shorten Your Links</h1>
+        <h5 class="small-heading ">
+          ...the platform that gets all links trimmed efficiently
+        </h5>
+        <!-- INPUT URL -->
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-sm-12" style="margin: 0 auto;">
+            <form class="trim-url-form" style="margin: 0 auto;">
+              <div class="mb-3">
+                <div class="toggle-radio">
+                  <input type="radio" name="rdo" id="simple" checked>
+                  <input type="radio" name="rdo" id="advance">
+                  <div class="switch">
+                    <label for="simple">Simple</label>
+                    <label for="advance">Advance</label>
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+              <div id="form-type" class="form-type">
+                <div id="simple-form">
+                  <div class="input-group mb-2">
+                    <input type="text" class="form-control form-control-lg" name="long_url" required />
+                    <input type="hidden" name="created_by" value="<%=created_by%>">
+                    <div class="input-group-append">
+                      <button type="submit" onclick="closeAlert()" class="btn btn-success custom-btn"><i
+                          class="fas fa-cut fa-lg" style="width: 30px;"></i></button>
                     </div>
                   </div>
                 </div>
-                <div id="form-type" class="form-type">
-                  <div id="simple-form">
-                    <div class="input-group mb-2">
-                      <input type="text" class="form-control form-control-lg" name="long_url" required />
-                      <input type="hidden" name="created_by" value="<%=created_by%>">
-                      <div class="input-group-append">
-                        <button type="submit" onclick="closeAlert()" class="btn btn-success custom-btn"><i class="fas fa-cut fa-lg" style="width: 30px;"></i></button>
-                      </div>
-                    </div>
+                <div id="advance-form">
+                  <div class="input-groupp mb-2">
+                    <input type="hidden" id="created_by " name="created_by" value="<%=created_by%>">
+                    <input type="text" class="form-control form-control-lg" id="long_url" name="long_url"
+                      placeholder="Long URL" required />
                   </div>
-                  <div id="advance-form">
-                    <div class="input-groupp mb-2">
-                      <input type="hidden" id="created_by " name="created_by" value="<%=created_by%>">
-                      <input type="text" class="form-control form-control-lg" id="long_url" name="long_url" placeholder="URL" required />
-                    </div>
-                    <div class="input-groupp mb-2">
-                      <input type="text" class="form-control form-control-lg" id="custom_url" name="custom_url" placeholder="Custom URL">
-                    </div>
-                    <div class="input-groupp mb-2">
-                      <input id="expiry_date" name="expiry_date" class="form-control form-control-lg" type="text" max="9999-12-31" placeholder="Expiry Date " onfocusin="(this.type='date')" onfocusout="(this.type='text') ">
-                    </div>
-                    <div class="float-left mb 4">
-                      <button type="submit " onclick="closeAlert()" class="btn btn-success custom-btn btn-advance"><i class="fas fa-cut fa-lg "></i>&nbsp;&nbsp;Trim</button>
-                    </div>
+                  <div class="input-groupp mb-2">
+                    <input type="text" class="form-control form-control-lg" id="custom_url" name="custom_url"
+                      placeholder="Custom Short URL">
+                  </div>
+                  <div class="input-groupp mb-2">
+                    <input id="expiry_date" name="expiry_date" class="form-control form-control-lg" type="text"
+                      max="9999-12-31" placeholder="Expiry Date " onfocusin="(this.type='date')"
+                      onfocusout="(this.type='text') ">
+                  </div>
+                  <div class="float-left mb 4">
+                    <button type="submit " onclick="closeAlert()" class="btn btn-success custom-btn btn-advance"><i
+                        class="fas fa-cut fa-lg "></i>&nbsp;&nbsp;Trim</button>
                   </div>
                 </div>
-              </form>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- LINK OVERVIEW SECTION -->
+        <section class="mb-4 mt-3">
+          <div class="container">
+            <div id="msg" class="alert alert-danger btn-advance" style="display:none;margin:0 auto;">
+              <a href="# " class="fa-pull-right" onclick="closeAlert()" aria-label="close">&times;</a>
             </div>
           </div>
-
-          <!-- LINK OVERVIEW SECTION -->
-          <section class="mb-4 mt-3">
-            <div class="container">
-              <div id="msg" class="alert alert-danger btn-advance" style="display:none;margin:0 auto;">
-                <a href="# " class="fa-pull-right" onclick="closeAlert()" aria-label="close">&times;</a>
-              </div>
-            </div>
-          </section>
+        </section>
 
 
-          <div class="container col-md-12" id="clips-list-container">
-            <div class="card click-metrics ">
-              <table class="table ">
-                <thead>
-                  <tr id="table-head ">
-                    <th width="15% " scope="col "><span class="click-title ">Clicks</span> <span class="click-icon "><i class="fas fa-mouse-pointer fa-lg "></i></span></th>
-                    <th scope="col ">Original url</th>
-                    <th scope="col ">Trimmed url</th>
-                    <th scope="col ">Expiry Date</th>
-                    <th scope="col "></th>
-                    
-                  </tr>
-                </thead>
-                <tbody id='tbody'>
+        <div class="container col-md-12" id="clips-list-container">
+          <div class="card click-metrics ">
+            <table class="table ">
+              <thead>
+                <tr id="table-head ">
+                  <th width="15% " scope="col "><span class="click-title ">Clicks</span> <span class="click-icon "><i
+                        class="fas fa-mouse-pointer fa-lg "></i></span></th>
+                  <th scope="col ">Original url</th>
+                  <th scope="col ">Trimmed url</th>
+                  <th scope="col ">Expiry Date</th>
+                  <th scope="col "><span class="d-md-none d-lg-none d-sm-none">Swipe for actions</span></th>
+                </tr>
+              </thead>
+              <tbody id='tbody'>
 
-                  <% for (let clip of userClips) {%>
-                    <tr id="table-body">
-                      <td>
-                        <a id="clipCount" href="#chartModal" data-clip="<%=clip._id%>" data-toggle="modal">
-                          <%=clip.click_count%>
-                        </a>
-                      </td>
-                      <td>
-                        <%=clip.long_url%>
-                      </td>
-                      <td>
-                        <a class="trimmed" target="_blank" href="/<%=clip.urlCode%>">
-                          <%=clip.clipped_url%>
-                        </a>
-                      </td>
-                      <td id="col-expiry">
-                        <%=clip.expiry_date ? new Date(clip.expiry_date).toDateString() : '—' %>
-                      </td>
-                      <td class="action-btn">
-                        <a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="<%=clip.clipped_url%>" data-tippy-placement="top" data-tippy-content="COPIED!">
-                        </a>
-                        <% let clipText = " \n Amazingly shortened with trimly. Visit http://trimly.tk to trim your Links!!!";%>
-                          <!--add text and url link to copied clip-->
-                          <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*" target="_blank">	                                                        <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText %>"><!--remove extra * from whatsapp sharing link-->
-                            <i class="fab fa-whatsapp fa-lg"></i>
-                          </a>
-                          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse" target="_blank" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
-                          <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>" data-size="large" target="_blank">
-                            <i class="fab fa-twitter fa-lg"></i>
-                          </a>
-                      </td>
-                    </tr>
-                    <%}%>
+                <% for (let clip of userClips) {%>
+                <tr id="table-body">
+                  <td>
+                    <a id="clipCount" href="#chartModal" data-clip="<%=clip._id%>" data-toggle="modal">
+                      <%=clip.click_count%>
+                    </a>
+                  </td>
+                  <td>
+                    <%=clip.long_url%>
+                  </td>
+                  <td>
+                    <a class="trimmed" target="_blank" href="/<%=clip.urlCode%>">
+                      <%=clip.clipped_url%>
+                    </a>
+                  </td>
+                  <td id="col-expiry">
+                    <%=clip.expiry_date ? new Date(clip.expiry_date).toDateString() : '—' %>
+                  </td>
+                  <td class="action-btn">
+                    <a href="javascript:void(0);" class="fas fa-copy fa-lg copy" data="<%=clip.clipped_url%>"
+                      data-tippy-placement="top" data-tippy-content="COPIED!">
+                    </a>
+                    <% let clipText = " \n Amazingly shortened with Trim. Visit http://trim.ng to trim your Links!!!";%>
+                    <!--add text and url link to copied clip-->
+                    <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText%>*" target="_blank">
+                      <a href="https://api.whatsapp.com/send?&text=<%=clip.clipped_url+' '+ clipText %>">
+                        <!--remove extra * from whatsapp sharing link-->
+                        <i class="fab fa-whatsapp fa-lg"></i>
+                      </a>
+                      <a target="_blank"
+                        href="https://www.facebook.com/sharer/sharer.php?u=<%=clip.clipped_url+' '+ clipText%>&amp;src=sdkpreparse"
+                        target="_blank" class="fb-xfbml-parse-ignore"><i class="fab fa-facebook fa-lg"></i></a>
+                      <a class="" href="https://twitter.com/intent/tweet?text=<%=clip.clipped_url+' '+ clipText%>"
+                        data-size="large" target="_blank">
+                        <i class="fab fa-twitter fa-lg"></i>
+                      </a>
+                  </td>
+                </tr>
+                <%}%>
                 </tbody>
               </table>
             </div>
           </div>
-        </div>
       </div>
     </div>
 
@@ -173,4 +185,3 @@
   </div>
 
  <% include partials/footer %>
- 
