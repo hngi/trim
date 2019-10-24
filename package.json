@@ -9,8 +9,8 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node dist",
-		"build": "rm -rf dist/ && babel src/ -d dist/ --copy-files",
-		"start-dev": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon --exec babel-node ./src/index.js",
+    "build": "rm -rf dist/ && babel src/ -d dist/ --copy-files",
+    "start-dev": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon --exec babel-node ./src/index.js",
     "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 -r @babel/register ./src/tests/ --exit",
     "heroku-postbuild": "cross-env NODE_ENV=production npm run build"
   },
@@ -44,7 +44,6 @@
     "cross-env": "^6.0.3",
     "debug": "^4.1.1",
     "dotenv": "^8.1.0",
-    "cross-env": "^6.0.3",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "express-device": "^0.4.2",
