@@ -18,7 +18,7 @@ export const trimUrl = async (req, res) => {
 
     // this line is there because production server fails to detect our
     // DOMAIN_NAME config variable
-    const domain_name = DOMAIN_NAME ? DOMAIN_NAME : 'trimly.tk'
+    const domain_name = DOMAIN_NAME ? DOMAIN_NAME : 'trim.ng'
 
 		//If the user submitted a custom url, use it. This has been validated by an earlier middleware.
 		if (custom_url) newUrlCode = encodeURIComponent(custom_url); //Sanitize the string as a valid uri comp. first.
