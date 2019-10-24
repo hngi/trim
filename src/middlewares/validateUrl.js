@@ -10,7 +10,11 @@ import { respondWithWarning } from '../helpers/responseHandler';
  * @param {*} next
  */
 export const stripUrl = async (req, res, next) => {
-  const { long_url, expiry_date, custom_url } = req.body;
+	const { long_url, expiry_date, custom_url } = req.body;
+	
+	//Ensure long_url is never resolved relative to our app's hostname.
+	if(!long_url.startsWith('http'))
+		long_url = `http://${long_url}`;
   
   const schema = Joi.object({
     url: Joi.string().regex(
