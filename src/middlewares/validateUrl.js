@@ -17,7 +17,7 @@ export const stripUrl = async (req, res, next) => {
       /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
     ).error(new Error('Enter a valid URL')),
     expiry: Joi.date().iso().greater(new Date()).allow('').error(new Error('Expiry date must be in the future')),
-      custom_url: Joi.string().regex(/^[A-Za-z0-9_.\-~]$/).error(new Error('custom URL must contain only alphanumeric, period(.), hyphen(-), underscore(_) and tilde(~) characters')),
+      custom_url: Joi.string().regex(/^[A-Za-z0-9_.\-~]{0,}$/).error(new Error('custom URL must contain only alphanumeric, period(.), hyphen(-), underscore(_) and tilde(~) characters')),
   });
   const validationOptions = {
     allowUnknown: true, // allow unknown keys that will be ignored
