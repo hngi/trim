@@ -11,13 +11,13 @@ import { respondWithWarning } from '../helpers/responseHandler';
  */
 export const stripUrl = async (req, res, next) => {
   const { long_url, expiry_date, custom_url } = req.body;
-  
+
   const schema = Joi.object({
     url: Joi.string().regex(
       /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
     ).error(new Error('Enter a valid URL')),
     expiry: Joi.date().iso().greater(new Date()).allow('').error(new Error('Expiry date must be in the future')),
-    custom_url: Joi.string().alphanum().allow(''),
+      custom_url: Joi.string().regex(/^[A-Za-z0-9_.\-~]{0,}$/).error(new Error('custom URL must contain only alphanumeric, period(.), hyphen(-), underscore(_) and tilde(~) characters')),
   });
   const validationOptions = {
     allowUnknown: true, // allow unknown keys that will be ignored
@@ -76,11 +76,11 @@ export const urlAlreadyTrimmedByUser = (req, res, next) => {
 
 export const customUrlExists = async(req, res, next) => {
 	const customUrl = req.body.custom_url;
-	
+
 	if(customUrl) {
 		//Search the db for this custom url.
 		let retrievedClip = await UrlShorten.findOne({urlCode: customUrl});
-		
+
 		//If an existing clip already has the same custom url code....
 		if (retrievedClip) {
 			//If the existing clip has expired...
@@ -93,6 +93,6 @@ export const customUrlExists = async(req, res, next) => {
 				return respondWithWarning(res, 409, "Custom URL already in use. Please try another");
 		}
 	};
-	
+
   next()
 };
