@@ -53,9 +53,9 @@ Tests are written with mocha, chai-http and chai.
 <hr/>
 
 #### Stack:
-* Bootstrap
-* Node
-* Mongodb
+* Express
+* Node JS
+* Mongo DB
 
 
 #### License
