@@ -1,5 +1,7 @@
+
 import { validateCookie } from './validateCookie';
 import { renderLandingPage } from './renderLandingPage';
-import { validateOwnDomain, urlAlreadyTrimmedByUser, stripUrl } from './validateUrl';
+import{ aboutPage } from './aboutPage';
+import { validateOwnDomain, urlAlreadyTrimmedByUser, stripUrl, customUrlExists } from './validateUrl';
 
-export { renderLandingPage, validateOwnDomain, validateCookie, urlAlreadyTrimmedByUser, stripUrl };
+export { renderLandingPage, aboutPage, validateOwnDomain, validateCookie, urlAlreadyTrimmedByUser, stripUrl, customUrlExists };

@@ -1,51 +1,54 @@
 import UrlShorten from "../models/UrlShorten";
 import nanoid from "nanoid";
 import { DOMAIN_NAME } from "../config/constants";
-import { renderWithWarning } from '../helpers/responseHandler';
+import { respondWithWarning } from '../helpers/responseHandler';
+import { getMetric } from '../middlewares/getMetrics';
 
 /**
- * This function trim a new url that hasn't been trimmed before
+ * This function trims a new url that hasn't been trimmed before
  * @param {object} req
  * @param {object} res
  * @returns {object} response object with trimmed url
  */
 export const trimUrl = async (req, res) => {
-  const { userID } = req.cookies;
-  try {
+	try {
+		let {expiry_date, custom_url} = req.body;
 
-      // Generate short code
-      let newUrlCode = nanoid(5); //36 is the highest supported radix.
+    let newUrlCode;
 
-      const newTrim = new UrlShorten({
-        long_url: req.url,
-        clipped_url: `${DOMAIN_NAME}/${newUrlCode}`,
-        urlCode: newUrlCode,
-        created_by: req.cookies.userID ,
-        click_count: 0
-      });
+    // this line is there because production server fails to detect our
+    // DOMAIN_NAME config variable
+    const domain_name = DOMAIN_NAME ? DOMAIN_NAME : 'trim.ng'
 
-      newTrim.save((err, newTrim) => {
-        if (err) {
-          const result = renderWithWarning(res, 500, req.cookies.userID, "Server error");
-          return result;
-        }
-        UrlShorten.find({
-          created_by: req.cookies.userID //Find all clips created by this user.
-        })
-          .sort({
-            createdAt: "desc" // sort the created clips in a decending order
-          }).then(clips => {
-            return res.status(201).render("index", {
-              userClips: clips,
-              success: true,
-              created_by: req.cookies.userID
-            });
-          });
-      });
-  } catch (err) {
-    console.log(err)
-    const result = renderWithWarning(res, 500, req.cookies.userID, "Server error");
-    return result;
+		//If the user submitted a custom url, use it. This has been validated by an earlier middleware.
+		if (custom_url) newUrlCode = encodeURIComponent(custom_url); //Sanitize the string as a valid uri comp. first.
+		else newUrlCode = nanoid(5); //If no custom url is provided, generate a random one.
+    
+		const newTrim = new UrlShorten({
+			long_url: req.url,
+      clipped_url: `${domain_name}/${newUrlCode}`,
+			urlCode: newUrlCode,
+			created_by: req.cookies.userID
+		});
+		
+		// Date validation has been done already
+    newTrim.expiry_date = expiry_date ? new Date(expiry_date) : null;
+
+		const trimmed = await newTrim.save()
+		
+    if (!trimmed) {
+      console.log("Failed to save new trim");
+			return respondWithWarning(res, 500, "Server error");
+		}
+		
+		res.status(201).json({
+			success: true,
+			payload: trimmed
+		});
+  } 
+  catch (err) {
+		console.log(err);
+    return respondWithWarning(res, 500, "Server error");
   }
 };
 
@@ -62,6 +65,15 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
     const url = await UrlShorten.findOne({
       urlCode: id
     });
+    getMetric(url._id, req);
+
+    if(url.expiry_date){
+      const currentDate = new Date()
+      if(currentDate > url.expiry_date){
+        await UrlShorten.findByIdAndDelete(url._id)
+        return res.status(404).render('error');
+      }
+    }
 
     if (!url) {
       return res.status(404).render('error');

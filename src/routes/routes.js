@@ -1,9 +1,11 @@
 import {
+  aboutPage,
   renderLandingPage,
   validateOwnDomain,
   validateCookie,
   urlAlreadyTrimmedByUser,
-  stripUrl
+  stripUrl,
+  customUrlExists
 } from "../middlewares/middlewares";
 import {
   getUrlAndUpdateCount,
@@ -11,16 +13,16 @@ import {
   deleteUrl,
   redirectUrl
 } from "../controllers/urlController";
+import { getUrlClickMetrics } from '../controllers/metricsController';
 
 export const initRoutes = app => {
   app.get("/", validateCookie, renderLandingPage);
-  app.post(
-    "/",
-    stripUrl,
-    validateOwnDomain,
-    urlAlreadyTrimmedByUser,
-    trimUrl
-  );
+  app.get("/about", (req, res) => res.status(200).render("about"));
+  app.post("/", stripUrl, validateOwnDomain, urlAlreadyTrimmedByUser, customUrlExists, trimUrl);
+  app.get("/about", aboutPage);
+
   app.get("/:id", getUrlAndUpdateCount);
+
+  app.get('/metrics/:urlShortenId', getUrlClickMetrics);
   app.all("*", (req, res) => res.status(404).render("error"));
 };
