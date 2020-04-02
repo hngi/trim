@@ -53,6 +53,21 @@ If you've created a new branch to work on rather than working directly on `Devel
 7. Finally, push your newly merged feature branch to the remote github server for backup.
     <pre>git push origin your-feature-branch</pre>   
 
-## Code Structrure & Readability
+
+##### This will be the file and folder structure
+
+    src
+    ├── config
+           ├── constants.js  
+    ├── controllers  
+    ├── database
+    ├── helpers  
+    ├── middlewares 
+    ├── models 
+    ├── routes   
+    ├── services  
+    ├── tests  
+    └── views                     
+<hr/>
 
 
