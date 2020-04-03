@@ -43,6 +43,6 @@ Tests are written with mocha, chai-http and chai.
 
 ISC License
 
-### API
-    1. Trim a long URL
+### API Documentation
+    https://trim.ng/docs
     
