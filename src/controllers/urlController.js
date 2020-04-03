@@ -1,6 +1,5 @@
 import UrlShorten from "../models/UrlShorten";
 import nanoid from "nanoid";
-import { DOMAIN_NAME } from "../config/constants";
 import { respondWithWarning } from '../helpers/responseHandler';
 import { getMetric } from '../middlewares/getMetrics';
 
@@ -13,22 +12,17 @@ import { getMetric } from '../middlewares/getMetrics';
 export const trimUrl = async (req, res) => {
 	try {
 		let {expiry_date, custom_url} = req.body;
-
     let newUrlCode;
-
-    // this line is there because production server fails to detect our
-    // DOMAIN_NAME config variable
-    const domain_name = DOMAIN_NAME ? DOMAIN_NAME : 'trim.ng'
+    const domain_name = "https://"+req.headers.host
 
 		//If the user submitted a custom url, use it. This has been validated by an earlier middleware.
 		if (custom_url) newUrlCode = encodeURIComponent(custom_url); //Sanitize the string as a valid uri comp. first.
 		else newUrlCode = nanoid(5); //If no custom url is provided, generate a random one.
-    
 		const newTrim = new UrlShorten({
 			long_url: req.url,
       clipped_url: `${domain_name}/${newUrlCode}`,
 			urlCode: newUrlCode,
-			created_by: req.cookies.userID
+			created_by: req.cookies.userID || req.cookies['connect.sid']
 		});
 		
 		// Date validation has been done already
