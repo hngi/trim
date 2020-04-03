@@ -11,12 +11,11 @@ import { respondWithWarning } from '../helpers/responseHandler';
  */
 export const stripUrl = async (req, res, next) => {
   const { long_url, expiry_date, custom_url } = req.body;
-
+  if(new Date(long_url).getTime() < new Date().getTime()) return respondWithWarning(res,400,'Expiry date must be in the future')
   const schema = Joi.object({
     url: Joi.string().regex(
       /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
     ).error(new Error('Enter a valid URL')),
-    expiry: Joi.date().iso().greater(new Date()).allow('').error(new Error('Expiry date must be in the future')),
       custom_url: Joi.string().regex(/^[A-Za-z0-9_.\-~]{0,}$/).error(new Error('custom URL must contain only alphanumeric, period(.), hyphen(-), underscore(_) and tilde(~) characters')),
   });
   const validationOptions = {
@@ -24,7 +23,7 @@ export const stripUrl = async (req, res, next) => {
     stripUnknown: true, // remove unknown keys from the validated data
   };
 
-  const { error } = await schema.validate({ url: long_url, expiry: expiry_date, custom_url }, validationOptions);
+  const { error } = await schema.validate({ url: long_url, expiry: new Date(expiry_date), custom_url }, validationOptions);
   if (error) {
     const result = respondWithWarning(res, 400, error.message);
     return result;
@@ -40,12 +39,12 @@ export const stripUrl = async (req, res, next) => {
  * @param {*} next
  */
 export const validateOwnDomain = (req, res, next) => {
-  // The strippedUrl already contains the hostname, so match it against our own...
+    // The strippedUrl already contains the hostname, so match it against our own...
   if (
-    req.url.startsWith(DOMAIN_NAME) ||
-    req.url.startsWith(`https://${DOMAIN_NAME}`) ||
-    req.url.startsWith(`http://${DOMAIN_NAME}`) ||
-    req.url.startsWith(`www.${DOMAIN_NAME}`)
+    req.body.long_url.startsWith(req.headers.host) ||
+    req.body.long_url.startsWith(`https://${req.headers.host}`) ||
+    req.body.long_url.startsWith(`http://${req.headers.host}`) ||
+    req.body.long_url.startsWith(`www.${req.headers.host}`)
   ) {
     const result = respondWithWarning(res, 400, "Cannot trim an already generated URL");
     return result;
@@ -61,8 +60,8 @@ export const validateOwnDomain = (req, res, next) => {
  */
 export const urlAlreadyTrimmedByUser = (req, res, next) => {
   const searchParams = {
-    long_url: req.url,
-    created_by: req.cookies.userID
+    long_url: req.url || req.body.long_url,
+    created_by: req.cookies.userID || req.cookies['connect.sid']
   };
 
   UrlShorten.findOne(searchParams, (error, retrievedClip) => {
