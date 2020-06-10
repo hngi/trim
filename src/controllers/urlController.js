@@ -83,3 +83,24 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
     return res.status(404).render('error');
   }
 };
+
+
+/**
+ * This function gets original url by the trim code supplied as a parameter
+ * e.g trim.ly/TRIM_CODE
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} next middleware
+ */
+export const deleteUrl = async (req, res, next) => {
+  try {
+    const { urlId } = req.body;
+    const url = await UrlShorten.findByIdAndDelete(urlId);
+    if (!url) {
+      return next();
+    }
+    return res.status(200).json({ success: true })
+  } catch (error) {
+    return res.status(404).render('error');
+  }
+};

@@ -90,6 +90,20 @@
       copyToClipboard(x);
     })
   }
+
+  function deleteUrl(clip) {
+    const el = clip.closest('tr');
+    if (window.confirm(`Do you really want to delete "${el.childNodes[7].innerText}"`)) { 
+      el.remove()
+    }
+    fetch('/', {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({urlId: clip.dataset.id})
+		})
+  }
 </script>
 
 <script type="text/babel">
