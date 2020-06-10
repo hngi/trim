@@ -7,7 +7,8 @@ import {
   validateCookie,
   urlAlreadyTrimmedByUser,
   stripUrl,
-  customUrlExists
+  customUrlExists,
+  getSyncedData
 } from "../middlewares/middlewares";
 import {
   getUrlAndUpdateCount,
@@ -19,6 +20,8 @@ import { getUrlClickMetrics } from '../controllers/metricsController';
 
 export const initRoutes = app => {
   app.get("/", validateCookie, renderLandingPage);
+  app.post("/sync-device", validateCookie, getSyncedData);
+  app.delete('/', deleteUrl);
   app.get("/about", (req, res) => res.status(200).render("about"));
   app.get("/docs", (req,res)=>res.status(200).redirect("https://documenter.getpostman.com/view/4447136/SzYaWe6j?version=latest"));
    app.post("/", [check('long_url').isString().not().isEmpty().withMessage('Long url cannot be empty'),

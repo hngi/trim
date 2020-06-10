@@ -135,7 +135,7 @@ form {
 	text-decoration: none;
 	color: inherit;
 	display: inline-block;
-	width: 100px;
+	/* width: 100px; */
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
