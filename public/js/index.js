@@ -32,7 +32,7 @@ const generateClipRow = (shortenedUrl) => {
 		<a class="" href="https://twitter.com/intent/tweet?text=${shortenedUrl.clipped_url}+' '+ ${clipText}%>" data-size="large">
 			<i class="fab fa-twitter fa-lg"></i>
 		</a>
-		<a href="javascript:void(0);" data-id="<%= clip.id %>" class="fas fa-trash-alt fa-lg" onclick="deleteUrl(this)">
+		<a href="javascript:void(0);" data-id="${shortenedUrl._id}" class="fas fa-trash-alt fa-lg" onclick="deleteUrl(this)">
     </a>
 	</td>
 	<td>
@@ -72,7 +72,6 @@ const renderShorts = async(response)=> {
 			tr_clip.innerHTML = generateClipRow(payload)
 			clipsListContainer.style.display = "initial";
 			table_body.prepend(tr_clip)			
-			syncDevicesForm.style.display = 'none'
 			showSyncID.innerHTML = `Here is your syncID: <b>${payload.created_by}</b>`	
 		}
 		if(syncDevicesForm){

@@ -95,10 +95,10 @@ export const getUrlAndUpdateCount = async (req, res, next) => {
 export const deleteUrl = async (req, res, next) => {
   try {
     const { urlId } = req.body;
-    await UrlShorten.findByIdAndDelete(urlId);
-    if (urlId) {
+    if (!urlId) {
       return next();
     }
+    await UrlShorten.findByIdAndDelete(urlId);
     return res.status(200).json({ success: true })
   } catch (error) {
     return res.status(404).render('error');
